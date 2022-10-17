@@ -3,16 +3,42 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpEventType
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { LoadingSpinnerService } from 'src/app/services/loading-spinner.service';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  pendingRequests = 0;
+
+  constructor(private loadingSpinnerService: LoadingSpinnerService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request);
+
+    this.loadingSpinnerService.showLoading();
+    this.pendingRequests++;
+    return next.handle(request)
+      .pipe(
+        tap({
+          next:(event)=>{
+            // if request id finished
+            if(event.type === HttpEventType.Response){
+              this.handleHideloading()
+            }
+          },
+          error:() => {
+            this.handleHideloading()
+          }
+        }))
+  }
+
+  handleHideloading(){
+    this.pendingRequests--;
+    if(this.pendingRequests === 0){
+      this.loadingSpinnerService.hideLoading();
+    }
   }
 }

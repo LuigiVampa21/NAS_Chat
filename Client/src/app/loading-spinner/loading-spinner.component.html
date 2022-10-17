@@ -1,1 +1,6 @@
-<mat-spinner></mat-spinner>
+<div class="container" *ngIf="isLoading">
+  <div class="details">
+    <mat-spinner></mat-spinner>
+    <h1>Loading ...</h1>
+  </div>
+</div>

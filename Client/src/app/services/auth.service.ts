@@ -135,10 +135,8 @@ export class AuthService {
   }
 
   private setAuthTimer(duration:number){
-    console.log(duration);
-
-    // this.tokenTimer = setTimeout(()=> {
-    //   this.logout()
-    // },duration * 1000);
+    this.tokenTimer = setTimeout(()=> {
+      this.logout()
+    },duration * 1000);
   }
 }
