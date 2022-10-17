@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { map, Observable, tap } from 'rxjs';
+import { AuthResolver } from '../resolver/auth.resolver';
 import { AuthService } from '../services/auth.service';
 import { User } from '../shared/models/user.model';
 
@@ -15,30 +18,38 @@ export interface Tile {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  // user$!:Observable<User> | any;
   user!:User;
   step = 0;
+  photo!:string
+  template_photo!:string;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private authResolver: AuthResolver, private route: ActivatedRoute ) { }
 
-  // tiles!: Tile[]
+  tiles!: any[]
 
-  ngOnInit(): void {
-    setTimeout( () => {
-      this.initCard()
-    },2000)
+  ngOnInit(): any{
+    // this.user = this.authService.getUser();
+    // // console.log(this.user);
+    this.initCard()
+  //  this.route.data.pipe(
+  //     map(data => {
+  //       this.user = data['user']['user'];
+  //       console.log(data['user']['user']);
+
+  //     }
+  //     )
+  //   )
+  // ADD friend to array
   }
 
   initCard(){
-    this.authService.getUser$()
-    .subscribe(user => {
-      this.user = user;
-      console.log(this.user);
-      // this.tiles = [
-      //   {text: this.user.name, cols: 3, rows: 1, color: 'lightblue'},
-      //   {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
-      //   {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-      //   {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
-      // ];
+    this.authService.getUserByID()
+        .subscribe( (data:any) => {
+          this.user = data.user
+          // console.log(data);
+          this.photo = `../../assets/images/${this.user.photo}`
+
         })
   }
 

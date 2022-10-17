@@ -13,3 +13,18 @@ mat-card-subtitle{
 mat-card-content{
   border:1px solid black
 }
+
+.img{
+  border: 1px solid black;
+  margin-right: 2rem;
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img{
+    width: 75%;
+    height: 75%;
+  }
+}

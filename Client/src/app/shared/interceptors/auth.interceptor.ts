@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  token!:string | undefined;
+  // token!:string | undefined;
 
   constructor(private authService:AuthService) {}
 
@@ -19,6 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const authToken = this.authService.getToken();
     console.log(authToken);
+    
 
     const authReq = req.clone({
       headers: req.headers.set('Authorizations', `Bearer ${authToken}`)

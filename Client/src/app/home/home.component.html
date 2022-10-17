@@ -1,22 +1,26 @@
-<!-- <mat-grid-list cols="4" rowHeight="100px">
-  <mat-grid-tile
-      *ngFor="let tile of tiles"
-      [colspan]="tile.cols"
-      [rowspan]="tile.rows"
-      [style.background]="tile.color">
-    {{tile.text}}
-  </mat-grid-tile>
-</mat-grid-list> -->
-
-<!-- Cards with media area -->
 <mat-card class="example-card" *ngIf="user">
   <mat-card-title-group>
-    <mat-card-title>{{ user.pseudo }}</mat-card-title>
-    <mat-card-subtitle>{{ user.status }}</mat-card-subtitle>
-    <img mat-card-xl-image [src]="user.photo" [alt]="user.pseudo" />
+    <mat-card-title>{{ user.name }}</mat-card-title>
+    <mat-card-subtitle>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Select Your Status</mat-label>
+        <mat-select>
+          <mat-option value="one">Available</mat-option>
+          <mat-option value="two">Busy</mat-option>
+          <mat-option value="two">Working</mat-option>
+          <mat-option value="two">Offline</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </mat-card-subtitle>
+    <div class="img">
+      <img *ngIf="photo" mat-card-xl-image [src]="photo" [alt]="user.pseudo" />
+    </div>
   </mat-card-title-group>
   <mat-card-content>
-    <!-- {{longText}} -->
     TEXT
   </mat-card-content>
 </mat-card>
+
+

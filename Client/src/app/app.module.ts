@@ -20,6 +20,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
     MaterialModule,
     HttpClientModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
 
   ],
   providers: [

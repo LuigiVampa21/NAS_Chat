@@ -14,6 +14,7 @@ export class AuthService {
 
   API_URL_REGISTER_USER = environment.USER_REGISTER;
   API_URL_LOGIN_USER = environment.USER_LOGIN;
+  API_URL_GET_CURENT_USER = environment.GET_SINGLE_USER_BY_ID;
   // userSub$: BehaviorSubject<User> = new BehaviorSubject(this.getUserFromLocalStorage());
   // userObs$:Observable<User> = this.userSub$.asObservable();
 
@@ -59,7 +60,7 @@ export class AuthService {
           this.userID = data.user._id;
           if(this.token){
             const expiresInDuration = +data.expiring;
-            this.setAuthTimer(+expiresInDuration)
+            // this.setAuthTimer(+expiresInDuration)
             this.isAuth = true;
             this.user.status = 'online';
             this.isAuth$.next(true);
@@ -83,8 +84,6 @@ export class AuthService {
 
   autoAuth(){
     const authInfo = this.getAuthData();
-    // console.log(this.getAuthData());
-
     if(!authInfo) return;
     const now = new Date();
     const expiresIn = authInfo.expirationDate.getTime() - now.getTime();
@@ -92,8 +91,8 @@ export class AuthService {
     this.token = authInfo.token;
     this.isAuth = true;
     this.userID = authInfo.userID;
-    this.setAuthTimer(expiresIn / 1000)
-    this.setAuthTimer(+expiresIn)
+    // this.setAuthTimer(expiresIn / 1000)
+    // this.setAuthTimer(+expiresIn)
     this.isAuth$.next(true)
     this.userSub$.next(this.user)
   }
@@ -108,6 +107,10 @@ export class AuthService {
 
   getToken(){
     return this.token;
+  }
+
+  getUser(){
+    return this.user;
   }
 
   getisAuth$():Observable<boolean>{
@@ -150,6 +153,11 @@ export class AuthService {
     }
   }
 
+  getUserByID(){
+    const userID = localStorage.getItem('userID');
+    return this.http.get<User>(this.API_URL_GET_CURENT_USER + userID)
+  }
+
   private getAuthData(){
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expiration');
@@ -162,9 +170,9 @@ export class AuthService {
     }
   }
 
-  private setAuthTimer(duration:number){
-    this.tokenTimer = setTimeout(()=> {
-      this.logout()
-    },duration * 1000);
-  }
+  // private setAuthTimer(duration:number){
+  //   this.tokenTimer = setTimeout(()=> {
+  //     this.logout()
+  //   },duration * 100000);
+  // }
 }

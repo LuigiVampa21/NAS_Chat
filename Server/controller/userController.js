@@ -14,7 +14,7 @@ exports.getSingleUser = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id);
   res.status(StatusCodes.OK).json({
-    status: "success",
+    // status: "success",
     user,
   });
 };
