@@ -14,7 +14,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +31,9 @@ import { HttpClientModule } from '@angular/common/http';
     ChatsComponent,
     SettingsComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +42,15 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
+    MatProgressSpinnerModule,
+    LoadingSpinnerComponent,
 
   ],
-  providers: [],
+  providers: [
+    {
+      provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true
+    }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

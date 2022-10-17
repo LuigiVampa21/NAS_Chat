@@ -10,6 +10,7 @@ import { CallsComponent } from './calls/calls.component';
 import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 
 
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: '', redirectTo:'auth/login', pathMatch: 'full'},
   {path: 'auth/login', component: LoginComponent},
   {path: 'auth/register', component: RegisterComponent},
+  {path: 'about-us', component: AboutUsComponent},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'calls', component: CallsComponent, canActivate: [AuthGuard]},
   {path: 'chats', component: ChatsComponent, canActivate: [AuthGuard]},

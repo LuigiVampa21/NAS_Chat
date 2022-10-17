@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const User = require("../models/userModel");
 const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors/index");
+const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
   const { email, name, password, confirmPassword, pseudo } = req.body;
@@ -17,7 +18,9 @@ exports.register = async (req, res) => {
     pseudo,
   });
   if (!user) {
-    throw new CustomError.BadRequestError("Oops.. Someting went wrong try again later");
+    throw new CustomError.BadRequestError(
+      "Oops.. Someting went wrong try again later"
+    );
   }
   res.status(StatusCodes.CREATED).json({
     status: "success",
@@ -51,6 +54,6 @@ exports.login = async (req, res) => {
     status: "success",
     user,
     token,
-    expiring: process.env.EXPIRES_IN_SEC
+    expiring: process.env.JWT_EXPIRES_IN_SEC,
   });
 };

@@ -1,0 +1,36 @@
+<mat-toolbar color="primary">
+  <span routerLink="/" [ngStyle]="{ cursor: 'pointer' }">N-A-S Chat</span>
+  <span class="spacer"></span>
+  <ul>
+    <li>
+      <a
+        mat-button
+        *ngIf="!isAuth"
+        routerLink="/about-us"
+        routerLinkActive="mat-accent"
+        >About us</a
+      >
+    </li>
+    <li>
+      <a
+        mat-button
+        routerLink="/auth/login"
+        routerLinkActive="mat-accent"
+        *ngIf="!isAuth"
+        >Login</a
+      >
+    </li>
+    <li>
+      <a
+        mat-button
+        routerLink="/auth/register"
+        routerLinkActive="mat-accent"
+        *ngIf="!isAuth"
+        >Register</a
+      >
+    </li>
+    <li>
+      <button mat-button *ngIf="isAuth" (click)="onLogout()">Logout</button>
+    </li>
+  </ul>
+</mat-toolbar>

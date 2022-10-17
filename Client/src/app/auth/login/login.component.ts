@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { any } from 'joi';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserLogin } from '../../shared/interfaces/user.login.interface';
 
@@ -31,10 +32,8 @@ export class LoginComponent implements OnInit {
   // }
 
 
-  submit(form:UserLogin) {
+  submit(form:any) {
     if(this.loginForm.invalid)return;
-    console.log(form);
-
     this.authService.onLogin(form)
         .subscribe(() => {
           this.router.navigateByUrl('/home')
