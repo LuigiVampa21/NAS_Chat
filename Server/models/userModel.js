@@ -54,7 +54,13 @@ const UserSchema = new mongoose.Schema(
     rooms: [
       {
         type: mongoose.Schema.ObjectId,
-        ref: "groupModel",
+        ref: "Room",
+      },
+    ],
+    friends: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
       },
     ],
     active: {
