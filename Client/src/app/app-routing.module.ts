@@ -15,14 +15,16 @@ import { AboutUsComponent } from './about-us/about-us.component';
 
 
 const routes: Routes = [
-  {path: '', redirectTo:'auth/login', pathMatch: 'full'},
+  // {path: '', redirectTo:'auth/login', pathMatch: 'full'},
+  {path: '', redirectTo:'home', pathMatch: 'full'},
   {path: 'auth/login', component: LoginComponent},
   {path: 'auth/register', component: RegisterComponent},
   {path: 'about-us', component: AboutUsComponent},
-  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-  {path: 'calls', component: CallsComponent, canActivate: [AuthGuard]},
-  {path: 'chats', component: ChatsComponent, canActivate: [AuthGuard]},
-  {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
+  // {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'home', component: HomeComponent},
+  // {path: 'calls', component: CallsComponent, canActivate: [AuthGuard]},
+  // {path: 'chats', component: ChatsComponent, canActivate: [AuthGuard]},
+  // {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
   { path: 'not-found', component: ErrorComponent, data: {message: 'Page not found!'} },
   { path: '**', redirectTo: 'not-found' }
 ];

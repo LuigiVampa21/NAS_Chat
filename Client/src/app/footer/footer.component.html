@@ -1,6 +1,4 @@
-<mat-toolbar color="primary">
-  <!-- <span routerLink="/" [ngStyle]="{ cursor: 'pointer' }">N-A-S Chat</span>
-  <span class="spacer"></span> -->
+<!-- <mat-toolbar color="primary">
   <ul>
     <li>
       <a mat-button routerLink="/home" routerLinkActive="mat-accent">Home</a>
@@ -15,6 +13,66 @@
       <a mat-button routerLink="settings" routerLinkActive="mat-accent"
         >Settings</a
       >
+    </li>
+  </ul>
+</mat-toolbar> -->
+<mat-toolbar color="primary">
+  <ul>
+    <li>
+      <button
+        mat-button
+        routerLink="/home"
+        routerLinkActive="mat-accent"
+        mat-raised-button
+        color="primary"
+        matBadge="8"
+        matBadgePosition="before"
+        matBadgeColor="accent"
+      >
+        Home
+      </button>
+    </li>
+    <li>
+      <button
+        mat-button
+        routerLink="/calls"
+        routerLinkActive="mat-accent"
+        mat-raised-button
+        color="primary"
+        matBadge="8"
+        matBadgePosition="before"
+        matBadgeColor="accent"
+      >
+        Calls
+      </button>
+    </li>
+    <li>
+      <button
+        mat-button
+        routerLink="/chats"
+        routerLinkActive="mat-accent"
+        mat-raised-button
+        color="primary"
+        matBadge="8"
+        matBadgePosition="before"
+        matBadgeColor="accent"
+      >
+        Chats
+      </button>
+    </li>
+    <li>
+      <button
+        mat-button
+        routerLink="/settings"
+        routerLinkActive="mat-accent"
+        mat-raised-button
+        color="primary"
+        matBadge="8"
+        matBadgePosition="before"
+        matBadgeColor="accent"
+      >
+        Settings
+      </button>
     </li>
   </ul>
 </mat-toolbar>

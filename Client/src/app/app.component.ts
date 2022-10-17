@@ -8,15 +8,16 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit{
   title = 'nas-chat-client';
-  isAuth = false;
+  isAuth!:boolean;
 
   constructor(private authService: AuthService){ }
 
 ngOnInit(){
-  this.authService.autoAuth()
+  this.isAuth = this.authService.getisAuth();
   this.authService.getisAuth$()
-      .subscribe(auth => {
-        this.isAuth = auth
+  .subscribe(auth => {
+    this.isAuth = auth;
+    this.authService.autoAuth()
       })
 }
 }

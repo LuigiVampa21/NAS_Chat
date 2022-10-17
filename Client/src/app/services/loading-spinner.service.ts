@@ -11,12 +11,10 @@ export class LoadingSpinnerService {
   constructor() { }
 
     showLoading(){
-      console.log('spinner start');
       this.isLoadingSubject.next(true);
     }
 
     hideLoading(){
-      console.log('spinner stop');
       this.isLoadingSubject.next(false);
     }
 

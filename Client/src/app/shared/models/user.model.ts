@@ -10,5 +10,6 @@ export class User {
     confirmPassword!:string;
     rooms!: Room[];
     friends!: User[];
-    active!:boolean
+    active!:boolean;
+    status?:string
 }

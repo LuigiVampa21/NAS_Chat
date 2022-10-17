@@ -45,15 +45,15 @@ exports.login = async (req, res) => {
   const token = jwt.sign(
     { email: user.email, userID: user._id },
     process.env.JWT_SECRET,
-    {
-      expiresIn: process.env.JWT_EXPIRES_IN,
-    }
+    // {
+    //   expiresIn: process.env.JWT_EXPIRES_IN,
+    // }
   );
 
   res.status(StatusCodes.OK).json({
     status: "success",
     user,
     token,
-    expiring: process.env.JWT_EXPIRES_IN_SEC,
+    // expiring: process.env.JWT_EXPIRES_IN_SEC,
   });
 };

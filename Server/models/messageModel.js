@@ -12,7 +12,7 @@ const MessageSchema = new mongoose.Schema(
     },
     users: {
       type: mongoose.Schema.ObjectId,
-      ref: "useModel",
+      ref: "userModel",
       // by default users into current room
       // required: true,
     },

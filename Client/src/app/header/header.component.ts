@@ -8,18 +8,20 @@ import { AuthService } from '../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  isAuth = false;
+  isAuth!:boolean;
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.isAuth = this.authService.getisAuth()
     this.authService.getisAuth$()
       .subscribe(auth => {
         this.isAuth = auth
+        // console.log(this.isAuth);
       })
   }
 
   onLogout(){
-    this.authService.logout()
+    // this.authService.logout()
   }
 
 }
