@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserLogin } from '../../shared/interfaces/user.login.interface';
 
 @Component({
   selector: 'app-login',
@@ -14,22 +17,28 @@ export class LoginComponent implements OnInit {
   });
   hide = true;
 
-  constructor() { }
+  constructor(private authService: AuthService, private router:Router) { }
 
   ngOnInit(): void {
   }
 
-  getErrorMessage() {
-    if (this.loginForm.controls['email'].hasError('required')) {
-      return 'You must enter a value';
-    }
+  // getErrorMessage() {
+  //   if (this.loginForm.controls['email'].hasError('required')) {
+  //     return 'You must enter a value';
+  //   }
 
-    return this.loginForm.controls['email'].hasError('email') ? 'Not a valid email' : '';
-  }
+  //   return this.loginForm.controls['email'].hasError('email') ? 'Not a valid email' : '';
+  // }
 
 
-  submit() {
+  submit(form:UserLogin) {
+    if(this.loginForm.invalid)return;
+    console.log(form);
 
+    this.authService.onLogin(form)
+        .subscribe(() => {
+          this.router.navigateByUrl('/home')
+        })
   }
 
 }

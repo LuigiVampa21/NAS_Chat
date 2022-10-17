@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (ngSubmit)="submit()">
+<form [formGroup]="loginForm" (ngSubmit)="submit(loginForm.value)">
   <h1>Login to your account</h1>
   <div class="example-container">
     <mat-form-field appearance="fill">
@@ -9,13 +9,17 @@
         formControlName="email"
         required
       />
-      <mat-error *ngIf="loginForm.controls['email'].invalid">{{
+      <!-- <mat-error *ngIf="loginForm.controls['email'].invalid">{{
         getErrorMessage()
-      }}</mat-error>
+      }}</mat-error> -->
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Enter your password</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" />
+      <input
+        matInput
+        formControlName="password"
+        [type]="hide ? 'password' : 'text'"
+      />
       <button
         mat-icon-button
         matSuffix
@@ -33,31 +37,3 @@
     <a routerLink="/auth/register"> Register here </a>
   </div>
 </form>
-
-<!-- <mat-card>
-            <mat-card-title>Login</mat-card-title>
-      <mat-card-content>
-        <form [formGroup]="loginForm" (ngSubmit)="submit()">
-          <p>
-            <mat-form-field>
-              <input type="text" matInput placeholder="Username" formControlName="username">
-            </mat-form-field>
-          </p>
-
-          <p>
-            <mat-form-field>
-              <input type="password" matInput placeholder="Password" formControlName="password">
-            </mat-form-field>
-          </p>
-
-           <p *ngIf="error" class="error">
-            {{ error }}
-          </p> -->
-
-<!-- <div class="button">
-            <button type="submit" mat-button>Login</button>
-          </div>
-
-        </form>
-      </mat-card-content>
-    </mat-card> -->

@@ -2,6 +2,7 @@ require("dotenv").config();
 require("express-async-errors");
 
 const express = require("express");
+const cors = require("cors");
 const app = express();
 
 const userRouter = require("./routes/userRoute");
@@ -15,6 +16,12 @@ const errorHandler = require("./middleware/errorHandler");
 const connectDB = require("./DB/connectDB");
 
 app.use(express.json());
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:4200"],
+  })
+);
 
 app.get("/", (req, res) => {
   res.send("hello");
@@ -27,7 +34,6 @@ app.use("/api/v1/chatApp/messages", messageRouter);
 
 app.use(notFound);
 app.use(errorHandler);
-
 
 const port = process.env.PORT || 3001;
 const startServer = async () => {

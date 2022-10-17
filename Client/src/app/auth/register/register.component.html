@@ -1,1 +1,75 @@
-<p>register works!</p>
+<form [formGroup]="registerForm" (ngSubmit)="submit(registerForm.value)">
+  <h1>Login to your account</h1>
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your name</mat-label>
+      <input matInput placeholder="Your name" formControlName="name" required />
+      <!-- <mat-error *ngIf="registerForm.controls['name'].invalid">{{
+        getErrorMessage()
+      }}</mat-error> -->
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter a pseudo</mat-label>
+      <input
+        matInput
+        placeholder="Your pseudo"
+        formControlName="pseudo"
+        required
+      />
+      <!-- <mat-error *ngIf="registerForm.controls['pseudo'].invalid">{{
+        getErrorMessage()
+      }}</mat-error> -->
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your email</mat-label>
+      <input
+        matInput
+        placeholder="your@email.com"
+        formControlName="email"
+        required
+      />
+      <!-- <mat-error *ngIf="registerForm.controls['email'].invalid">{{
+        getErrorMessage()
+      }}</mat-error> -->
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your password</mat-label>
+      <input
+        matInput
+        formControlName="password"
+        [type]="hide ? 'password' : 'text'"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Confirm your password</mat-label>
+      <input
+        matInput
+        formControlName="confirmPassword"
+        [type]="hide ? 'password' : 'text'"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <button mat-flat-button color="primary">Register</button>
+  <div class="login">
+    Already have an account ?&nbsp;
+    <a routerLink="/auth/login"> Login here </a>
+  </div>
+</form>

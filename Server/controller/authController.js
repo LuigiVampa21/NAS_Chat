@@ -39,8 +39,18 @@ exports.login = async (req, res) => {
     throw new Error("Sorry password does not match");
   }
 
+  const token = jwt.sign(
+    { email: user.email, userID: user._id },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    }
+  );
+
   res.status(StatusCodes.OK).json({
     status: "success",
-    msg: "Ok you are logged in",
+    user,
+    token,
+    expiring: process.env.EXPIRES_IN_SEC
   });
 };
