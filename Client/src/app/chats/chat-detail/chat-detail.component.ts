@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { string } from 'joi';
 import { Subscription } from 'rxjs';
 import { ChatService } from 'src/app/services/chat.service';
@@ -23,7 +23,7 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
   penFriend!:User;
   penFriendID!:any;
   messages!:Message[];
-  constructor(private chatService: ChatService, private route:ActivatedRoute, private userService: UserService) { }
+  constructor(private chatService: ChatService, private route:ActivatedRoute, private userService: UserService, private router:Router) { }
 
   ngOnInit(): void {
     this.initRoom()
@@ -77,6 +77,12 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
     initMsg(){
       this.messages = this.room.chat;
       console.log(this.messages);
+    }
+
+
+
+    onExit(){
+      this.router.navigateByUrl('/chats')
     }
 
 

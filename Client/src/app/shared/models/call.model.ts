@@ -1,12 +1,12 @@
 import { Message } from "./message.model";
 import { User } from "./user.model";
 
-export class Room
+export class Call
 {
   _id?:string;
-  name!:string;
   users!:User[];
-  chat!:Message[];
+  duration!:string;
   createdAt!:Date;
   penFriend?:string;
+  status!:string
 }

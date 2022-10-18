@@ -12,9 +12,9 @@ exports.getAllCalls = async (req, res) => {
 
 exports.createNewCall = async (req, res) => {
   // check if Call in req.body
-  const { user, type, duration } = req.body;
-  if (!user || !type || !duration) return;
-  const newCall = await Call.create(req.body);
+  const { users, type, duration } = req.body;
+  if (!users || !type || !duration) return;
+  const newCall = await Call.create({ users, type, duration });
   res.status(StatusCodes.CREATED).json({
     newCall,
   });
@@ -23,7 +23,7 @@ exports.createNewCall = async (req, res) => {
 exports.getSingleCall = async (req, res) => {
   const { id } = req.params;
   // check if id exists
-  const call = await Call.findById(id);
+  const call = await Call.findById(id).populate("users");
   res.status(StatusCodes.OK).json({
     call,
   });
@@ -31,9 +31,12 @@ exports.getSingleCall = async (req, res) => {
 
 exports.updateCall = async (req, res) => {
   // check if id exists
+  const { id } = req.params;
+  const { duration, stauts } = req.body;
 
+  const callUpdated = await Call.findByIdAndUpdate(id, req.body);
   res.status(StatusCodes.OK).json({
-    msg: "Call updated",
+    callUpdated,
   });
 };
 

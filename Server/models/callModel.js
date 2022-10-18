@@ -19,12 +19,17 @@ const CallSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    type: {
-      enum: {
-        values: ["vocal", "visio", "conference"],
-        message: "A call is either vocal, visio or conference",
-      },
+    status: {
+      type: String,
+      enum: ["vocal", "visio", "conference"],
+      default: "vocal",
     },
+    // type: {
+    //   enum: {
+    //     values: ["vocal", "visio", "conference"],
+    //     message: "A call is either vocal, visio or conference",
+    //   },
+    // },
   },
   { timestamps: true }
 );

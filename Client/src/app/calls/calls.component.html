@@ -1,1 +1,40 @@
-<p>calls works!</p>
+<ng-container *ngFor="let call of calls">
+  <mat-list (click)="onViewCall(call)" style="cursor: pointer">
+    <div class="calls-container">
+      <div class="call-name">
+        {{ call.penFriend }}
+      </div>
+      <div class="call-duration">
+        {{ call.duration }}
+      </div>
+      <div class="call-status">
+        <!-- {{ call.status == "visio" ? (call.status +
+        <mat-icon>videocam</mat-icon>) : call.status == 'vocal' ? (call.status +
+        <mat-icon>call</mat-icon>) : (call.status + <mat-icon>groups</mat-icon>) }} -->
+
+        <!-- {{ (call.status == "visio") ? <mat-icon>videocam</mat-icon> : (call.status
+        == "vocal") ? <mat-icon>call</mat-icon> : (call.status == "conference") ?
+        <mat-icon>groups</mat-icon> : null
+        }} -->
+
+        <!-- {{ call.status=="visio" ? <mat-icon>videocam</mat-icon>: (call.status=="vocal" ?<mat-icon>call</mat-icon>: call.status == "visio")?<mat-icon>groups</mat-icon>:null }} -->
+        <!-- {{ call.status }}
+        {{ call.status == 'visio' ? <mat-icon>videocam</mat-icon> :
+        <mat-icon>call</mat-icon> }} -->
+        <span *ngIf="call.status === 'visio'">
+          <!-- <p>{{ call.status }}</p> -->
+          &nbsp; <mat-icon>videocam</mat-icon></span
+        >
+        <span *ngIf="call.status === 'vocal'">
+          <!-- <p>{{ call.status }}</p> -->
+          &nbsp; <mat-icon>call</mat-icon></span
+        >
+        <span *ngIf="call.status === 'conference'">
+          <!-- <p>{{ call.status }}</p> -->
+          <mat-icon>groups</mat-icon></span
+        >
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-list>
+</ng-container>

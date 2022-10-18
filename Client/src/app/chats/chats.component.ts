@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { ChatService } from '../services/chat.service';
 import { UserService } from '../services/user.service';
 import { Room } from '../shared/models/room.model';
+import { User } from '../shared/models/user.model';
 
 @Component({
   selector: 'app-chats',
@@ -12,7 +13,10 @@ import { Room } from '../shared/models/room.model';
 })
 export class ChatsComponent implements OnInit {
 
-  rooms!:Room[]
+  rooms!:Room[];
+  currentUser!:User;
+  penFriend!:User;
+  penFriendID!:any;
 
   constructor(private router: Router, private userService:UserService, private chatService:ChatService) { }
 
@@ -23,8 +27,9 @@ export class ChatsComponent implements OnInit {
   initRooms(){
     this.userService.getUserByIDwithRooms()
         .subscribe((data:any) => {
-          this.rooms = data.user.rooms
-          // console.log(this.rooms);
+          this.currentUser = data.user;
+          this.rooms = data.user.rooms;
+          this.getPenFriend()
         })
   }
 
@@ -36,4 +41,15 @@ export class ChatsComponent implements OnInit {
         })
   }
 
+
+  getPenFriend(){
+    this.rooms.forEach((r:any) => {
+      r.ID = r.users.find((userID:any) => userID !== this.currentUser._id);
+      this.userService.getUserByID(r.ID)
+          .subscribe((data:any) => {
+            console.log(data.user.name)
+            r.penFriend = data.user.name;
+      })
+    })
+  }
 }

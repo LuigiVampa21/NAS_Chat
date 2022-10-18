@@ -3,19 +3,19 @@
     <mat-expansion-panel-header>
       <mat-panel-title> Personal Data </mat-panel-title>
       <mat-panel-description>
-        Type your name and age
+        Type your name and pseudo
         <mat-icon>account_circle</mat-icon>
       </mat-panel-description>
     </mat-expansion-panel-header>
 
     <mat-form-field appearance="fill">
-      <mat-label>First name</mat-label>
+      <mat-label>Name</mat-label>
       <input matInput />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Age</mat-label>
-      <input matInput type="number" min="1" />
+      <mat-label>Pseudo</mat-label>
+      <input matInput />
     </mat-form-field>
     <mat-action-row>
       <button mat-button color="primary" (click)="nextStep()">Next</button>
@@ -24,15 +24,15 @@
 
   <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
     <mat-expansion-panel-header>
-      <mat-panel-title> Country of Redidency </mat-panel-title>
+      <mat-panel-title> Apply For Premium services </mat-panel-title>
       <mat-panel-description>
-        Type the country name
-        <mat-icon>map</mat-icon>
+        Type your premium key
+        <mat-icon>star</mat-icon>
       </mat-panel-description>
     </mat-expansion-panel-header>
 
     <mat-form-field appearance="fill">
-      <mat-label>Country</mat-label>
+      <mat-label>Key</mat-label>
       <input matInput />
     </mat-form-field>
 
@@ -47,7 +47,7 @@
       <mat-panel-title> Phone Number </mat-panel-title>
       <mat-panel-description>
         Type your phone number
-        <mat-icon>map</mat-icon>
+        <mat-icon>phone</mat-icon>
       </mat-panel-description>
     </mat-expansion-panel-header>
 
@@ -67,7 +67,7 @@
       <mat-panel-title> Email Adress </mat-panel-title>
       <mat-panel-description>
         Type your email adress
-        <mat-icon>map</mat-icon>
+        <mat-icon>email</mat-icon>
       </mat-panel-description>
     </mat-expansion-panel-header>
 

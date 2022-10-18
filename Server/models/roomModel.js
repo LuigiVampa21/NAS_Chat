@@ -2,12 +2,6 @@ const mongoose = require("mongoose");
 
 const RoomSchema = new mongoose.Schema(
   {
-    // name: {
-    //   type: String,
-    //   required: [true, "You have to provide a group name"],
-    //   minlength: 5,
-    //   maxlength: 20,
-    // },
     users: [
       {
         type: mongoose.Schema.ObjectId,
@@ -22,11 +16,6 @@ const RoomSchema = new mongoose.Schema(
         // required: true,
       },
     ],
-    message: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Message",
-      // required: true,
-    },
   },
   { timestamps: true }
 );

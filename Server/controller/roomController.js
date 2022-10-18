@@ -41,15 +41,15 @@ exports.updateRoom = async (req, res) => {
   // check if users match existings users
   // check if name already exists
   const { id } = req.params;
-  const { message } = req.body;
-  if (!message) return;
-  // const room = await Room.findByIdAndUpdate(req.params.id, {chat: [...chat, message]}, {
+  const { chat } = req.body;
+  // if (!chat) return;
+  // const room = await Room.findByIdAndUpdate(req.params.id, {chat: [...chat, chat]}, {
   //   new: true,
   //   runValidators: true,
   // });
   const room = await Room.findById(id);
 
-  room.chat.push(message);
+  room.chat.push(chat);
   await room.save();
   res.status(StatusCodes.OK).json({
     room,

@@ -1,21 +1,14 @@
 <div class="chatHeader">
   <mat-toolbar color="accent">
-    <span>{{ penFriend?.name }}</span>
-    <!-- <span>{{ room?.name }}</span> -->
-    <button
-      mat-icon-button
-      class="example-icon"
-      aria-label="Example icon-button with menu icon"
-    >
-      <mat-icon>menu</mat-icon>
-    </button>
+    <mat-icon>menu</mat-icon>
+    <span>{{ penFriend.name }}</span>
+    <mat-icon (click)="onExit()">close</mat-icon>
   </mat-toolbar>
 </div>
 <div class="chatContainer">
   <mat-card class="example-card">
     <mat-card-header *ngFor="let message of messages">
       <div *ngIf="message.poster === penFriendID" class="chat-card">
-        <!-- <div mat-card-avatar class="example-header-image"></div> -->
         <figure>
           <img
             class="avatar"
@@ -23,13 +16,12 @@
             alt="Photo of a Shiba Inu"
           />
         </figure>
-        <!-- <mat-card-title>Shiba Inu</mat-card-title> -->
-        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+
         <div class="content">
           <span>{{ message.content }}</span>
         </div>
       </div>
-      <div  *ngIf="message.poster != penFriendID" class="chat-card currentUser">
+      <div *ngIf="message.poster != penFriendID" class="chat-card currentUser">
         <!-- <div mat-card-avatar class="example-header-image"></div> -->
         <div class="content currentUser">
           <span>{{ message.content }}</span>

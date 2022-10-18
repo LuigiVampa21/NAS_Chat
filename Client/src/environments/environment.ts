@@ -6,12 +6,16 @@ export const environment = {
   production: false,
   USER_REGISTER: 'http://localhost:3001/api/v1/chatApp/auth/register',
   USER_LOGIN: 'http://localhost:3001/api/v1/chatApp/auth/login',
-
   GET_SINGLE_USER_BY_ID: 'http://localhost:3001/api/v1/chatApp/users/',
+  GET_SINGLE_ROOM_BY_ID: 'http://localhost:3001/api/v1/chatApp/rooms/',
+  GET_SINGLE_CALL_BY_ID: 'http://localhost:3001/api/v1/chatApp/calls/',
 
 
 
-  GET_SINGLE_ROOM_BY_ID: 'http://localhost:3001/api/v1/chatApp/rooms/'
+  // USER_REGISTER: 'http://192.168.0.23:3001/api/v1/chatApp/auth/register',
+  // USER_LOGIN: 'http://192.168.0.23:3001/api/v1/chatApp/auth/login',
+  // GET_SINGLE_USER_BY_ID: 'http://192.168.0.23:3001/api/v1/chatApp/users/',
+  // GET_SINGLE_ROOM_BY_ID: 'http://192.168.0.23:3001/api/v1/chatApp/rooms/'
 };
 
 /*

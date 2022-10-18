@@ -34,6 +34,11 @@ export class UserService {
     return this.http.get<User>(this.API_URL_GET_CURENT_USER + userID + '/rooms')
   }
 
+  getUserByIDwithCalls(){
+    const userID = localStorage.getItem('userID');
+    return this.http.get<User>(this.API_URL_GET_CURENT_USER + userID + '/calls')
+  }
+
   getUserByID(id:string){
        let user;
     return this.http.get<User>(this.API_URL_GET_CURENT_USER + id)
