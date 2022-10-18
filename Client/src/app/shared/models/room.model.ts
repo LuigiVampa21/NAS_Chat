@@ -4,6 +4,6 @@ export class Room
 {
   _id?:string;
   name!:string;
-  user!:User[];
+  users!:User[];
   createdAt!:Date;
 }

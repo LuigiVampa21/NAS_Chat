@@ -19,16 +19,26 @@ export class UserService {
     return this.http.get<User>(this.API_URL_GET_CURENT_USER + userID + '/friends')
   }
 
-  getUserByID(id:string){
-    let user;
-    this.http.get<User>(this.API_URL_GET_CURENT_USER + id)
-        .subscribe( data => {
-          console.log(data);
-        })
+  getUserFromLocalStorage(){
+    const userID = localStorage.getItem('userID');
+    return this.http.get<User>(this.API_URL_GET_CURENT_USER + userID )
+    // let user;
+    // this.http.get<User>(this.API_URL_GET_CURENT_USER + id)
+    //     .subscribe( data => {
+    //       console.log(data);
+    //     })
   }
 
   getUserByIDwithRooms(){
     const userID = localStorage.getItem('userID');
     return this.http.get<User>(this.API_URL_GET_CURENT_USER + userID + '/rooms')
+  }
+
+  getUserByID(id:string){
+       let user;
+    this.http.get<User>(this.API_URL_GET_CURENT_USER + id)
+        .subscribe( data => {
+          console.log(data);
+        })
   }
 }
