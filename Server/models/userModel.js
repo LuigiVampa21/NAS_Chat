@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       unique: true,
       required: [true, "You have to provide a pseudo"],
-      minlength: 5,
+      minlength: 3,
       maxlength: 20,
     },
     photo: {

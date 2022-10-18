@@ -12,7 +12,7 @@ exports.getAllUsers = async (req, res) => {
 
 exports.getSingleUser = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id);
+  const user = await User.findById(id).populate("friends");
   res.status(StatusCodes.OK).json({
     // status: "success",
     user,
@@ -20,9 +20,14 @@ exports.getSingleUser = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
+  const { name, email, pseudo, photo, friends } = req.body;
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
   res.status(StatusCodes.OK).json({
     status: "success",
-    msg: "Update user",
+    user,
   });
 };
 

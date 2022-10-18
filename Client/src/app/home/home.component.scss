@@ -1,17 +1,20 @@
 .example-card {
-  // max-width: 400px;
   width: 100%;
   margin-bottom: 8px;
 }
 
 mat-card-title{
-  border:1px solid black
+  // border:1px solid black
 }
 mat-card-subtitle{
-  border:1px solid black
+  // border:1px solid black
 }
 mat-card-content{
-  border:1px solid black
+  // border:1px solid black
+}
+
+.small{
+  font-size: 1rem
 }
 
 .img{
@@ -27,4 +30,30 @@ mat-card-content{
     width: 75%;
     height: 75%;
   }
+}
+
+
+mat-card-content{
+  display: flex;
+  justify-content: space-around;
+  ng-container{
+    // width: 10rem;
+    height: 3rem;
+  }
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  // border: 1px solid black;
+  span{
+    text-align: center;
+  }
+}
+
+figure{
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1px solid black;
+  overflow: hidden;
 }

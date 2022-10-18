@@ -27,11 +27,13 @@ export class HomeComponent implements OnInit {
   constructor(private authService: AuthService, private authResolver: AuthResolver, private route: ActivatedRoute ) { }
 
   tiles!: any[]
+  friends!: User[];
 
   ngOnInit(): any{
     // this.user = this.authService.getUser();
     // // console.log(this.user);
     this.initCard()
+
   //  this.route.data.pipe(
   //     map(data => {
   //       this.user = data['user']['user'];
@@ -49,8 +51,20 @@ export class HomeComponent implements OnInit {
           this.user = data.user
           // console.log(data);
           this.photo = `../../assets/images/${this.user.photo}`
-
+          this.friends = data.user.friends
+          console.log(this.friends);
+          this.initFriendsPhoto()
         })
+  }
+
+  initFriendsPhoto(){
+    if(!this.friends)return;
+    this.friends
+      .forEach(f => {
+        f.photo = `../../assets/images/${f.photo}`
+      })
+      console.log(this.friends);
+
   }
 
 }
