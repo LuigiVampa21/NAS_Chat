@@ -5,7 +5,6 @@ const Room = require("../models/roomModel");
 exports.getAllRooms = async (req, res) => {
   const allRooms = await Room.find();
   res.status(StatusCodes.OK).json({
-    status: "success",
     results: allRooms.length,
     allRooms,
   });
@@ -19,7 +18,6 @@ exports.createNewRoom = async (req, res) => {
   // check if name already exists
   const newRoom = await Room.create(req.body);
   res.status(StatusCodes.CREATED).json({
-    status: "success",
     newRoom,
   });
 };
@@ -31,8 +29,7 @@ exports.GetSingleRoom = async (req, res) => {
   // check if room exists
   const room = await Room.findById(id);
   res.status(StatusCodes.OK).json({
-    status: "success",
-    data: room,
+    room,
   });
 };
 
@@ -43,7 +40,6 @@ exports.updateRoom = async (req, res) => {
   // check if users match existings users
   // check if name already exists
   res.status(StatusCodes.OK).json({
-    status: "success",
     msg: "Room user",
   });
 };

@@ -11,7 +11,7 @@ export const environment = {
 
 
 
-  GET_SINGLE_ROOM_BY_ID: 'http://localhost:3001/api/v1/chatApp/room/'
+  GET_SINGLE_ROOM_BY_ID: 'http://localhost:3001/api/v1/chatApp/rooms/'
 };
 
 /*

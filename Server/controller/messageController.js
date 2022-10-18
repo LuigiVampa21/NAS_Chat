@@ -5,7 +5,6 @@ const Message = require("../models/messageModel");
 exports.getAllMessages = async (req, res) => {
   const allMessages = await Message.find();
   res.status(StatusCodes.OK).json({
-    status: "success",
     results: allMessages.length,
     allMessages,
   });
@@ -16,8 +15,7 @@ exports.createNewMessage = async (req, res) => {
 
   const newMessage = await Message.create(req.body);
   res.status(StatusCodes.CREATED).json({
-    status: "success",
-    data: newMessage,
+    newMessage,
   });
 };
 
@@ -26,7 +24,6 @@ exports.getSingleMessage = async (req, res) => {
   // check if id exists
   const message = await Message.findById(id);
   res.status(StatusCodes.OK).json({
-    status: "success",
     message,
   });
 };
@@ -35,7 +32,6 @@ exports.updateMessage = async (req, res) => {
   // check if id exists
 
   res.status(StatusCodes.OK).json({
-    status: "success",
     msg: "message updated",
   });
 };

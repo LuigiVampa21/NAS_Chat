@@ -11,6 +11,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { ChatDetailComponent } from './chats/chat-detail/chat-detail.component';
 // import { AuthResolver } from './resolver/auth.resolver';
 
 
@@ -26,6 +27,7 @@ const routes: Routes = [
   // {path: 'home', component: HomeComponent},
   {path: 'calls', component: CallsComponent, canActivate: [AuthGuard]},
   {path: 'chats', component: ChatsComponent, canActivate: [AuthGuard]},
+  {path:'chats/chat-detail/:id', component: ChatDetailComponent, canActivate: [AuthGuard]},
   {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
   { path: 'not-found', component: ErrorComponent, data: {message: 'Page not found!'} },
   { path: '**', redirectTo: 'not-found' }

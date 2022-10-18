@@ -8,6 +8,8 @@ import { HomeComponent } from './home/home.component';
 import { CallsComponent } from './calls/calls.component';
 import { ChatsComponent } from './chats/chats.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ChatDetailComponent } from './chats/chat-detail/chat-detail.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
@@ -38,6 +40,7 @@ import { MatListModule } from '@angular/material/list';
     HeaderComponent,
     FooterComponent,
     LoadingSpinnerComponent,
+    ChatDetailComponent,
   ],
   imports: [
     BrowserModule,
