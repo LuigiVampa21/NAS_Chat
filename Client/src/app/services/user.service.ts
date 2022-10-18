@@ -36,9 +36,9 @@ export class UserService {
 
   getUserByID(id:string){
        let user;
-    this.http.get<User>(this.API_URL_GET_CURENT_USER + id)
-        .subscribe( data => {
-          console.log(data);
-        })
+    return this.http.get<User>(this.API_URL_GET_CURENT_USER + id)
+        // .subscribe( data => {
+        //   console.log(data);
+        // })
   }
 }

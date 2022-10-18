@@ -10,17 +10,16 @@ const MessageSchema = new mongoose.Schema(
       delivered: Boolean,
       read: Boolean,
     },
-    users: {
+    room: {
       type: mongoose.Schema.ObjectId,
-      ref: "userModel",
-      // by default users into current room
-      // required: true,
+      ref: "Room",
+      required: true,
     },
-    // sender: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: 'User',
-    //   required: true
-    // },
+    poster: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   { timestamps: true }
 );

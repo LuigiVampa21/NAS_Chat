@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const Message = require("../models/messageModel");
-// require CustomError from 
+// require CustomError from
 
 exports.getAllMessages = async (req, res) => {
   const allMessages = await Message.find();
@@ -12,7 +12,8 @@ exports.getAllMessages = async (req, res) => {
 
 exports.createNewMessage = async (req, res) => {
   // check if message in req.body
-
+  const { content, room, poster } = req.body;
+  if (!content || !room || !poster) return;
   const newMessage = await Message.create(req.body);
   res.status(StatusCodes.CREATED).json({
     newMessage,

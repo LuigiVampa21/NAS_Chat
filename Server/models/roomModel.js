@@ -21,7 +21,12 @@ const RoomSchema = new mongoose.Schema(
         ref: "Message",
         // required: true,
       },
-    ]
+    ],
+    message: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Message",
+      // required: true,
+    }
   },
   { timestamps: true }
 );
