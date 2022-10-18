@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const RoomSchema = new mongoose.Schema(
+const CallSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -15,15 +15,18 @@ const RoomSchema = new mongoose.Schema(
         required: true,
       },
     ],
-    chat: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: "Message",
-        // required: true,
+    duration: {
+      type: String,
+      required: true,
+    },
+    type: {
+      enum: {
+        values: ["vocal", "visio", "conference"],
+        message: "A call is either vocal, visio or conference",
       },
-    ]
+    },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Room", RoomSchema);
+module.exports = mongoose.model("Call", CallSchema);

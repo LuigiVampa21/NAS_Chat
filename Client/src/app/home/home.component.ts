@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, Observable, tap } from 'rxjs';
-import { AuthResolver } from '../resolver/auth.resolver';
+// import { AuthResolver } from '../resolver/auth.resolver';
 import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 import { User } from '../shared/models/user.model';
 
 export interface Tile {
@@ -24,7 +25,7 @@ export class HomeComponent implements OnInit {
   photo!:string
   template_photo!:string;
 
-  constructor(private authService: AuthService, private authResolver: AuthResolver, private route: ActivatedRoute ) { }
+  constructor(private authService: AuthService, private route: ActivatedRoute, private userService: UserService) { }
 
   tiles!: any[]
   friends!: User[];
@@ -46,13 +47,13 @@ export class HomeComponent implements OnInit {
   }
 
   initCard(){
-    this.authService.getUserByID()
+    this.userService.getUserByIDwithFriends()
         .subscribe( (data:any) => {
           this.user = data.user
-          // console.log(data);
+          console.log(data.user);
           this.photo = `../../assets/images/${this.user.photo}`
           this.friends = data.user.friends
-          console.log(this.friends);
+          // console.log(this.friends);
           this.initFriendsPhoto()
         })
   }
@@ -63,7 +64,7 @@ export class HomeComponent implements OnInit {
       .forEach(f => {
         f.photo = `../../assets/images/${f.photo}`
       })
-      console.log(this.friends);
+      // console.log(this.friends);
 
   }
 

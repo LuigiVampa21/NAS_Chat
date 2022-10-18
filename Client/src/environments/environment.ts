@@ -7,7 +7,11 @@ export const environment = {
   USER_REGISTER: 'http://localhost:3001/api/v1/chatApp/auth/register',
   USER_LOGIN: 'http://localhost:3001/api/v1/chatApp/auth/login',
 
-  GET_SINGLE_USER_BY_ID: 'http://localhost:3001/api/v1/chatApp/users/'
+  GET_SINGLE_USER_BY_ID: 'http://localhost:3001/api/v1/chatApp/users/',
+
+
+
+  GET_SINGLE_ROOM_BY_ID: 'http://localhost:3001/api/v1/chatApp/room/'
 };
 
 /*

@@ -153,11 +153,6 @@ export class AuthService {
     }
   }
 
-  getUserByID(){
-    const userID = localStorage.getItem('userID');
-    return this.http.get<User>(this.API_URL_GET_CURENT_USER + userID)
-  }
-
   private getAuthData(){
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expiration');

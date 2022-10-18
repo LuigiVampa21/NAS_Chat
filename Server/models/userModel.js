@@ -57,6 +57,12 @@ const UserSchema = new mongoose.Schema(
         ref: "Room",
       },
     ],
+    calls: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+      },
+    ],
     friends: [
       {
         type: mongoose.Schema.ObjectId,

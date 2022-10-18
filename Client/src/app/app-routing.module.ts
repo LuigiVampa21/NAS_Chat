@@ -11,7 +11,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AboutUsComponent } from './about-us/about-us.component';
-import { AuthResolver } from './resolver/auth.resolver';
+// import { AuthResolver } from './resolver/auth.resolver';
 
 
 
@@ -21,7 +21,8 @@ const routes: Routes = [
   {path: 'auth/login', component: LoginComponent},
   {path: 'auth/register', component: RegisterComponent},
   {path: 'about-us', component: AboutUsComponent},
-  {path: 'home', component: HomeComponent, canActivate: [AuthGuard], resolve: {user: AuthResolver}},
+  // {path: 'home', component: HomeComponent, canActivate: [AuthGuard], resolve: {user: AuthResolver}},
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   // {path: 'home', component: HomeComponent},
   {path: 'calls', component: CallsComponent, canActivate: [AuthGuard]},
   {path: 'chats', component: ChatsComponent, canActivate: [AuthGuard]},

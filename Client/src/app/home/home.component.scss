@@ -3,15 +3,15 @@
   margin-bottom: 8px;
 }
 
-mat-card-title{
-  // border:1px solid black
-}
-mat-card-subtitle{
-  // border:1px solid black
-}
-mat-card-content{
-  // border:1px solid black
-}
+// mat-card-title{
+//   border:1px solid black
+// }
+// mat-card-subtitle{
+//   border:1px solid black
+// }
+// mat-card-content{
+//   border:1px solid black
+// }
 
 .small{
   font-size: 1rem
@@ -26,9 +26,10 @@ mat-card-content{
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
   img{
-    width: 75%;
-    height: 75%;
+    width: 105%;
+    height: 105%;
   }
 }
 

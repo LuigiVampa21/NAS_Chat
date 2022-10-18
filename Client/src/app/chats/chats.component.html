@@ -1,1 +1,11 @@
-<p>chats works!</p>
+<ng-container *ngFor="let room of rooms">
+
+  <mat-list>
+    <mat-list-item style="cursor:pointer" (click)="onViewChat(room)">{{ room.name }}</mat-list-item>
+    <!-- <mat-list-item>Item 1</mat-list-item> -->
+    <mat-divider></mat-divider>
+    <!-- <mat-list-item>Item 2</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>Item 3</mat-list-item> -->
+    </mat-list>
+  </ng-container>

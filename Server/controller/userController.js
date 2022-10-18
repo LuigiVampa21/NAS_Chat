@@ -12,7 +12,25 @@ exports.getAllUsers = async (req, res) => {
 
 exports.getSingleUser = async (req, res) => {
   const { id } = req.params;
+  const user = await User.findById(id);
+  res.status(StatusCodes.OK).json({
+    // status: "success",
+    user,
+  });
+};
+
+exports.getSingleUserWithFriends = async (req, res) => {
+  const { id } = req.params;
   const user = await User.findById(id).populate("friends");
+  res.status(StatusCodes.OK).json({
+    // status: "success",
+    user,
+  });
+};
+
+exports.getSingleUserWithRooms = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id).populate("rooms");
   res.status(StatusCodes.OK).json({
     // status: "success",
     user,

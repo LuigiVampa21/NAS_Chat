@@ -21,6 +21,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({
@@ -46,7 +48,8 @@ import { MatSelectModule } from '@angular/material/select';
     HttpClientModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-
+    MatDividerModule,
+    MatListModule,
   ],
   providers: [
     {
