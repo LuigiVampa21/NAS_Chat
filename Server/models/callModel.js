@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 
 const CallSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: [true, "You have to provide a group name"],
-      minlength: 5,
-      maxlength: 20,
-    },
+    // name: {
+    //   type: String,
+    //   required: [true, "You have to provide a group name"],
+    //   minlength: 5,
+    //   maxlength: 20,
+    // },
     users: [
       {
         type: mongoose.Schema.ObjectId,

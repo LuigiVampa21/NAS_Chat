@@ -24,13 +24,14 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.send("hello");
+  res.send("Welcome to my chatApp Homies!!");
 });
 
 app.use("/api/v1/chatApp/users", userRouter);
 app.use("/api/v1/chatApp/rooms", roomRouter);
 app.use("/api/v1/chatApp/auth", authRouter);
 app.use("/api/v1/chatApp/messages", messageRouter);
+app.use("/api/v1/chatApp/calls", messageRouter);
 
 app.use(notFound);
 app.use(errorHandler);
