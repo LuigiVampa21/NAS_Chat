@@ -6,10 +6,10 @@ const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
   const { email, name, password, confirmPassword, pseudo } = req.body;
-  // const emailAlreadyExists = await User.findOne({ email });
-  // if (emailAlreadyExists) {
-  //   throw new CustomError.BadRequestError("Sorry this email already exists");
-  // }
+  const emailAlreadyExists = await User.findOne({ email });
+  if (emailAlreadyExists) {
+    throw new CustomError.BadRequestError("Sorry this email already exists");
+  }
   const user = await User.create({
     email,
     name,
@@ -37,10 +37,10 @@ exports.login = async (req, res) => {
   if (!user) {
     throw new Error("Sorry No user found");
   }
-  const passwordMatch = await user.comparePassword(password);
-  if (!passwordMatch) {
-    throw new Error("Sorry password does not match");
-  }
+  // const passwordMatch = await user.comparePassword(password);
+  // if (!passwordMatch) {
+  //   throw new Error("Sorry password does not match");
+  // }
 
   const token = jwt.sign(
     { email: user.email, userID: user._id },

@@ -20,7 +20,6 @@ export class CallsComponent implements OnInit {
   ngOnInit(): void {
     this.initCalls()
   }
-
   initCalls(){
     this.userService.getUserByIDwithCalls()
         .subscribe((data:any) => {
@@ -34,8 +33,6 @@ export class CallsComponent implements OnInit {
   getPenFriend(){
       this.calls.forEach((c:any) => {
     c.ID = c.users.filter((userID:any) => userID !== this.currentUser._id);
-
-      console.log(c.ID);
         if(c.ID.length < 2){
           this.userService.getUserByID(c.ID[0])
           .subscribe((data:any) => {
@@ -49,29 +46,13 @@ export class CallsComponent implements OnInit {
           this.userService.getUserByID(c.ID[1])
           .subscribe((data:any) => {
             c.penFriend = c.penFriend + ', ' + data.user.name;
-            console.log(c.penFriend);
-
           })
-
         }
     })
   }
 
   onViewCall(call:Call){
-console.log(call);
-
+    this.router.navigateByUrl(`/calls/call-detail/${call._id}`)
   }
 }
 
-// getPenFriend(){
-//   this.calls.forEach((c:any) => {
-//     c.ID = c.users.find((userID:any) => userID !== this.currentUser._id);
-//     console.log(c.ID);
-
-//     this.userService.getUserByID(c.ID)
-//         .subscribe((data:any) => {
-//           console.log(data.user.name)
-//           c.penFriend = data.user.name;
-//     })
-//   })
-// }

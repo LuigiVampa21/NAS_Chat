@@ -1,0 +1,19 @@
+mat-card-header{
+  display: flex;
+}
+mat-icon{
+  position: absolute;
+  top: 0rem;
+  right: 0.5rem;
+  cursor: pointer;
+}
+figure{
+  overflow: hidden;
+  border-radius: 60%;
+  width: 10rem;
+  height: 10rem;
+  margin-left: auto;
+  img{
+    width: 105%;
+  }
+}

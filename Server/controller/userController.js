@@ -49,7 +49,6 @@ exports.updateUser = async (req, res) => {
       new: true,
       runValidators: true,
     });
-
     res.status(StatusCodes.OK).json({
       user,
     });

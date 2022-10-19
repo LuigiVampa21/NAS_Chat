@@ -25,6 +25,7 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { CallDetailComponent } from './calls/call-detail/call-detail.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { MatListModule } from '@angular/material/list';
     FooterComponent,
     LoadingSpinnerComponent,
     ChatDetailComponent,
+    CallDetailComponent,
   ],
   imports: [
     BrowserModule,

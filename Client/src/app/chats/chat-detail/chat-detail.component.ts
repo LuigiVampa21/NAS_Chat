@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { string } from 'joi';
 import { Subscription } from 'rxjs';
 import { ChatService } from 'src/app/services/chat.service';
 import { UserService } from 'src/app/services/user.service';
@@ -14,7 +13,7 @@ import { User } from 'src/app/shared/models/user.model';
   templateUrl: './chat-detail.component.html',
   styleUrls: ['./chat-detail.component.scss']
 })
-export class ChatDetailComponent implements OnInit, OnDestroy {
+export class ChatDetailComponent implements OnInit {
 
   room!:Room;
   roomID!:string;
@@ -27,8 +26,6 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initRoom()
-    // this.initUser()
-    // this.getPenFriend()
   }
 
   initRoom(){
@@ -36,7 +33,6 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
     .subscribe((params: Params)=>{
       if(!params['id']) return;
       this.roomID = params['id']
-      // this.getRoom()
       this.initUser()
     })
 
@@ -46,9 +42,7 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
     this.userService.getUserFromLocalStorage()
     .subscribe((user:any) => {
       this.currentUser = user.user;
-      // console.log(this.currentUser);
       this.getRoom()
-      // this.getPenFriend()
     })
   }
   getRoom(){
@@ -56,19 +50,15 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
     .subscribe((room:any)=>{
       this.room = room.room
       this.getPenFriend()
-      // this.initMsg();
           })
     }
 
     getPenFriend(){
-      // console.log(this.room.users)
-      // console.log(this.currentUser)
       this.penFriendID = this.room.users.find((userID:any) => userID !== this.currentUser._id);
 
       this.userService.getUserByID(this.penFriendID)
           .subscribe((data:any) => {
             this.penFriend = data.user;
-            // console.log(this.penFriend);
             this.initMsg()
           })
 
@@ -84,10 +74,5 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
     onExit(){
       this.router.navigateByUrl('/chats')
     }
-
-
-  ngOnDestroy(): void {
-    // this.roomSubscription.unsubscribe()
-  }
 
 }

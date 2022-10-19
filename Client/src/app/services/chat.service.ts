@@ -21,7 +21,6 @@ export class ChatService {
   getSingleRoom(id:string){
     return this.http.get(this.API_URL_SINGLE_ROOM + id)
         .pipe(tap( (data:any) => {
-          // console.log(data.room);
           this.currentRoom = data.room
           this.currentRoomSub$.next(this.currentRoom)
         }))
