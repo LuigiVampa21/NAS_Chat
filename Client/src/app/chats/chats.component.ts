@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { ChatService } from '../services/chat.service';
 import { SocketService } from '../services/socket.service';
@@ -41,12 +42,24 @@ export class ChatsComponent implements OnInit {
   onViewChat(room:Room){
     if(!room._id) return;
     this.chatService.getSingleRoom(room._id)
-        .subscribe(() => {
+        .pipe(tap(() => {
           this.router.navigateByUrl('/chats/chat-detail/' + room._id);
           this.socketService.onJoinRoom(room._id)
-        })
+        }))
+        .subscribe()
 
   }
+
+
+  // onViewChat(room:Room){
+  //   if(!room._id) return;
+  //   this.chatService.getSingleRoom(room._id)
+  //       .subscribe(() => {
+  //         this.router.navigateByUrl('/chats/chat-detail/' + room._id);
+  //         this.socketService.onJoinRoom(room._id)
+  //       })
+
+  // }
 
 
   getPenFriend(){

@@ -39,6 +39,14 @@ export class ChatDetailComponent implements OnInit {
   ngOnInit(): void {
     this.initRoom()
     this.formMessage = this.formBuilder.control('');
+    // this.socketService.getMessage()
+    //     .subscribe((data:Message) => {
+    //       console.log(data);
+    //     })
+    this.socketService.getMessageObservable()
+        .subscribe((data:Message) => {
+          console.log(data);
+        })
   }
 
   initRoom(){
@@ -80,9 +88,8 @@ export class ChatDetailComponent implements OnInit {
     onSendMessage(msg:string){
       if(!msg || !this.roomID || !this.currentUser._id)return ;
       this.msgObject = {content: msg, room: this.roomID, poster:this.currentUser._id};
-      // this.socketService.onSendMessage(this.msgObject)
-
-
+      this.socketService.onSendMessage(this.msgObject);
+      this.formMessage.reset();
     }
 
     initMsg(){
@@ -90,6 +97,7 @@ export class ChatDetailComponent implements OnInit {
     }
 
     onExit(){
+      this.socketService.onLeaveRoom(this.roomID);
       this.router.navigateByUrl('/chats')
     }
 

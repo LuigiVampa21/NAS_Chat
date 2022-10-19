@@ -4,9 +4,6 @@ const socketFunctions = (io, socket) => {
   console.log("new connection " + socket.id);
 
   socket.on("login", data => {
-    console.log("----------------------------------------");
-    console.log(data.email, data.password, "ligne 7");
-    console.log("----------------------------------------");
     const { email, password } = data;
     axios
       .post("http:/localhost:3001/api/v1/chatApp/auth/login", {
@@ -14,24 +11,34 @@ const socketFunctions = (io, socket) => {
         password,
       })
       .then(res => {
-        console.log(res.data);
+        loadEvents(socket);
       })
       .catch(err => console.log(err));
   });
 };
 
-loadEvents = () => {
-  socket.on("join", data => {
-    socket.join(data.room);
-    socket.broadcast.to(data.room).emit(`${data.user} joined`);
+loadEvents = socket => {
+  socket.on("join_room", room => {
+    socket.join(room);
+    console.log("user joined the room" + room);
+    socket.on("send_message", data => {
+      // io.to(room).emit("new_message", {
+      //   poster: data.poster,
+      //   content: data.content,
+      //   date: Date.now(),
+      // });
 
-    socket.on("message", data => {
-      io.in(data.room).emit("new message", {
-        user: data.user,
-        message: data.message,
-        time: data.time,
+      socket.emit("new_message", {
+        poster: data.poster,
+        content: data.content,
+        date: Date.now(),
       });
+      console.log(data);
     });
+  });
+
+  socket.on("leave_room", room => {
+    console.log("user left the room" + room);
   });
 
   socket.on("disconnect", () => {
