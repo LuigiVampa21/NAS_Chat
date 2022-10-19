@@ -27,7 +27,6 @@ loadEvents = socket => {
       //   content: data.content,
       //   date: Date.now(),
       // });
-
       socket.emit("new_message", {
         poster: data.poster,
         content: data.content,

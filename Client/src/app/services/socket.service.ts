@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { io } from 'socket.io-client';
 import { environment } from '../../environments/environment'
 import { Message } from '../shared/models/message.model';
@@ -12,10 +12,11 @@ import { UserService } from './user.service';
 export class SocketService {
 
   URL = environment.BASE_SERVER_URL
+  API_MESSAGE = environment.MESSAGE_URL;
+  API_ROOMS = environment.GET_SINGLE_ROOM_BY_ID;
   socket!: any;
   currentUserID!:string;
   message!:Message;
-  // message$!:Subject<Message>;
   message$ = new BehaviorSubject<any>(this.message)
 
   constructor( private http: HttpClient, private userService: UserService) { }
@@ -69,6 +70,9 @@ export class SocketService {
   getMessage(){
   this.socket.on('new-message', (data:Message) => {
       this.message = data;
+      if(!this.message) return;
+      this.http.post<any>(this.API_MESSAGE, data)
+          .pipe(tap(console.log));
       this.message$.next(this.message)
   })
   }
