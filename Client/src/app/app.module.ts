@@ -11,7 +11,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { ChatDetailComponent } from './chats/chat-detail/chat-detail.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
@@ -26,7 +26,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { CallDetailComponent } from './calls/call-detail/call-detail.component';
-
 
 @NgModule({
   declarations: [
@@ -55,6 +54,7 @@ import { CallDetailComponent } from './calls/call-detail/call-detail.component';
     MatSelectModule,
     MatDividerModule,
     MatListModule,
+    FormsModule,
   ],
   providers: [
     {

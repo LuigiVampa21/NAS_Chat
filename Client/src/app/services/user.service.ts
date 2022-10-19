@@ -12,7 +12,7 @@ export class UserService {
 
   API_URL_GET_CURENT_USER = environment.GET_SINGLE_USER_BY_ID;
 
-  constructor(private authService: AuthService, private http:HttpClient) { }
+  constructor(private http:HttpClient) { }
 
   getUserByIDwithFriends(){
     const userID = localStorage.getItem('userID');

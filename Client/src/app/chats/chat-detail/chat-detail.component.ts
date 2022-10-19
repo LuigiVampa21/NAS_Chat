@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ChatService } from 'src/app/services/chat.service';
+import { SocketService } from 'src/app/services/socket.service';
 import { UserService } from 'src/app/services/user.service';
 import { Message } from 'src/app/shared/models/message.model';
 import { Room } from 'src/app/shared/models/room.model';
@@ -22,10 +24,21 @@ export class ChatDetailComponent implements OnInit {
   penFriend!:User;
   penFriendID!:any;
   messages!:Message[];
-  constructor(private chatService: ChatService, private route:ActivatedRoute, private userService: UserService, private router:Router) { }
+  formMessage!: FormControl;
+  msgObject!: Message;
+
+  constructor(
+              private chatService: ChatService,
+              private route:ActivatedRoute,
+              private userService: UserService,
+              private router:Router,
+              private formBuilder: FormBuilder,
+              private socketService: SocketService
+              ) { }
 
   ngOnInit(): void {
     this.initRoom()
+    this.formMessage = this.formBuilder.control('');
   }
 
   initRoom(){
@@ -45,6 +58,7 @@ export class ChatDetailComponent implements OnInit {
       this.getRoom()
     })
   }
+
   getRoom(){
     this.chatService.getSingleRoom(this.roomID)
     .subscribe((room:any)=>{
@@ -55,12 +69,19 @@ export class ChatDetailComponent implements OnInit {
 
     getPenFriend(){
       this.penFriendID = this.room.users.find((userID:any) => userID !== this.currentUser._id);
-
       this.userService.getUserByID(this.penFriendID)
           .subscribe((data:any) => {
             this.penFriend = data.user;
             this.initMsg()
           })
+
+    }
+
+    onSendMessage(msg:string){
+      if(!msg || !this.roomID || !this.currentUser._id)return ;
+      this.msgObject = {content: msg, room: this.roomID, poster:this.currentUser._id};
+      // this.socketService.onSendMessage(this.msgObject)
+
 
     }
 

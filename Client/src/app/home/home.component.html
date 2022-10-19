@@ -2,16 +2,16 @@
   <mat-card-title-group>
     <div class="titles">
       <mat-card-title>{{ user.name }}</mat-card-title>
-      <mat-card-title class="small">status: online 🟢</mat-card-title>
+      <mat-card-title class="small">{{ status }}</mat-card-title>
     </div>
     <mat-card-subtitle>
       <mat-form-field appearance="fill">
         <mat-label>Select Your Status</mat-label>
-        <mat-select>
-          <mat-option value="one">Online 🟢</mat-option>
-          <mat-option value="two">Busy 🛠️</mat-option>
-          <mat-option value="two">Working 🖥️</mat-option>
-          <mat-option value="two">Offline 🔴</mat-option>
+        <mat-select [(ngModel)]="status">
+          <mat-option value="Online 🟢">Online</mat-option>
+          <mat-option value="Busy 🛠️">Busy</mat-option>
+          <mat-option value="Working 🖥️">Working</mat-option>
+          <mat-option value="Offline 🔴">Offline</mat-option>
         </mat-select>
       </mat-form-field>
     </mat-card-subtitle>

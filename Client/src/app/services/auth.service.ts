@@ -6,6 +6,7 @@ import { UserLogin } from '../shared/interfaces/user.login.interface';
 import { User } from '../shared/models/user.model';
 import { loginResponse } from '../shared/interfaces/login-response.interface'
 import { Router } from '@angular/router';
+import { SocketService } from './socket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class AuthService {
   private user!:User;
   private userSub$ = new Subject<User>();
 
-  constructor(private http:HttpClient, private router:Router) {
+  constructor(private http:HttpClient, private router:Router, private socketService: SocketService) {
     this.getTokenFromlocalStorage()
   }
 
@@ -49,7 +50,7 @@ export class AuthService {
 // )
   }
 
-  onLogin(userData:loginResponse){
+  onLogin(userData:any){
     return this.http.post<loginResponse>(this.API_URL_LOGIN_USER, userData)
     .pipe(
       tap(
@@ -69,7 +70,8 @@ export class AuthService {
             const expirationDate = new Date(now.getTime()+ expiresInDuration *1000);
             this.saveAuthData(this.token, expirationDate, this.userID)
             // this.saveAuthData(this.token, this.userID)
-            this.router.navigateByUrl('/')
+            this.router.navigateByUrl('/');
+            this.socketService.ioConnect(this.user.email, userData.password);
           }
         },
         error:(errorResponse) => {
@@ -131,6 +133,7 @@ export class AuthService {
     this.userID = null;
     this.user.status = 'offline';
     this.clearAuthData();
+    this.socketService.socket.disconnect();
   }
 
   private saveAuthData(token:string, expirationDate: Date, userID:string){

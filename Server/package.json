@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/LuigiVampa21/NAS_Chat#readme",
   "dependencies": {
+    "axios": "^1.1.3",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",

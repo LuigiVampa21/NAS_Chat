@@ -37,6 +37,7 @@ exports.login = async (req, res) => {
   if (!user) {
     throw new Error("Sorry No user found");
   }
+  console.log({ email, password });
   // const passwordMatch = await user.comparePassword(password);
   // if (!passwordMatch) {
   //   throw new Error("Sorry password does not match");

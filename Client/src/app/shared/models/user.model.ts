@@ -5,6 +5,7 @@ export class User {
     name!: string;
     email!: string;
     pseudo!: string;
+    // status?
     photo!: string;
     role!:string;
     password!:string;

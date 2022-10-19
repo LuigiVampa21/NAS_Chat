@@ -3,8 +3,8 @@ import { User } from "./user.model";
 
 export class Message {
   content!:string;
-  user!:User;
-  room!:Room;
+  // user!:User;
+  room!:Room | string;
   poster!:string;
-  createdAt!:Date
+  createdAt?:Date
 }
