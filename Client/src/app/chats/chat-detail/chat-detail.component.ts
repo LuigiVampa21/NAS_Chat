@@ -66,10 +66,7 @@ export class ChatDetailComponent implements OnInit {
 
     initMsg(){
       this.messages = this.room.chat;
-      console.log(this.messages);
     }
-
-
 
     onExit(){
       this.router.navigateByUrl('/chats')

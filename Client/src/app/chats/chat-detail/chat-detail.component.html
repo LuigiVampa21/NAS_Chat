@@ -1,46 +1,51 @@
-<div class="chatHeader">
-  <mat-toolbar color="accent">
-    <mat-icon>menu</mat-icon>
-    <span>{{ penFriend.name }}</span>
-    <mat-icon (click)="onExit()">close</mat-icon>
-  </mat-toolbar>
-</div>
-<div class="chatContainer">
-  <mat-card class="example-card">
-    <mat-card-header *ngFor="let message of messages">
-      <div *ngIf="message.poster === penFriendID" class="chat-card">
-        <figure>
-          <img
-            class="avatar"
-            src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-            alt="Photo of a Shiba Inu"
-          />
-        </figure>
+<div class="container" *ngIf="penFriend">
+  <div class="chatHeader">
+    <mat-toolbar color="accent">
+      <mat-icon>menu</mat-icon>
+      <span>{{ penFriend.name }}</span>
+      <mat-icon (click)="onExit()">close</mat-icon>
+    </mat-toolbar>
+  </div>
+  <div class="chatContainer">
+    <mat-card class="example-card">
+      <mat-card-header *ngFor="let message of messages">
+        <div *ngIf="message.poster === penFriendID" class="chat-card">
+          <figure>
+            <img
+              class="avatar"
+              src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+              alt="Photo of a Shiba Inu"
+            />
+          </figure>
 
-        <div class="content">
-          <span>{{ message.content }}</span>
+          <div class="content">
+            <span>{{ message.content }}</span>
+          </div>
         </div>
-      </div>
-      <div *ngIf="message.poster != penFriendID" class="chat-card currentUser">
-        <!-- <div mat-card-avatar class="example-header-image"></div> -->
-        <div class="content currentUser">
-          <span>{{ message.content }}</span>
+        <div
+          *ngIf="message.poster != penFriendID"
+          class="chat-card currentUser"
+        >
+          <!-- <div mat-card-avatar class="example-header-image"></div> -->
+          <div class="content currentUser">
+            <span>{{ message.content }}</span>
+          </div>
+          <figure>
+            <img
+              class="avatar"
+              src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+              alt="Photo of a Shiba Inu"
+            />
+          </figure>
+          <!-- <mat-card-title>Shiba Inu</mat-card-title> -->
+          <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
         </div>
-        <figure>
-          <img
-            class="avatar"
-            src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-            alt="Photo of a Shiba Inu"
-          />
-        </figure>
-        <!-- <mat-card-title>Shiba Inu</mat-card-title> -->
-        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
-      </div>
-    </mat-card-header>
-  </mat-card>
-</div>
-<div class="chatInput">
-  <mat-form-field class="leaveMessage" appearance="fill">
-    <textarea matInput placeholder="Write your message here"></textarea>
-  </mat-form-field>
+      </mat-card-header>
+    </mat-card>
+  </div>
+  <div class="chatInput">
+    <mat-form-field class="leaveMessage" appearance="fill">
+      <textarea matInput placeholder="Write your message here"></textarea>
+    </mat-form-field>
+  </div>
 </div>

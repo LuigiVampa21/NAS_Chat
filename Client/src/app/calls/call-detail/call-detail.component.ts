@@ -64,8 +64,13 @@ export class CallDetailComponent implements OnInit {
     this.userService.getUserByIDwithRooms()
     .pipe(tap((data:any) => {
       const currentUserRooms = data.user.rooms;
+      console.log(this.penFriend._id);
       currentUserRooms.forEach((r:any)=> {
         console.log(r.users);
+        if(r.users.includes(this.penFriend._id)){
+          this.router.navigateByUrl(`/chats/chat-detail/${r._id}`)
+          console.log(r);
+        }
       })
     }
     )).subscribe()
