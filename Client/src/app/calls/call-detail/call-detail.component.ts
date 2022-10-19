@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { tap } from 'rxjs';
 import { CallService } from 'src/app/services/call.service';
 import { UserService } from 'src/app/services/user.service';
 import { Call } from 'src/app/shared/models/call.model';
@@ -37,9 +38,6 @@ export class CallDetailComponent implements OnInit {
     this.userService.getUserFromLocalStorage()
     .subscribe((user:any) => {
       this.currentUser = user.user;
-      // console.log(this.currentUser);
-      // console.log(this.currentUser._id);
-
       this.getCall()
     })
   }
@@ -48,8 +46,6 @@ export class CallDetailComponent implements OnInit {
     this.callService.getSingleCall(this.callID)
     .subscribe((call:any)=>{
       this.call = call.call
-      // console.log(this.call);
-
       this.getPenFriend()
           })
   }
@@ -65,14 +61,24 @@ export class CallDetailComponent implements OnInit {
   }
 
   onSendMessage(){
-    // get PenFriend ID
+    this.userService.getUserByIDwithRooms()
+    .pipe(tap((data:any) => {
+      const currentUserRooms = data.user.rooms;
+      currentUserRooms.forEach((r:any)=> {
+        console.log(r.users);
+      })
+    }
+    )).subscribe()
+        // .subscribe( (data:any) => {
+        //   })
+
+        // })
+    // console.log();
     // check if discussion exists with current userID and PenFriend ID
     // NAVIGATE TO
-
   }
 
   onExit(){
     this.router.navigateByUrl('/calls')
   }
-
 }

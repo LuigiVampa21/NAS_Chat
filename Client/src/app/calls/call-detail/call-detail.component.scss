@@ -1,7 +1,10 @@
 mat-card-header{
   display: flex;
 }
-mat-icon{
+.icon-type{
+  margin-left: 0.5rem;
+}
+.exit{
   position: absolute;
   top: 0rem;
   right: 0.5rem;

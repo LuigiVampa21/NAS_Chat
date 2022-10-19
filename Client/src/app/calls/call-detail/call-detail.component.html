@@ -1,16 +1,29 @@
-<mat-card class="example-card">
+<mat-card class="example-card" *ngIf="penFriend">
   <mat-card-header>
     <div class="info">
       <mat-card-title>{{ penFriend.name }}</mat-card-title>
-      <mat-card-subtitle>{{ call.status | uppercase }}</mat-card-subtitle>
-      <mat-card-subtitle>{{ call.createdAt | date }}</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="call.status === 'visio'"
+        >{{ call.status | uppercase }}
+        <mat-icon class="icon-type">videocam</mat-icon></mat-card-subtitle
+      >
+      <mat-card-subtitle *ngIf="call.status === 'vocal'"
+        >{{ call.status | uppercase }}
+        <mat-icon class="icon-type">call</mat-icon></mat-card-subtitle
+      >
+      <mat-card-subtitle *ngIf="call.status === 'conference'"
+        >{{ call.status | uppercase }}
+        <mat-icon class="icon-type">groups</mat-icon></mat-card-subtitle
+      >
+      <mat-card-subtitle>{{
+        call.createdAt | date: "short"
+      }}</mat-card-subtitle>
       <mat-card-subtitle>{{ call.duration }}</mat-card-subtitle>
     </div>
-    <mat-icon (click)="onExit()">close</mat-icon>
+    <mat-icon class="exit" (click)="onExit()">close</mat-icon>
     <figure>
       <img
-        [src]="'../../../assets/images/' + penFriend?.photo"
-        [alt]="penFriend?.name"
+        [src]="'../../../assets/images/' + penFriend.photo"
+        [alt]="penFriend.name"
       />
     </figure>
   </mat-card-header>
