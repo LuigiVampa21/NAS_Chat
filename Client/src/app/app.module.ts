@@ -30,6 +30,7 @@ import { FriendsComponent } from './friends/friends.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AddFriendComponent } from './partials/add-friend/add-friend.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

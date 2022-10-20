@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { map, Observable, startWith } from 'rxjs';
+import { AddFriendComponent } from '../partials/add-friend/add-friend.component';
+import { FriendsService } from '../services/friends.service';
 import { UserService } from '../services/user.service';
 import { User } from '../shared/models/user.model';
 
@@ -20,7 +23,7 @@ export class FriendsComponent implements OnInit {
   friendSelected!: User;
   userSelected!: User;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) { }
+  constructor(private userService: UserService, private formBuilder: FormBuilder,private friendsService: FriendsService,public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.searchFriendInput = this.formBuilder.control('');
@@ -63,6 +66,8 @@ export class FriendsComponent implements OnInit {
 
   }
   getUser(user:User){
+    this.friendsService.setUserToAdd(user)
+    this.dialog.open(AddFriendComponent)
     console.log(user);
 
   }

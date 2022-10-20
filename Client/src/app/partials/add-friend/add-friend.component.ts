@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FriendsService } from 'src/app/services/friends.service';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-add-friend',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddFriendComponent implements OnInit {
 
-  constructor() { }
+  user!:User;
+
+  @Input() Username!:string;
+
+  constructor(private friendsService:FriendsService) { }
 
   ngOnInit(): void {
+    this.user = this.friendsService.userToAdd;
+  }
+
+  onSendRequest(){
+    this.friendsService.sendRequest(this.user)
   }
 
 }
