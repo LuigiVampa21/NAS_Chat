@@ -94,3 +94,13 @@ exports.deleteUser = async (req, res) => {
     msg: null,
   });
 };
+
+exports.deleteSingleNotification = async (req,res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  const { notifID } = req.body;
+  await user.notifications.findByIdAndDelete(notifID);
+  res.status(204).json({
+    msg: user
+  })
+}

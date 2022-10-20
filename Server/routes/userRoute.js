@@ -5,6 +5,8 @@ const userController = require("../controller/userController");
 router.route("/").get(userController.getAllUsers);
 // .post(userController.createNewUser);
 
+router.route('/delete/notification/:id').patch(userController.deleteSingleNotification)
+
 router.route("/:id/friends").get(userController.getSingleUserWithFriends);
 router.route("/:id/rooms").get(userController.getSingleUserWithRooms);
 router.route("/:id/calls").get(userController.getSingleUserWithCalls);

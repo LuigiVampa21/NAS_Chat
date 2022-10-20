@@ -66,7 +66,10 @@ export class UserService {
     )
   }
 
-  deleteNotifcationFromUser(){
-    return this.http.patch<>
+  deleteNotifcationFromUser(notifID:string){
+    const userID = localStorage.getItem('userID');
+    return this.http.patch<User>(this.API_URL_DELETE_NOTIFICATION_FROM_USER + userID, {
+      notifID
+    })
   }
 }
