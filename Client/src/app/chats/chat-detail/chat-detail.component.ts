@@ -86,13 +86,11 @@ export class ChatDetailComponent implements OnInit {
       this.msgObject = {content: msg, room: this.roomID, poster:this.currentUser._id};
       this.socketService.onSendMessage(this.msgObject);
       this.socketService.SendMessageToDB(this.msgObject)
-          .subscribe(
-          //   (data:any) => {
-          //   console.log(data.data.id);
-
-          // }
-          );
+          .subscribe();
       this.formMessage.reset();
+      setTimeout(() => {
+        this.initRoom()
+      },800)
     }
 
     initMsg(){

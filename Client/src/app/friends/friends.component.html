@@ -1,0 +1,44 @@
+<form class="friends-form">
+  <mat-form-field class="friends-form-field" appearance="fill">
+    <mat-label>Your Friends</mat-label>
+    <input type="text" matInput [formControl]="searchFriendInput" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+
+<form class="all-users-form">
+  <mat-form-field class="all-users-form-field" appearance="fill">
+    <mat-label>Your Friends</mat-label>
+    <input type="text" matInput [formControl]="searchUserInput" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let option of filteredUsers | async" [value]="option">
+        {{option.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+
+<ng-container *ngFor="let friend of friends">
+  <mat-list (click)="onViewfriend(friend)" style="cursor: pointer">
+    <div class="friend-container">
+      <div class="friend-name">
+        {{ friend.name }}
+      </div>
+      <div class="friend-email">
+        {{ friend.email }}
+      </div>
+      <div class="friend-photo">
+        {{ friend.photo }}
+        <img
+          [src]="'../../../assets/images/' + friend.photo"
+          [alt]="friend.name"
+        />
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-list>
+</ng-container>

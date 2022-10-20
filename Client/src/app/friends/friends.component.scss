@@ -1,0 +1,31 @@
+.friend-container{
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  .friend-email{
+    margin-left: auto;
+  }
+  .friend-photo{
+  overflow: hidden;
+  border-radius: 60%;
+  width: 5rem;
+  height: 5rem;
+  margin-left: auto;
+  img{
+    width: 100%;
+    position: relative;
+    top: -1.2rem;
+  }
+}
+}
+
+.friends-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.friends-form-field {
+  width: 100%;
+}
+

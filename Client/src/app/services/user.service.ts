@@ -42,8 +42,12 @@ export class UserService {
   getUserByID(id:string){
        let user;
     return this.http.get<User>(this.API_URL_GET_CURENT_USER + id)
-        // .subscribe( data => {
-        //   console.log(data);
-        // })
+    // .subscribe( data => {
+      //   console.log(data);
+      // })
+  }
+
+  getAllusers(){
+    return this.http.get<User>(this.API_URL_GET_CURENT_USER)
   }
 }

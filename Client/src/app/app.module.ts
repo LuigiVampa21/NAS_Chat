@@ -26,6 +26,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { CallDetailComponent } from './calls/call-detail/call-detail.component';
+import { FriendsComponent } from './friends/friends.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { CallDetailComponent } from './calls/call-detail/call-detail.component';
     LoadingSpinnerComponent,
     ChatDetailComponent,
     CallDetailComponent,
+    FriendsComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +58,7 @@ import { CallDetailComponent } from './calls/call-detail/call-detail.component';
     MatDividerModule,
     MatListModule,
     FormsModule,
+    MatAutocompleteModule,
   ],
   providers: [
     {

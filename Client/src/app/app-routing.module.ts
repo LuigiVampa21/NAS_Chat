@@ -13,6 +13,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { ChatDetailComponent } from './chats/chat-detail/chat-detail.component';
 import { CallDetailComponent } from './calls/call-detail/call-detail.component';
+import { FriendsComponent } from './friends/friends.component';
 // import { AuthResolver } from './resolver/auth.resolver';
 
 
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'about-us', component: AboutUsComponent},
   // {path: 'home', component: HomeComponent, canActivate: [AuthGuard], resolve: {user: AuthResolver}},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'friends', component: FriendsComponent},
   {path: 'calls', component: CallsComponent, canActivate: [AuthGuard]},
   {path:'calls/call-detail/:id', component: CallDetailComponent, canActivate: [AuthGuard]},
   {path: 'chats', component: ChatsComponent, canActivate: [AuthGuard]},
