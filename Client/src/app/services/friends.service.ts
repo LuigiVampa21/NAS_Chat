@@ -31,7 +31,7 @@ export class FriendsService {
 
 
     //  Create Room -DONE
-    // Push ROOM INTO CURRENT USER MODEL
+    // Push ROOM INTO CURRENT USER MODEL - DONE
     //  sendRequestToUserToAdd By creating Notification
     // Wait for other user to Respond to accept Room
   }
@@ -57,10 +57,20 @@ export class FriendsService {
           .subscribe()
         }
 
-  addNewRoomToCurrentUser(newRoom:string){
-    if(!this.currentUser._id) return;
-    this.userService.addRoomToUser(this.currentUser._id,newRoom)
-        .pipe(tap(console.log))
+  addNewRoomToCurrentUser(newRoom:Room){
+    if(!this.currentUser._id || !newRoom._id) return;
+    this.userService.addRoomToUser(this.currentUser._id, newRoom._id)
+        .pipe(tap(()=> {
+          // this.sendNotificationToPenFriend(newRoom._id)
+        }))
         .subscribe()
+  }
+
+  sendNotificationToPenFriend(roomID:string){
+    //  const notifications = {
+    //   sort: "Friend Request",
+    //   from: this.currentUser,
+    //   room:
+    // }
   }
 }
