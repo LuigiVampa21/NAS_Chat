@@ -50,4 +50,12 @@ export class UserService {
       }
     )
   }
+
+  sendNotification(notificationID:string, id:string){
+    return this.http.patch<User>(this.API_URL_GET_CURENT_USER + id,
+      {
+        notifications: notificationID
+      }
+    )
+  }
 }

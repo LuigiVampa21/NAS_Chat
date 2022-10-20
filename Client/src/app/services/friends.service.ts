@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Room } from '../shared/models/room.model';
 import { User } from '../shared/models/user.model';
 import { ChatService } from './chat.service';
+import { NotificationService } from './notification.service';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -15,7 +16,7 @@ export class FriendsService {
   currentUser!:User;
   ROOMS_URL = environment.GET_SINGLE_ROOM_BY_ID;
   NOTIFICATIONS_URL = environment.NOTIFICATION_URL
-  constructor(private userService: UserService, private chatService: ChatService) { }
+  constructor(private userService: UserService, private chatService: ChatService, private notificationService: NotificationService) { }
 
   setUserToAdd(user:User){
     this.userToAdd = user;
@@ -61,16 +62,31 @@ export class FriendsService {
     if(!this.currentUser._id || !newRoom._id) return;
     this.userService.addRoomToUser(this.currentUser._id, newRoom._id)
         .pipe(tap(()=> {
-          // this.sendNotificationToPenFriend(newRoom._id)
+          if (!newRoom._id) return
+          this.createNotification(newRoom._id)
         }))
         .subscribe()
+      }
+
+      createNotification(roomID:string){
+        if(!this.currentUser._id) return;
+        const notification = {
+          sort: "Friend Request",
+          from: this.currentUser._id,
+          room: roomID
+        }
+        this.notificationService.createNotification(notification)
+            .pipe(tap((data:any)=> {
+              const { _id } = data.newNotification;
+              console.log(_id);
+              if (!this.userToAdd._id) return
+              this.sendNotificationToPenFriend(_id, this.userToAdd._id)
+            })).subscribe()
+
   }
 
-  sendNotificationToPenFriend(roomID:string){
-    //  const notifications = {
-    //   sort: "Friend Request",
-    //   from: this.currentUser,
-    //   room:
-    // }
+  sendNotificationToPenFriend(notificationID:string, userID:string){
+    if(!this.userToAdd._id)return;
+    this.userService.sendNotification(notificationID, userID).subscribe()
   }
 }

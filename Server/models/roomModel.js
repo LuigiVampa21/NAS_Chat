@@ -16,6 +16,11 @@ const RoomSchema = new mongoose.Schema(
         // required: true,
       },
     ],
+    // status: {
+    //   type: String,
+    //   enum: ["Active", "Pending"],
+    //   default: "Pending",
+    // },
   },
   { timestamps: true }
 );

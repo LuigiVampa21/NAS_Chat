@@ -43,8 +43,8 @@ exports.getSingleUserWithCalls = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   const { id } = req.params;
-  const { name, email, pseudo, photo, friends, calls, rooms } = req.body;
-  if (!friends && !calls && !rooms) {
+  const { name, email, pseudo, photo, friends, calls, rooms, notifications } = req.body;
+  if (!friends && !calls && !rooms && !notifications) {
     const user = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
@@ -54,20 +54,22 @@ exports.updateUser = async (req, res) => {
     });
   } else {
     const user = await User.findById(id);
-    console.log(user);
+    // console.log(user);
     if (rooms) {
       user.rooms.push(rooms);
-      console.log(user.rooms);
+      // console.log(user.rooms);
     }
     if (friends) {
       user.friends.push(friends);
-      console.log(user.friends);
-
+      // console.log(user.friends);
     }
     if (calls) {
       user.calls.push(calls);
-      console.log(user.calls);
-
+      // console.log(user.calls);
+    }
+    if (notifications) {
+      user.notifications.push(notifications);
+      console.log(user.notifications);
     }
     await user.save();
     res.status(StatusCodes.OK).json({
