@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../shared/models/user.model';
-import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
 
 
@@ -22,11 +21,6 @@ export class UserService {
   getUserFromLocalStorage(){
     const userID = localStorage.getItem('userID');
     return this.http.get<User>(this.API_URL_GET_CURENT_USER + userID )
-    // let user;
-    // this.http.get<User>(this.API_URL_GET_CURENT_USER + id)
-    //     .subscribe( data => {
-    //       console.log(data);
-    //     })
   }
 
   getUserByIDwithRooms(){
@@ -40,11 +34,8 @@ export class UserService {
   }
 
   getUserByID(id:string){
-       let user;
     return this.http.get<User>(this.API_URL_GET_CURENT_USER + id)
-    // .subscribe( data => {
-      //   console.log(data);
-      // })
+
   }
 
   getAllusers(){

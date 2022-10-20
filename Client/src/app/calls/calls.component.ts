@@ -25,7 +25,6 @@ export class CallsComponent implements OnInit {
         .subscribe((data:any) => {
           this.currentUser = data.user;
           this.calls = data.user.calls;
-          console.log(this.calls);
           this.getPenFriend()
         })
   }

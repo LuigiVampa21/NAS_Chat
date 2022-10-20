@@ -28,6 +28,7 @@ import { MatListModule } from '@angular/material/list';
 import { CallDetailComponent } from './calls/call-detail/call-detail.component';
 import { FriendsComponent } from './friends/friends.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { AddFriendComponent } from './partials/add-friend/add-friend.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     ChatDetailComponent,
     CallDetailComponent,
     FriendsComponent,
+    AddFriendComponent,
   ],
   imports: [
     BrowserModule,

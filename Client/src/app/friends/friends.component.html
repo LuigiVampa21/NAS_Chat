@@ -1,27 +1,52 @@
-<form class="friends-form">
-  <mat-form-field class="friends-form-field" appearance="fill">
-    <mat-label>Your Friends</mat-label>
-    <input type="text" matInput [formControl]="searchFriendInput" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option.name}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-</form>
+<div class="forms">
+  <form class="friends-form">
+    <mat-form-field class="friends-form-field" appearance="fill">
+      <mat-label>Your Friends</mat-label>
+      <input
+        type="text"
+        matInput
+        [formControl]="searchFriendInput"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        [displayWith]="displayFn"
+        (optionSelected)="getFriend($event.option.value)"
+      >
+        <mat-option
+          *ngFor="let option of filteredOptions | async"
+          [value]="option"
+        >
+          {{ option.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
 
-<form class="all-users-form">
-  <mat-form-field class="all-users-form-field" appearance="fill">
-    <mat-label>Your Friends</mat-label>
-    <input type="text" matInput [formControl]="searchUserInput" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-      <mat-option *ngFor="let option of filteredUsers | async" [value]="option">
-        {{option.name}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-</form>
-
+  <form class="all-users-form">
+    <mat-form-field class="all-users-form-field" appearance="fill">
+      <mat-label>All Users</mat-label>
+      <input
+        type="text"
+        matInput
+        [formControl]="searchUserInput"
+        [matAutocomplete]="autoU"
+      />
+      <mat-autocomplete
+        #autoU="matAutocomplete"
+        [displayWith]="displayFn"
+        (optionSelected)="getUser($event.option.value)"
+      >
+        <mat-option
+          *ngFor="let option of filteredUsers | async"
+          [value]="option"
+        >
+          {{ option.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+</div>
 <ng-container *ngFor="let friend of friends">
   <mat-list (click)="onViewfriend(friend)" style="cursor: pointer">
     <div class="friend-container">

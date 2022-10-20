@@ -133,7 +133,7 @@ export class AuthService {
     this.userID = null;
     this.user.status = 'offline';
     this.clearAuthData();
-    this.socketService.socket.disconnect();
+    this.socketService.socketOut();
   }
 
   private saveAuthData(token:string, expirationDate: Date, userID:string){

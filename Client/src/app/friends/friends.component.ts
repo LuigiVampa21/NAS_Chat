@@ -17,25 +17,35 @@ export class FriendsComponent implements OnInit {
   searchUserInput!: FormControl;
   filteredOptions!: Observable<User[]>;
   filteredUsers!: Observable<User[]>
-  // options:User[] = this.friends;
+  friendSelected!: User;
+  userSelected!: User;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.searchFriendInput = this.formBuilder.control('');
+    this.searchUserInput = this.formBuilder.control('');
     this.userService.getUserByIDwithFriends()
       .subscribe((data:any) => {
         this.friends = data.user.friends;
-        console.log(this.friends);
       })
-    
+      this.userService.getAllusers()
+      .subscribe((data:any)=> {
+        this.users = data.allUsers
+      })
     this.filteredOptions = this.searchFriendInput.valueChanges.pipe(
       startWith(''),
       map(value => {
-        console.log(value);
         const name = typeof value === 'string' ? value : value?.name;
+        return name ? this._filter(name as string, this.friends) : this.friends?.slice();
+      }),
+    );
 
-        return name ? this._filter(name as string) : this.friends?.slice();
+    this.filteredUsers = this.searchUserInput.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const name = typeof value === 'string' ? value : value?.name;
+        return name ? this._filter(name as string, this.users ) : this.users?.slice();
       }),
     );
   }
@@ -43,10 +53,22 @@ export class FriendsComponent implements OnInit {
     return user && user.name ? user.name : '';
   }
 
-  private _filter(name: string): User[] {
+  private _filter(name: string, type:any): User[] {
     const filterValue = name.toLowerCase();
-    return this.friends.filter(option => option.name.toLowerCase().includes(filterValue));
+    return type.filter((option:any) => option.name.toLowerCase().includes(filterValue));
   }
 
-  onViewfriend(friend:User){}
+  getFriend(user:User){
+    console.log(user);
+
+  }
+  getUser(user:User){
+    console.log(user);
+
+  }
+
+  onViewfriend(friend:User){
+    console.log(friend);
+
+  }
 }

@@ -16,9 +16,7 @@ export class SocketService {
   API_ROOMS = environment.GET_SINGLE_ROOM_BY_ID;
   socket!: any;
   currentUserID!:string;
-  message!:Message;
-  message$ = new BehaviorSubject<any>(this.message);
-  // newMessageID!:string | undefined;
+  message$ = new BehaviorSubject<any>('');
 
   constructor( private http: HttpClient, private userService: UserService) { }
 
@@ -34,7 +32,6 @@ export class SocketService {
   onSendMessage(msg:Message):void{
     this.socket.emit('send_message', msg);
     this.socket.on('new_message', (data:Message) => {
-      this.message = data;
       this.message$.next(data)
   }
   )
@@ -69,6 +66,10 @@ export class SocketService {
       "message": msgID
       })
         .pipe(tap(console.log)).subscribe()
+  }
+
+  socketOut(){
+    this.socket.disconnect();
   }
 }
 

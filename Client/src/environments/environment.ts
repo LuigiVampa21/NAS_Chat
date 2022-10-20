@@ -6,23 +6,23 @@ export const environment = {
   production: false,
 
   BASE_SERVER_URL: 'http://localhost:3001',
-  // BASE_SERVER_URL: 'http://192.168.0.46:3000',
-
   USER_REGISTER: 'http://localhost:3001/api/v1/chatApp/auth/register',
   USER_LOGIN: 'http://localhost:3001/api/v1/chatApp/auth/login',
-
   MESSAGE_URL: 'http://localhost:3001/api/v1/chatApp/messages/',
-
   GET_SINGLE_USER_BY_ID: 'http://localhost:3001/api/v1/chatApp/users/',
   GET_SINGLE_ROOM_BY_ID: 'http://localhost:3001/api/v1/chatApp/rooms/',
   GET_SINGLE_CALL_BY_ID: 'http://localhost:3001/api/v1/chatApp/calls/',
 
 
 
+  // BASE_SERVER_URL: 'http://192.168.0.46:3001',
   // USER_REGISTER: 'http://192.168.0.23:3001/api/v1/chatApp/auth/register',
   // USER_LOGIN: 'http://192.168.0.23:3001/api/v1/chatApp/auth/login',
   // GET_SINGLE_USER_BY_ID: 'http://192.168.0.23:3001/api/v1/chatApp/users/',
-  // GET_SINGLE_ROOM_BY_ID: 'http://192.168.0.23:3001/api/v1/chatApp/rooms/'
+  // GET_SINGLE_ROOM_BY_ID: 'http://192.168.0.23:3001/api/v1/chatApp/rooms/',
+  // GET_SINGLE_CALL_BY_ID: 'http://192.168.0.23:3001/api/v1/chatApp/calls/',
+  // MESSAGE_URL: 'http://192.168.0.23:3001/api/v1/chatApp/messages/',
+
 };
 
 /*

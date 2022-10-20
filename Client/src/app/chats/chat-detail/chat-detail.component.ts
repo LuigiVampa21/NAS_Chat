@@ -41,7 +41,9 @@ export class ChatDetailComponent implements OnInit {
     this.formMessage = this.formBuilder.control('');
     this.socketService.getMessageObservable()
         .subscribe((data:Message) => {
-          console.log(data);
+          if(!data)return
+          this.messages.push(data)
+          console.log(this.messages);
         })
   }
 
@@ -88,9 +90,6 @@ export class ChatDetailComponent implements OnInit {
       this.socketService.SendMessageToDB(this.msgObject)
           .subscribe();
       this.formMessage.reset();
-      setTimeout(() => {
-        this.initRoom()
-      },800)
     }
 
     initMsg(){
@@ -101,5 +100,4 @@ export class ChatDetailComponent implements OnInit {
       this.socketService.onLeaveRoom(this.roomID);
       this.router.navigateByUrl('/chats')
     }
-
 }

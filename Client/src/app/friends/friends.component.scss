@@ -1,5 +1,5 @@
 .friend-container{
-  margin-top: 2rem;
+  margin-top: 1rem;
   display: flex;
   align-items: center;
   .friend-email{
@@ -19,13 +19,18 @@
 }
 }
 
-.friends-form {
+
+.friends-form, .all-users-form {
   min-width: 150px;
-  max-width: 500px;
-  width: 100%;
+  width: 80%;
 }
 
-.friends-form-field {
-  width: 100%;
+.friends-form-field, .all-users-form-field {
+  width: 95%;
 }
 
+.forms{
+  margin-top: 1rem;
+display: flex;
+justify-content: space-evenly;
+}
