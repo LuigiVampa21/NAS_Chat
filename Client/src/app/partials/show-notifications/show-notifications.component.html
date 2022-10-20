@@ -1,0 +1,19 @@
+<ng-container *ngIf="!showSingleNotification">
+  <h1 mat-dialog-title>All notifications</h1>
+  <div mat-dialog-content>
+    <mat-list *ngFor="let notification of notifications">
+      <div class="notifications" (click)="onViewNotification(notification)">
+        <mat-list-item style="cursor: pointer">
+          New Pending {{ notification.sort }}</mat-list-item
+        >
+        <mat-divider></mat-divider>
+      </div>
+    </mat-list>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+</ng-container>
+<ng-container *ngIf="showSingleNotification">
+  
+</ng-container>

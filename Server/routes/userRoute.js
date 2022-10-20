@@ -8,6 +8,7 @@ router.route("/").get(userController.getAllUsers);
 router.route("/:id/friends").get(userController.getSingleUserWithFriends);
 router.route("/:id/rooms").get(userController.getSingleUserWithRooms);
 router.route("/:id/calls").get(userController.getSingleUserWithCalls);
+router.route("/:id/notifications").get(userController.getSingleUserWithNotifications);
 
 router
   .route("/:id")

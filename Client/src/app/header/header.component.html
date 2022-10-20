@@ -30,7 +30,13 @@
       >
     </li>
     <li class="notification">
-      <mat-icon>notifications</mat-icon>
+      <button
+        mat-raised-button
+        [matBadge]="notificationsNumber"
+        matBadgeColor="warn"
+        style="cursor: pointer"
+      ></button>
+      <mat-icon style="cursor: pointer" (click)="onShowNotifications()">notifications</mat-icon>
     </li>
     <li>
       <button mat-button *ngIf="isAuth" (click)="onLogout()">Logout</button>

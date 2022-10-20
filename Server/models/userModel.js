@@ -70,7 +70,10 @@ const UserSchema = new mongoose.Schema(
       },
     ],
     notifications: [
-     
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Notification",
+      },
     ],
     active: {
       type: Boolean,

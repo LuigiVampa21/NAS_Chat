@@ -25,6 +25,14 @@ exports.getSingleUserWithFriends = async (req, res) => {
   });
 };
 
+exports.getSingleUserWithNotifications = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id).populate("notifications");
+  res.status(StatusCodes.OK).json({
+    user,
+  });
+};
+
 exports.getSingleUserWithRooms = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id).populate("rooms");
@@ -43,7 +51,8 @@ exports.getSingleUserWithCalls = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   const { id } = req.params;
-  const { name, email, pseudo, photo, friends, calls, rooms, notifications } = req.body;
+  const { name, email, pseudo, photo, friends, calls, rooms, notifications } =
+    req.body;
   if (!friends && !calls && !rooms && !notifications) {
     const user = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,

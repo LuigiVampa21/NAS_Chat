@@ -29,6 +29,8 @@ import { CallDetailComponent } from './calls/call-detail/call-detail.component';
 import { FriendsComponent } from './friends/friends.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AddFriendComponent } from './partials/add-friend/add-friend.component';
+import { MatBadgeModule } from '@angular/material/badge';
+import { ShowNotificationsComponent } from './partials/show-notifications/show-notifications.component';
 
 
 @NgModule({
@@ -48,6 +50,7 @@ import { AddFriendComponent } from './partials/add-friend/add-friend.component';
     CallDetailComponent,
     FriendsComponent,
     AddFriendComponent,
+    ShowNotificationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,7 @@ import { AddFriendComponent } from './partials/add-friend/add-friend.component';
     MatListModule,
     FormsModule,
     MatAutocompleteModule,
+    MatBadgeModule,
   ],
   providers: [
     {
