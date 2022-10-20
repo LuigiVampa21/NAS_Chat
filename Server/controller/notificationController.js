@@ -29,6 +29,15 @@ exports.getSingleNotification = async (req, res) => {
   });
 };
 
+exports.getSingleNotificationWithUsers = async (req, res) => {
+  const { id } = req.params;
+  // check if id exists
+  const notification = await Notification.findById(id).populate("from");
+  res.status(StatusCodes.OK).json({
+    notification,
+  });
+};
+
 exports.updateNotification = async (req, res) => {
   // check if id exists
 

@@ -12,6 +12,8 @@ export class UserService {
 
   API_URL_GET_CURENT_USER = environment.GET_SINGLE_USER_BY_ID;
 
+  API_URL_DELETE_NOTIFICATION_FROM_USER = environment.DELETE_NOTIFICATION_FROM_USER;
+
   constructor(private http:HttpClient) { }
 
   getUserByIDwithFriends(){
@@ -62,5 +64,9 @@ export class UserService {
         notifications: notificationID
       }
     )
+  }
+
+  deleteNotifcationFromUser(){
+    return this.http.patch<>
   }
 }

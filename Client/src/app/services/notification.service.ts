@@ -17,5 +17,13 @@ export class NotificationService {
     return this.http.post<Notification>(this.NOTIFICATION_URL, notification)
   }
 
+  getSingleNotificationWithUsers(notifID:string){
+    return this.http.get<Notification>(this.NOTIFICATION_URL + notifID + '/users')
+  }
+
+  deleteNotifications(notifID:string){
+    this.http.delete<Notification>(this.NOTIFICATION_URL + notifID).subscribe()
+  }
+
 
 }

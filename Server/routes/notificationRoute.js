@@ -8,6 +8,10 @@ router
   .post(notificationController.createNewNotification);
 
 router
+  .route("/:id/users")
+  .get(notificationController.getSingleNotificationWithUsers);
+
+router
   .route("/:id")
   .get(notificationController.getSingleNotification)
   .patch(notificationController.updateNotification)

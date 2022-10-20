@@ -1,0 +1,13 @@
+figure{
+  width: 150px;
+  height: 150px;
+  border: 1px solid black;
+  border-radius: 200%;
+  overflow: hidden;
+}
+
+.no-notif{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
