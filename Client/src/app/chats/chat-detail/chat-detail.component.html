@@ -41,9 +41,15 @@
     </mat-card>
   </div>
   <div class="chatInput">
-      <mat-form-field class="leaveMessage" appearance="fill">
-        <textarea [formControl]="formMessage" matInput placeholder="Write your message here"></textarea>
-        <mat-icon color="primary" (click)="onSendMessage(formMessage.value)">send</mat-icon>
-      </mat-form-field>
+    <mat-form-field class="leaveMessage" appearance="fill">
+      <textarea
+        [formControl]="formMessage"
+        matInput
+        placeholder="Write your message here"
+      ></textarea>
+      <mat-icon color="primary" (click)="onSend(formMessage.value)"
+        >send</mat-icon
+      >
+    </mat-form-field>
   </div>
 </div>

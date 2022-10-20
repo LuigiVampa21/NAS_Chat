@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, take, tap } from 'rxjs';
 import { io } from 'socket.io-client';
 import { environment } from '../../environments/environment'
 import { Message } from '../shared/models/message.model';
@@ -17,41 +17,27 @@ export class SocketService {
   socket!: any;
   currentUserID!:string;
   message!:Message;
-  message$ = new BehaviorSubject<any>(this.message)
+  message$ = new BehaviorSubject<any>(this.message);
+  // newMessageID!:string | undefined;
 
   constructor( private http: HttpClient, private userService: UserService) { }
 
   ioConnect(email:string,password:string){
     this.socket = io(this.URL);
     this.socket.emit('login', {email,password})
-    this.openApp();
   }
 
   getCurrentUserID(){
     this.currentUserID = localStorage.getItem('userID') || '';
   }
 
-  openApp(){
-    // this.socket.on("login_success", () => {
-    //   // this.loadEvents()
-    // })
-
-    // this.socket.on("wrong_credentials", () =>{
-    //   this.socket.disconnect()
-    // })
-  }
-
-  // loadEvents(){
-
-  // }
-
   onSendMessage(msg:Message):void{
     this.socket.emit('send_message', msg);
     this.socket.on('new_message', (data:Message) => {
       this.message = data;
-      console.log(data);
       this.message$.next(data)
-  })
+  }
+  )
   }
 
   onJoinRoom(room:string|undefined){
@@ -67,26 +53,22 @@ export class SocketService {
     return this.message$.asObservable()
   }
 
-  getMessage(){
-  this.socket.on('new-message', (data:Message) => {
-      this.message = data;
-      if(!this.message) return;
-      this.http.post<any>(this.API_MESSAGE, data)
-          .pipe(tap(console.log));
-      this.message$.next(this.message)
-  })
+  SendMessageToDB(data:Message){
+  return this.http.post<Message>(this.API_MESSAGE, data)
+    .pipe(
+      take(1),
+        tap((data:any)=> {
+          const { _id, room } = data.newMessage
+          this.sendMessageToRoom(_id, room)
+        }))
   }
 
-  // getMessage(): Observable<Message>{
-  //   return new Observable<Message>( observer => {
-  //     this.socket.on('new_message', (data:Message) => {
-  //       console.log(data);
-  //       observer.next(data);
-  //     });
-      // return() => {
-      //   this.socket.disconnect();
-      // }
-  //   })
-  // }
+  sendMessageToRoom(msgID:string, msgRoom:string){
+    console.log(msgID);
+    this.http.patch<Message>(this.API_ROOMS + msgRoom,{
+      "message": msgID
+      })
+        .pipe(tap(console.log)).subscribe()
+  }
 }
 

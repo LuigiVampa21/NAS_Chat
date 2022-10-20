@@ -30,6 +30,7 @@ loadEvents = socket => {
       socket.emit("new_message", {
         poster: data.poster,
         content: data.content,
+        room,
         date: Date.now(),
       });
       console.log(data);
