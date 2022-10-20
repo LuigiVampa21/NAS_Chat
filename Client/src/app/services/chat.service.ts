@@ -27,11 +27,6 @@ export class ChatService {
   }
 
   createNewRoom(room:Room){
-    this.http.post<Room>(this.API_URL_SINGLE_ROOM, room)
-    .pipe(tap((room)=> {
-      console.log(room);
-    }))
-    .subscribe()
-
-  }
+    return this.http.post<Room>(this.API_URL_SINGLE_ROOM, room)
+    }
 }

@@ -41,4 +41,12 @@ export class UserService {
   getAllusers(){
     return this.http.get<User>(this.API_URL_GET_CURENT_USER)
   }
+
+  addRoomToUser(id:string,room:string){
+    return this.http.patch<User>(this.API_URL_GET_CURENT_USER + id,
+      {
+        rooms: room
+      }
+    )
+  }
 }

@@ -23,7 +23,6 @@ export class FriendsService {
 
   sendRequest(user:User){
     this.getCurrentUser();
-    this.createRoom();
     // const notifications = {
     //   sort: "Friend Request",
     //   from: this.currentUser,
@@ -31,9 +30,9 @@ export class FriendsService {
     // }
 
 
-    //  Create Room
+    //  Create Room -DONE
+    // Push ROOM INTO CURRENT USER MODEL
     //  sendRequestToUserToAdd By creating Notification
-    // Add Room to currentUser
     // Wait for other user to Respond to accept Room
   }
 
@@ -42,6 +41,7 @@ export class FriendsService {
     .pipe(tap((data:any)=> {
           this.currentUser = data.user;
           console.log(this.currentUser);
+          this.createRoom();
     })).subscribe()
   }
 
@@ -50,5 +50,17 @@ export class FriendsService {
       users: [this.currentUser, this.userToAdd]
     };
     this.chatService.createNewRoom(room)
+          .pipe(tap((data:any)=> {
+            const { newRoom } = data;
+            this.addNewRoomToCurrentUser(newRoom)
+          }))
+          .subscribe()
+        }
+
+  addNewRoomToCurrentUser(newRoom:string){
+    if(!this.currentUser._id) return;
+    this.userService.addRoomToUser(this.currentUser._id,newRoom)
+        .pipe(tap(console.log))
+        .subscribe()
   }
 }
