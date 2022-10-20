@@ -1,4 +1,5 @@
 import { Room } from "./room.model";
+import { Notification } from "./notification.model";
 
 export class User {
     _id?:string
@@ -7,6 +8,7 @@ export class User {
     pseudo!: string;
     // status?
     photo!: string;
+    notifications?: Notification[];
     role!:string;
     password!:string;
     confirmPassword!:string;

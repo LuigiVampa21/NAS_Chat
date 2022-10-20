@@ -23,7 +23,7 @@ export class ChatDetailComponent implements OnInit {
   currentUser!:User;
   penFriend!:User;
   penFriendID!:any;
-  messages!:Message[];
+  messages!:Message[] | undefined;
   formMessage!: FormControl;
   msgObject!: Message;
 
@@ -41,7 +41,7 @@ export class ChatDetailComponent implements OnInit {
     this.formMessage = this.formBuilder.control('');
     this.socketService.getMessageObservable()
         .subscribe((data:Message) => {
-          if(!data)return
+          if(!data || !this.messages)return
           this.messages.push(data)
           console.log(this.messages);
         })

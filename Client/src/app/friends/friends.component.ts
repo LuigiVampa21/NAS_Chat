@@ -62,18 +62,18 @@ export class FriendsComponent implements OnInit {
   }
 
   getFriend(user:User){
-    console.log(user);
+    // console.log(user);
 
   }
   getUser(user:User){
     this.friendsService.setUserToAdd(user)
     this.dialog.open(AddFriendComponent)
-    console.log(user);
+    // console.log(user);
 
   }
 
   onViewfriend(friend:User){
-    console.log(friend);
+    // console.log(friend);
 
   }
 }

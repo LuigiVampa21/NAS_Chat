@@ -4,9 +4,9 @@ import { User } from "./user.model";
 export class Room
 {
   _id?:string;
-  name!:string;
+  name?:string;
   users!:User[];
-  chat!:Message[];
-  createdAt!:Date;
+  chat?:Message[];
+  createdAt?:Date;
   penFriend?:string;
 }

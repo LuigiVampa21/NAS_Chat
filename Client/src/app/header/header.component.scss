@@ -8,7 +8,10 @@ a{
   text-decoration: none;
   color: white;
 }
-
+.notification{
+  display: flex;
+  align-items: center;
+}
 .spacer{
   flex: 1 1 auto;
 }

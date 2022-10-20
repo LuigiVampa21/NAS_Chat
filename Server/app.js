@@ -4,7 +4,6 @@ require("express-async-errors");
 const express = require("express");
 const cors = require("cors");
 const app = express();
-// const socketIOserver = require("socket.io");
 const Server = require("socket.io").Server;
 const http = require("http");
 
@@ -13,6 +12,7 @@ const messageRouter = require("./routes/messageRoute");
 const roomRouter = require("./routes/roomRoute");
 const authRouter = require("./routes/authRoute");
 const callRouter = require("./routes/callRoute");
+const notificationRouter = require("./routes/notificationRoute");
 
 const notFound = require("./middleware/not-found");
 const errorHandler = require("./middleware/errorHandler");
@@ -46,11 +46,12 @@ app.use("/api/v1/chatApp/rooms", roomRouter);
 app.use("/api/v1/chatApp/auth", authRouter);
 app.use("/api/v1/chatApp/messages", messageRouter);
 app.use("/api/v1/chatApp/calls", callRouter);
+app.use("/api/v1/chatApp/notifications", notificationRouter);
 
 app.use(notFound);
 app.use(errorHandler);
 
-io.on("connection", (socket) => {
+io.on("connection", socket => {
   socketFunctions(io, socket);
 });
 

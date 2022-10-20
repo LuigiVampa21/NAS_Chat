@@ -69,6 +69,9 @@ const UserSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
+    notifications: [
+     
+    ],
     active: {
       type: Boolean,
       default: true,
