@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../shared/models/user.model';
 import { environment } from '../../environments/environment';
-import { Room } from '../shared/models/room.model';
 
 
 @Injectable({
@@ -12,7 +11,7 @@ export class UserService {
 
   API_URL_GET_CURENT_USER = environment.GET_SINGLE_USER_BY_ID;
 
-  API_URL_DELETE_NOTIFICATION_FROM_USER = environment.DELETE_NOTIFICATION_FROM_USER;
+  // API_URL_DELETE_NOTIFICATION_FROM_USER = environment.DELETE_NOTIFICATION_FROM_USER;
 
   constructor(private http:HttpClient) { }
 
@@ -67,15 +66,13 @@ export class UserService {
     )
   }
 
-  deleteNotifcationFromUser(notifID:string){
-    const userID = localStorage.getItem('userID');
-    // console.log(this.API_URL_DELETE_NOTIFICATION_FROM_USER + userID);
-    console.log(notifID);
-  this.http.patch<any>(this.API_URL_DELETE_NOTIFICATION_FROM_USER + userID, {
-    notifID
-    }).subscribe()
-    // })
-  }
+  // deleteNotifcationFromUser(notifID:string){
+  //   const userID = localStorage.getItem('userID');
+  //   console.log(notifID);
+  // this.http.patch<any>(this.API_URL_DELETE_NOTIFICATION_FROM_USER + userID, {
+  //   notifID
+  //   }).subscribe()
+  // }
 
   addFriendToUser(friendID:string){
     const userID = localStorage.getItem('userID');

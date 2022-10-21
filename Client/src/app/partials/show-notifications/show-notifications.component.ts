@@ -19,13 +19,23 @@ export class ShowNotificationsComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
-  this.notificationSubscription = this.userService.getUserByIDwithNotifications()
-        .pipe(tap((data:any)=> {
-          console.log(data.user);
-          this.notifications = data.user.notifications;
-          console.log(data.user.notifications);
-        })).subscribe()
+    this.initNotifications();
+  // this.notificationSubscription = this.userService.getUserByIDwithNotifications()
+  //       .pipe(tap((data:any)=> {
+  //         this.notifications = data.user.notifications;
+  //         console.log(data.user.notifications);
+  //       })).subscribe()
+      }
+
+      initNotifications(){
+    this.notificationSubscription = this.userService.getUserByIDwithNotifications()
+          .pipe(tap((data:any)=> {
+            this.notifications = data.user.notifications;
+            // console.log(data.user.notifications);
+          })).subscribe()
+
   }
+
 
   onViewNotification(notification:Notification){
     this.showSingleNotification = true;
@@ -40,36 +50,18 @@ export class ShowNotificationsComponent implements OnInit, OnDestroy {
     this.showSingleNotification = false;
 
     if(!this.singleNotification || !this.singleNotification._id) return;
-
-    // Get PenFRIEND ID FROM NOTIF
     const penFriend = this.singleNotification.from._id
-
-    // ADD TO FRIENDS
     this.userService.addFriendToUser(penFriend).subscribe()
-
-    // GET ROOM ID FROM NOTIF
     const roomToAdd = this.singleNotification.room
-
-    // ADD THAT ROOM ID INTO ROOMS OF CURRENTUSER
     this.userService.addRoomToUser(roomToAdd)
           .pipe(tap(()=> {
             this.onDeleteNotifications()
           })).subscribe()
-
-    // if(!this.singleNotification._id) return;
-
-    // patch rooms user to add the new room created
-    // this.userService.deleteNotifcationFromUser(this.singleNotification._id)
-
-    // Delete notif from database and from notif array of User
-    // this.notificationService.deleteNotifications(this.singleNotification._id).subscribe()
-
   }
   onDecline(){
     if(!this.singleNotification._id) return;
     this.showSingleNotification = false;
-    this.notificationService.deleteNotifications(this.singleNotification._id)
-    this.userService.deleteNotifcationFromUser(this.singleNotification._id)
+    this.onDeleteNotifications()
   }
 
   ngOnDestroy(){
@@ -77,9 +69,11 @@ export class ShowNotificationsComponent implements OnInit, OnDestroy {
   }
 
   onDeleteNotifications(){
+    // On Delete Notification We need to send notification to header to get new info from DB
     if(!this.singleNotification._id) return;
-    this.userService.deleteNotifcationFromUser(this.singleNotification._id)
+    this.notificationService.deleteNotifcationFromUser(this.singleNotification._id)
     this.notificationService.deleteNotifications(this.singleNotification._id).subscribe()
+    // this.initNotifications();
   }
 
 }

@@ -11,9 +11,7 @@ import { UserService } from './user.service';
   providedIn: 'root'
 })
 export class FriendsService {
-
-  // ADD SECURITY SO USER CAN ONLY ASK ONCE TO BE FRIENDS
-
+  
   userToAdd!:User;
   currentUser!:User;
   ROOMS_URL = environment.GET_SINGLE_ROOM_BY_ID;
@@ -69,7 +67,6 @@ export class FriendsService {
         this.notificationService.createNotification(notification)
             .pipe(tap((data:any)=> {
               const { _id } = data.newNotification;
-              console.log(_id);
               if (!this.userToAdd._id) return
               this.sendNotificationToPenFriend(_id, this.userToAdd._id)
             })).subscribe()

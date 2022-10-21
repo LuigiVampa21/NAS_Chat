@@ -3,6 +3,8 @@ import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowNotificationsComponent } from '../partials/show-notifications/show-notifications.component';
+import { NotificationService } from '../services/notification.service';
+import { User } from '../shared/models/user.model';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +16,14 @@ export class HeaderComponent implements OnInit {
   notificationsNumber!:number;
   notifications!:Notification[];
   isAuth!:boolean;
-  constructor(private authService: AuthService, private userService: UserService, public dialog: MatDialog) { }
+  user!:User;
+
+  constructor(
+              private authService: AuthService,
+              // private userService: UserService,
+              private notificationService: NotificationService,
+              public dialog: MatDialog
+              ) { }
 
   ngOnInit(): void {
     this.isAuth = this.authService.getisAuth()
@@ -22,14 +31,18 @@ export class HeaderComponent implements OnInit {
       .subscribe(auth => {
         this.isAuth = auth
       })
-    this.userService.getUserFromLocalStorage()
-        .subscribe((data:any) => {
-          console.log(data.user);
-          this.notifications = data.user.notifications;
-          console.log(this.notifications);
-          this.notificationsNumber = data.user.notifications.length;
-          console.log(this.notifications.length);
-        })
+      this.notificationService.getUser()
+      .subscribe((data:any)=> {
+        this.user = data;
+      })
+
+      this.notificationService.getUserNotifications()
+      .subscribe((data:any)=> {
+        this.notifications = data;
+        this.notificationsNumber = data.length;
+        console.log(data.length);
+
+      })
   }
 
   onShowNotifications(){

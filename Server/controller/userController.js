@@ -66,30 +66,34 @@ exports.updateUser = async (req, res) => {
     const user = await User.findById(id);
     if (rooms) {
       const alreadyPatched = patched(user.rooms);
-      if (alreadyPatched)
+      if (alreadyPatched) {
         throw new CustomError.BadRequestError("You are already chatting");
+      }
       user.rooms.push(rooms);
     }
     if (friends) {
       const alreadyPatched = patched(user.friends);
-      if (alreadyPatched)
+      if (alreadyPatched) {
         throw new CustomError.BadRequestError("You are already friends");
+      }
       user.friends.push(friends);
     }
     if (calls) {
       const alreadyPatched = patched(user.calls);
-      if (alreadyPatched)
+      if (alreadyPatched) {
         throw new CustomError.BadRequestError(
           "You have already made this call"
         );
+      }
       user.calls.push(calls);
     }
     if (notifications) {
       const alreadyPatched = patched(user.notifications);
-      if (alreadyPatched)
+      if (alreadyPatched) {
         throw new CustomError.BadRequestError(
           "You have already received this information"
         );
+      }
       user.notifications.push(notifications);
     }
     await user.save();
@@ -111,20 +115,17 @@ exports.deleteSingleNotification = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id);
   const { notifID } = req.body;
-  console.log(notifID);
   const notifArray = [];
   user.notifications.forEach(n => {
     notifArray.push(n.toString().split('"').join());
   });
-  console.log(notifArray);
   const notifIndex = notifArray.findIndex(n => n == notifID);
   const newNotifArray = [...user.notifications];
   newNotifArray.splice(notifIndex, 1);
-  console.log(newNotifArray);
   user.notifications = newNotifArray;
   await user.save();
-  res.status(204).json({
-    user,
+  res.status(StatusCodes.OK).json({
+    newNotifArray,
   });
 };
 

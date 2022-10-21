@@ -16,7 +16,7 @@ export class LoadingInterceptor implements HttpInterceptor {
 
   constructor(private loadingSpinnerService: LoadingSpinnerService) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> | any {
 
     this.loadingSpinnerService.showLoading();
     this.pendingRequests++;

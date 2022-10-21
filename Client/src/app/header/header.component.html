@@ -29,7 +29,7 @@
         >Register</a
       >
     </li>
-    <li class="notification">
+    <li class="notification" *ngIf="isAuth">
       <button
         mat-raised-button
         [matBadge]="notificationsNumber"
