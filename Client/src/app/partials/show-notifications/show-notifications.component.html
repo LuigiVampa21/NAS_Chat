@@ -1,3 +1,4 @@
+<div *ngIf="notifications">
 <ng-container *ngIf="!showSingleNotification && notifications.length > 0">
   <h1 mat-dialog-title>All notifications</h1>
   <div mat-dialog-content>
@@ -43,3 +44,4 @@
   <h1>No notification !</h1>
   <button mat-button mat-dialog-close>Close</button>
 </ng-container>
+</div>

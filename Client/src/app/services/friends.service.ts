@@ -12,6 +12,8 @@ import { UserService } from './user.service';
 })
 export class FriendsService {
 
+  // ADD SECURITY SO USER CAN ONLY ASK ONCE TO BE FRIENDS
+
   userToAdd!:User;
   currentUser!:User;
   ROOMS_URL = environment.GET_SINGLE_ROOM_BY_ID;
@@ -24,17 +26,6 @@ export class FriendsService {
 
   sendRequest(user:User){
     this.getCurrentUser();
-    // const notifications = {
-    //   sort: "Friend Request",
-    //   from: this.currentUser,
-    //   room:
-    // }
-
-
-    //  Create Room -DONE
-    // Push ROOM INTO CURRENT USER MODEL - DONE
-    //  sendRequestToUserToAdd By creating Notification
-    // Wait for other user to Respond to accept Room
   }
 
   getCurrentUser(){
@@ -60,7 +51,8 @@ export class FriendsService {
 
   addNewRoomToCurrentUser(newRoom:Room){
     if(!this.currentUser._id || !newRoom._id) return;
-    this.userService.addRoomToUser(this.currentUser._id, newRoom._id)
+    // this.userService.addRoomToUser(this.currentUser._id, newRoom._id)
+    this.userService.addRoomToUser(newRoom._id)
         .pipe(tap(()=> {
           if (!newRoom._id) return
           this.createNotification(newRoom._id)
@@ -88,5 +80,11 @@ export class FriendsService {
   sendNotificationToPenFriend(notificationID:string, userID:string){
     if(!this.userToAdd._id)return;
     this.userService.sendNotification(notificationID, userID).subscribe()
+    this.addAsFriend()
+  }
+
+  addAsFriend(){
+    if(!this.userToAdd._id)return;
+    this.userService.addFriendToUser(this.userToAdd._id).subscribe()
   }
 }

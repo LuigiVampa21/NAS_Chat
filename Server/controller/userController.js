@@ -53,6 +53,7 @@ exports.updateUser = async (req, res) => {
   const { id } = req.params;
   const { name, email, pseudo, photo, friends, calls, rooms, notifications } =
     req.body;
+  console.log(req.body);
   if (!friends && !calls && !rooms && !notifications) {
     const user = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -78,7 +79,7 @@ exports.updateUser = async (req, res) => {
     }
     if (notifications) {
       user.notifications.push(notifications);
-      console.log(user.notifications);
+      // console.log(user.notifications);
     }
     await user.save();
     res.status(StatusCodes.OK).json({
@@ -95,12 +96,18 @@ exports.deleteUser = async (req, res) => {
   });
 };
 
-exports.deleteSingleNotification = async (req,res) => {
+exports.deleteSingleNotification = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id);
   const { notifID } = req.body;
-  await user.notifications.findByIdAndDelete(notifID);
+  const notifArray = [];
+  user.notifications.forEach(n => {
+    notifArray.push(n.toString().split('"').join());
+  });
+  const notifIndex = notifArray.findIndex(n => n == notifID);
+  user.notifications.splice(notifIndex, 1);
+  await user.save();
   res.status(204).json({
-    msg: user
-  })
-}
+    user,
+  });
+};

@@ -13,7 +13,7 @@ export class ShowNotificationsComponent implements OnInit, OnDestroy {
 
   showSingleNotification = false;
   singleNotification!:Notification;
-  notifications!:Notification[];
+  notifications!:Notification[]
   notificationSubscription!:Subscription;
 
   constructor(private userService: UserService, private notificationService: NotificationService) { }
@@ -23,6 +23,7 @@ export class ShowNotificationsComponent implements OnInit, OnDestroy {
         .pipe(tap((data:any)=> {
           console.log(data.user);
           this.notifications = data.user.notifications;
+          console.log(data.user.notifications);
         })).subscribe()
   }
 
@@ -31,20 +32,41 @@ export class ShowNotificationsComponent implements OnInit, OnDestroy {
     if(!notification._id) return;
     this.notificationService.getSingleNotificationWithUsers(notification._id)
         .pipe(tap((data:any)=> {
-          console.log(data.notification.from);
           this.singleNotification = data.notification;
         })).subscribe()
-
   }
 
   onAccept(){
     this.showSingleNotification = false;
-    // Delete notif from database and from notif array of User
+
+    if(!this.singleNotification || !this.singleNotification._id) return;
+
+    // Get PenFRIEND ID FROM NOTIF
+    const penFriend = this.singleNotification.from._id
+
+    // ADD TO FRIENDS
+    this.userService.addFriendToUser(penFriend).subscribe()
+
+    // GET ROOM ID FROM NOTIF
+    const roomToAdd = this.singleNotification.room
+
+    // ADD THAT ROOM ID INTO ROOMS OF CURRENTUSER
+    this.userService.addRoomToUser(roomToAdd).subscribe()
+
+    // if(!this.singleNotification._id) return;
+
     // patch rooms user to add the new room created
+    this.userService.deleteNotifcationFromUser(this.singleNotification._id)
+
+    // Delete notif from database and from notif array of User
+    this.notificationService.deleteNotifications(this.singleNotification._id)
+
   }
   onDecline(){
+    if(!this.singleNotification._id) return;
     this.showSingleNotification = false;
-    // Delete notif from database and from notif array of User
+    this.notificationService.deleteNotifications(this.singleNotification._id)
+    this.userService.deleteNotifcationFromUser(this.singleNotification._id)
   }
 
   ngOnDestroy(){

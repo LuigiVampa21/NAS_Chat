@@ -24,12 +24,22 @@ export class HeaderComponent implements OnInit {
       .subscribe(auth => {
         this.isAuth = auth
       })
-    this.userService.getUserByIDwithNotifications()
-        .pipe(tap( (data:any) => {
-          console.log(data.user.notifications);
+    this.userService.getUserFromLocalStorage()
+        .subscribe((data:any) => {
+          console.log(data.user);
           this.notifications = data.user.notifications;
+          console.log(this.notifications);
           this.notificationsNumber = data.user.notifications.length;
-        })).subscribe()
+          console.log(this.notifications.length);
+        })
+    // this.userService.getUserFromLocalStorage()
+    //     .pipe(tap( (data:any) => {
+    //       console.log(data.user);
+    //       this.notifications = data.user.notifications;
+    //       console.log(this.notifications);
+    //       this.notificationsNumber = data.user.notifications.length;
+    //       console.log(this.notifications.length);
+    //     })).subscribe()
   }
 
   onShowNotifications(){
