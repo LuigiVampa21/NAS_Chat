@@ -14,7 +14,7 @@ export const environment = {
   GET_SINGLE_CALL_BY_ID: 'http://localhost:3001/api/v1/chatApp/calls/',
   NOTIFICATION_URL: 'http://localhost:3001/api/v1/chatApp/notifications/',
 
-  DELETE_NOTIFICATION_FROM_USER : 'http://localhost:3001/api/v1/chatApp/users/delete/notification/'
+  DELETE_NOTIFICATION_FROM_USER : 'http://localhost:3001/api/v1/chatApp/users/delete/notification/',
 
 
 

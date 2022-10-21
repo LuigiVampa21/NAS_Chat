@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { tap } from 'rxjs';
 import { FriendsService } from 'src/app/services/friends.service';
+import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user.model';
 
 @Component({
@@ -9,14 +11,20 @@ import { User } from 'src/app/shared/models/user.model';
 })
 export class AddFriendComponent implements OnInit {
 
+  alreadyFriends!:boolean;
   user!:User;
+  currentUser!:User;
 
-  @Input() Username!:string;
-
-  constructor(private friendsService:FriendsService) { }
+  constructor(private friendsService:FriendsService, private userService:UserService) { }
 
   ngOnInit(): void {
     this.user = this.friendsService.userToAdd;
+    this.userService.getUserByIDwithFriends()
+    .pipe(tap((data:any)=> {
+      this.alreadyFriends = data.user.friends.some((friend:User) => friend._id === this.user._id)
+    }))
+    .subscribe()
+
   }
 
   onSendRequest(){

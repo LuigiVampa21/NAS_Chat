@@ -1,5 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const User = require("../models/userModel");
+const CustomError = require("../errors/index");
 
 exports.getAllUsers = async (req, res) => {
   const allUsers = await User.find();
@@ -53,7 +54,6 @@ exports.updateUser = async (req, res) => {
   const { id } = req.params;
   const { name, email, pseudo, photo, friends, calls, rooms, notifications } =
     req.body;
-  console.log(req.body);
   if (!friends && !calls && !rooms && !notifications) {
     const user = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -64,22 +64,33 @@ exports.updateUser = async (req, res) => {
     });
   } else {
     const user = await User.findById(id);
-    // console.log(user);
     if (rooms) {
+      const alreadyPatched = patched(user.rooms);
+      if (alreadyPatched)
+        throw new CustomError.BadRequestError("You are already chatting");
       user.rooms.push(rooms);
-      // console.log(user.rooms);
     }
     if (friends) {
+      const alreadyPatched = patched(user.friends);
+      if (alreadyPatched)
+        throw new CustomError.BadRequestError("You are already friends");
       user.friends.push(friends);
-      // console.log(user.friends);
     }
     if (calls) {
+      const alreadyPatched = patched(user.calls);
+      if (alreadyPatched)
+        throw new CustomError.BadRequestError(
+          "You have already made this call"
+        );
       user.calls.push(calls);
-      // console.log(user.calls);
     }
     if (notifications) {
+      const alreadyPatched = patched(user.notifications);
+      if (alreadyPatched)
+        throw new CustomError.BadRequestError(
+          "You have already received this information"
+        );
       user.notifications.push(notifications);
-      // console.log(user.notifications);
     }
     await user.save();
     res.status(StatusCodes.OK).json({
@@ -100,14 +111,23 @@ exports.deleteSingleNotification = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id);
   const { notifID } = req.body;
+  console.log(notifID);
   const notifArray = [];
   user.notifications.forEach(n => {
     notifArray.push(n.toString().split('"').join());
   });
+  console.log(notifArray);
   const notifIndex = notifArray.findIndex(n => n == notifID);
-  user.notifications.splice(notifIndex, 1);
+  const newNotifArray = [...user.notifications];
+  newNotifArray.splice(notifIndex, 1);
+  console.log(newNotifArray);
+  user.notifications = newNotifArray;
   await user.save();
   res.status(204).json({
     user,
   });
+};
+
+const patched = field => {
+  field.some(f => f._id === field);
 };

@@ -51,15 +51,18 @@ export class ShowNotificationsComponent implements OnInit, OnDestroy {
     const roomToAdd = this.singleNotification.room
 
     // ADD THAT ROOM ID INTO ROOMS OF CURRENTUSER
-    this.userService.addRoomToUser(roomToAdd).subscribe()
+    this.userService.addRoomToUser(roomToAdd)
+          .pipe(tap(()=> {
+            this.onDeleteNotifications()
+          })).subscribe()
 
     // if(!this.singleNotification._id) return;
 
     // patch rooms user to add the new room created
-    this.userService.deleteNotifcationFromUser(this.singleNotification._id)
+    // this.userService.deleteNotifcationFromUser(this.singleNotification._id)
 
     // Delete notif from database and from notif array of User
-    this.notificationService.deleteNotifications(this.singleNotification._id)
+    // this.notificationService.deleteNotifications(this.singleNotification._id).subscribe()
 
   }
   onDecline(){
@@ -71,6 +74,12 @@ export class ShowNotificationsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.notificationSubscription.unsubscribe()
+  }
+
+  onDeleteNotifications(){
+    if(!this.singleNotification._id) return;
+    this.userService.deleteNotifcationFromUser(this.singleNotification._id)
+    this.notificationService.deleteNotifications(this.singleNotification._id).subscribe()
   }
 
 }

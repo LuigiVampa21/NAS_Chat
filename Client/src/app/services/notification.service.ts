@@ -22,7 +22,8 @@ export class NotificationService {
   }
 
   deleteNotifications(notifID:string){
-    this.http.delete<Notification>(this.NOTIFICATION_URL + notifID).subscribe()
+    // this.http.delete<Notification>(this.NOTIFICATION_URL + notifID).subscribe()
+    return this.http.delete<Notification>(this.NOTIFICATION_URL + notifID)
   }
 
 

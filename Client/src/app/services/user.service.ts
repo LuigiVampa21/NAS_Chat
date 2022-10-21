@@ -50,7 +50,6 @@ export class UserService {
     return this.http.get<User>(this.API_URL_GET_CURENT_USER)
   }
 
-  // addRoomToUser(id:string,room:string){
   addRoomToUser(room:string){
     const userID = localStorage.getItem('userID');
     return this.http.patch<User>(this.API_URL_GET_CURENT_USER + userID,
@@ -70,9 +69,12 @@ export class UserService {
 
   deleteNotifcationFromUser(notifID:string){
     const userID = localStorage.getItem('userID');
-    return this.http.patch<User>(this.API_URL_DELETE_NOTIFICATION_FROM_USER + userID, {
-      notifID
+    // console.log(this.API_URL_DELETE_NOTIFICATION_FROM_USER + userID);
+    console.log(notifID);
+  this.http.patch<any>(this.API_URL_DELETE_NOTIFICATION_FROM_USER + userID, {
+    notifID
     }).subscribe()
+    // })
   }
 
   addFriendToUser(friendID:string){

@@ -51,7 +51,6 @@ export class FriendsService {
 
   addNewRoomToCurrentUser(newRoom:Room){
     if(!this.currentUser._id || !newRoom._id) return;
-    // this.userService.addRoomToUser(this.currentUser._id, newRoom._id)
     this.userService.addRoomToUser(newRoom._id)
         .pipe(tap(()=> {
           if (!newRoom._id) return
