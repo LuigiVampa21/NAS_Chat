@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { map, Observable, startWith } from 'rxjs';
+import { map, Observable, startWith, Subscription } from 'rxjs';
 import { AddFriendComponent } from '../partials/add-friend/add-friend.component';
 import { FriendsService } from '../services/friends.service';
 import { UserService } from '../services/user.service';
@@ -12,16 +12,18 @@ import { User } from '../shared/models/user.model';
   templateUrl: './friends.component.html',
   styleUrls: ['./friends.component.scss']
 })
-export class FriendsComponent implements OnInit {
+export class FriendsComponent implements OnInit, OnDestroy {
 
   friends!:User[];
   users!:User[];
-  searchFriendInput!: FormControl;
-  searchUserInput!: FormControl;
-  filteredOptions!: Observable<User[]>;
-  filteredUsers!: Observable<User[]>
-  friendSelected!: User;
-  userSelected!: User;
+  searchFriendInput!:FormControl;
+  searchUserInput!:FormControl;
+  filteredOptions!:Observable<User[]>;
+  filteredUsers!:Observable<User[]>
+  friendSelected!:User;
+  userSelected!:User;
+  friendsSub!:Subscription;
+  allUsersSub!:Subscription;
 
   constructor(
               private userService: UserService,
@@ -33,11 +35,11 @@ export class FriendsComponent implements OnInit {
   ngOnInit(): void {
     this.searchFriendInput = this.formBuilder.control('');
     this.searchUserInput = this.formBuilder.control('');
-    this.userService.getUserByIDwithFriends()
+  this.friendsSub = this.userService.getUserByIDwithFriends()
       .subscribe((data:any) => {
         this.friends = data.user.friends;
       })
-      this.userService.getAllusers()
+  this.allUsersSub = this.userService.getAllusers()
       .subscribe((data:any)=> {
         this.users = data.allUsers
       })
@@ -79,6 +81,10 @@ export class FriendsComponent implements OnInit {
 
   // onViewfriend(friend:User){
   //   // console.log(friend);
-
   // }
+
+  ngOnDestroy(): void {
+    this.friendsSub.unsubscribe();
+    this.allUsersSub.unsubscribe();
+  }
 }

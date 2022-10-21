@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { tap } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
 import { CallService } from 'src/app/services/call.service';
 import { UserService } from 'src/app/services/user.service';
 import { Call } from 'src/app/shared/models/call.model';
@@ -11,13 +11,18 @@ import { User } from 'src/app/shared/models/user.model';
   templateUrl: './call-detail.component.html',
   styleUrls: ['./call-detail.component.scss']
 })
-export class CallDetailComponent implements OnInit {
+export class CallDetailComponent implements OnInit, OnDestroy {
 
   penFriend!:User;
   penFriendName!:any;
   callID!:string;
   currentUser!:User;
   call!:Call;
+  paramSub!: Subscription;
+  currentUserSub!:Subscription;
+  callSub!:Subscription;
+  penFriendSub!:Subscription;
+  RoomSub!:Subscription;
 
   constructor(private route:ActivatedRoute, private userService: UserService, private router:Router, private callService : CallService) { }
 
@@ -26,7 +31,7 @@ export class CallDetailComponent implements OnInit {
   }
 
   initCall(){
-    this.route.params
+  this.paramSub = this.route.params
     .subscribe((params: Params)=>{
       if(!params['id']) return;
       this.callID = params['id']
@@ -35,7 +40,7 @@ export class CallDetailComponent implements OnInit {
   }
 
   initUser(){
-    this.userService.getUserFromLocalStorage()
+  this.currentUserSub = this.userService.getUserFromLocalStorage()
     .subscribe((user:any) => {
       this.currentUser = user.user;
       this.getCall()
@@ -43,7 +48,7 @@ export class CallDetailComponent implements OnInit {
   }
 
   getCall(){
-    this.callService.getSingleCall(this.callID)
+  this.callSub = this.callService.getSingleCall(this.callID)
     .subscribe((call:any)=>{
       this.call = call.call
       this.getPenFriend()
@@ -53,7 +58,7 @@ export class CallDetailComponent implements OnInit {
   getPenFriend(){
     this.penFriendName = this.call.users.find((user:any) => user.name != this.currentUser.name);
 
-    this.userService.getUserByID(this.penFriendName._id)
+  this.penFriendSub = this.userService.getUserByID(this.penFriendName._id)
         .subscribe((data:any) => {
           this.penFriend = data.user;
         })
@@ -61,29 +66,25 @@ export class CallDetailComponent implements OnInit {
   }
 
   onSendMessage(){
-    this.userService.getUserByIDwithRooms()
+  this.RoomSub = this.userService.getUserByIDwithRooms()
     .pipe(tap((data:any) => {
       const currentUserRooms = data.user.rooms;
-      console.log(this.penFriend._id);
       currentUserRooms.forEach((r:any)=> {
-        console.log(r.users);
         if(r.users.includes(this.penFriend._id)){
           this.router.navigateByUrl(`/chats/chat-detail/${r._id}`)
-          console.log(r);
         }
       })
     }
     )).subscribe()
-        // .subscribe( (data:any) => {
-        //   })
-
-        // })
-    // console.log();
-    // check if discussion exists with current userID and PenFriend ID
-    // NAVIGATE TO
   }
 
   onExit(){
     this.router.navigateByUrl('/calls')
+  }
+
+  ngOnDestroy(){
+    this.currentUserSub.unsubscribe();
+    this.callSub.unsubscribe();
+    this.penFriendSub.unsubscribe();
   }
 }

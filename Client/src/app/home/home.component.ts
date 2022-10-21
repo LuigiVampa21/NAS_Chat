@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, Subscription, tap } from 'rxjs';
 // import { AuthResolver } from '../resolver/auth.resolver';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
@@ -12,42 +12,26 @@ import { User } from '../shared/models/user.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-  // user$!:Observable<User> | any;
+export class HomeComponent implements OnInit, OnDestroy {
   user!:User;
-  step = 0;
   photo!:string
-  template_photo!:string;
   status = '';
+  friends!: User[];
+  userSub!:Subscription;
 
   constructor(private authService: AuthService, private route: ActivatedRoute, private userService: UserService) { }
 
-  tiles!: any[]
-  friends!: User[];
 
   ngOnInit(): any{
-    // this.user = this.authService.getUser();
-    // // console.log(this.user);
     this.initCard()
-
-  //  this.route.data.pipe(
-  //     map(data => {
-  //       this.user = data['user']['user'];
-  //       console.log(data['user']['user']);
-
-  //     }
-  //     )
-  //   )
-  // ADD friend to array
   }
 
   initCard(){
-    this.userService.getUserByIDwithFriends()
+  this.userSub = this.userService.getUserByIDwithFriends()
         .subscribe( (data:any) => {
           this.user = data.user
           this.photo = `../../assets/images/${this.user.photo}`
           this.friends = data.user.friends
-          // console.log(this.friends);
           this.initFriendsPhoto()
         })
   }
@@ -58,8 +42,10 @@ export class HomeComponent implements OnInit {
       .forEach(f => {
         f.photo = `../../assets/images/${f.photo}`
       })
-      // console.log(this.friends);
+  }
 
+  ngOnDestroy(): void {
+    this.userSub.unsubscribe()
   }
 
 }

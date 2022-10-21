@@ -1,46 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowNotificationsComponent } from '../partials/show-notifications/show-notifications.component';
 import { NotificationService } from '../services/notification.service';
 import { User } from '../shared/models/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit,OnDestroy {
 
   notificationsNumber!:number;
   notifications!:Notification[];
   isAuth!:boolean;
   user!:User;
+  AuthSub!:Subscription;
+  userSub!:Subscription;
+  notificationSub!:Subscription;
 
   constructor(
               private authService: AuthService,
-              // private userService: UserService,
               private notificationService: NotificationService,
               public dialog: MatDialog
               ) { }
 
   ngOnInit(): void {
     this.isAuth = this.authService.getisAuth()
-    this.authService.getisAuth$()
+  this.AuthSub = this.authService.getisAuth$()
       .subscribe(auth => {
         this.isAuth = auth
       })
-      this.notificationService.getUser()
+  this.userSub = this.notificationService.getUser()
       .subscribe((data:any)=> {
         this.user = data;
       })
 
-      this.notificationService.getUserNotifications()
+  this.notificationSub = this.notificationService.getUserNotifications()
       .subscribe((data:any)=> {
         this.notifications = data;
         this.notificationsNumber = data.length;
-        console.log(data.length);
       })
   }
 
@@ -50,6 +52,11 @@ export class HeaderComponent implements OnInit {
 
   onLogout(){
     this.authService.logout()
+  }
+  ngOnDestroy(): void {
+    this.AuthSub.unsubscribe();
+    this.userSub.unsubscribe();
+    this.notificationSub.unsubscribe();
   }
 
 }

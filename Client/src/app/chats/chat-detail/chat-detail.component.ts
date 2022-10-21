@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -15,17 +15,22 @@ import { User } from 'src/app/shared/models/user.model';
   templateUrl: './chat-detail.component.html',
   styleUrls: ['./chat-detail.component.scss']
 })
-export class ChatDetailComponent implements OnInit {
+export class ChatDetailComponent implements OnInit, OnDestroy {
 
   room!:Room;
   roomID!:string;
-  roomSubscription!:Subscription
   currentUser!:User;
   penFriend!:User;
   penFriendID!:any;
   messages!:Message[] | undefined;
   formMessage!: FormControl;
   msgObject!: Message;
+  socketSub!:Subscription;
+  currentUserSub!:Subscription;
+  chatSub!: Subscription;
+  penFriendSub!:Subscription;
+  sendDBSub!:Subscription;
+
 
   constructor(
               private chatService: ChatService,
@@ -39,11 +44,10 @@ export class ChatDetailComponent implements OnInit {
   ngOnInit(): void {
     this.initRoom()
     this.formMessage = this.formBuilder.control('');
-    this.socketService.getMessageObservable()
+    this.socketSub = this.socketService.getMessageObservable()
         .subscribe((data:Message) => {
           if(!data || !this.messages)return
           this.messages.push(data)
-          console.log(this.messages);
         })
   }
 
@@ -58,7 +62,7 @@ export class ChatDetailComponent implements OnInit {
   }
 
   initUser(){
-    this.userService.getUserFromLocalStorage()
+  this.currentUserSub = this.userService.getUserFromLocalStorage()
     .subscribe((user:any) => {
       this.currentUser = user.user;
       this.getRoom()
@@ -66,7 +70,7 @@ export class ChatDetailComponent implements OnInit {
   }
 
   getRoom(){
-    this.chatService.getSingleRoom(this.roomID)
+  this.chatSub = this.chatService.getSingleRoom(this.roomID)
     .subscribe((room:any)=>{
       this.room = room.room
       this.getPenFriend()
@@ -75,7 +79,7 @@ export class ChatDetailComponent implements OnInit {
 
     getPenFriend(){
       this.penFriendID = this.room.users.find((userID:any) => userID !== this.currentUser._id);
-      this.userService.getUserByID(this.penFriendID)
+    this.penFriendSub = this.userService.getUserByID(this.penFriendID)
           .subscribe((data:any) => {
             this.penFriend = data.user;
             this.initMsg()
@@ -83,21 +87,31 @@ export class ChatDetailComponent implements OnInit {
 
     }
 
+    initMsg(){
+      this.messages = this.room.chat;
+    }
+
     onSend(msg:string){
       if(!msg || !this.roomID || !this.currentUser._id)return ;
       this.msgObject = {content: msg, room: this.roomID, poster:this.currentUser._id};
       this.socketService.onSendMessage(this.msgObject);
-      this.socketService.SendMessageToDB(this.msgObject)
+      this.sendDBSub = this.socketService.SendMessageToDB(this.msgObject)
           .subscribe();
       this.formMessage.reset();
     }
 
-    initMsg(){
-      this.messages = this.room.chat;
-    }
 
     onExit(){
       this.socketService.onLeaveRoom(this.roomID);
       this.router.navigateByUrl('/chats')
     }
+
+    ngOnDestroy(): void {
+      this.socketSub.unsubscribe();
+      this.currentUserSub.unsubscribe();
+      this.chatSub.unsubscribe();
+      this.penFriendSub.unsubscribe();
+      // this.sendDBSub.unsubscribe();
+    }
+
 }

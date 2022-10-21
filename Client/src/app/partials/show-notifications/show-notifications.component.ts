@@ -15,35 +15,31 @@ export class ShowNotificationsComponent implements OnInit, OnDestroy {
   singleNotification!:Notification;
   notifications!:Notification[]
   notificationSubscription!:Subscription;
+  unsubArray:Subscription[] = [];
 
   constructor(private userService: UserService, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.initNotifications();
-  // this.notificationSubscription = this.userService.getUserByIDwithNotifications()
-  //       .pipe(tap((data:any)=> {
-  //         this.notifications = data.user.notifications;
-  //         console.log(data.user.notifications);
-  //       })).subscribe()
       }
 
       initNotifications(){
-    this.notificationSubscription = this.userService.getUserByIDwithNotifications()
+   this.unsubArray.push(this.userService.getUserByIDwithNotifications()
           .pipe(tap((data:any)=> {
             this.notifications = data.user.notifications;
-            // console.log(data.user.notifications);
           })).subscribe()
-
+   )
   }
 
 
   onViewNotification(notification:Notification){
     this.showSingleNotification = true;
     if(!notification._id) return;
-    this.notificationService.getSingleNotificationWithUsers(notification._id)
+    this.unsubArray.push(this.notificationService.getSingleNotificationWithUsers(notification._id)
         .pipe(tap((data:any)=> {
           this.singleNotification = data.notification;
         })).subscribe()
+    )
   }
 
   onAccept(){
@@ -51,12 +47,13 @@ export class ShowNotificationsComponent implements OnInit, OnDestroy {
 
     if(!this.singleNotification || !this.singleNotification._id) return;
     const penFriend = this.singleNotification.from._id
-    this.userService.addFriendToUser(penFriend).subscribe()
+    this.unsubArray.push(this.userService.addFriendToUser(penFriend).subscribe())
     const roomToAdd = this.singleNotification.room
-    this.userService.addRoomToUser(roomToAdd)
+    this.unsubArray.push(this.userService.addRoomToUser(roomToAdd)
           .pipe(tap(()=> {
             this.onDeleteNotifications()
           })).subscribe()
+    )
   }
   onDecline(){
     if(!this.singleNotification._id) return;
@@ -64,16 +61,13 @@ export class ShowNotificationsComponent implements OnInit, OnDestroy {
     this.onDeleteNotifications()
   }
 
-  ngOnDestroy(){
-    this.notificationSubscription.unsubscribe()
-  }
-
   onDeleteNotifications(){
-    // On Delete Notification We need to send notification to header to get new info from DB
     if(!this.singleNotification._id) return;
     this.notificationService.deleteNotifcationFromUser(this.singleNotification._id)
-    this.notificationService.deleteNotifications(this.singleNotification._id).subscribe()
-    // this.initNotifications();
+    this.unsubArray.push(this.notificationService.deleteNotifications(this.singleNotification._id).subscribe())
   }
 
+  ngOnDestroy(){
+    this.unsubArray.forEach(u => u.unsubscribe())
+  }
 }

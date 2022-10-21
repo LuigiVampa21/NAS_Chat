@@ -27,8 +27,6 @@ export class NotificationService {
     const userID = localStorage.getItem('userID');
     this.userService.getUserByIDwithNotifications()
         .subscribe((data:any) => {
-          // this.user = data.user;
-          // this.notifications = data.user.notifications;
           this.userSub$.next(data.user)
           this.notificationsSub$.next(data.user.notifications)
         })

@@ -22,18 +22,12 @@ loadEvents = socket => {
     socket.join(room);
     console.log("user joined the room" + room);
     socket.on("send_message", data => {
-      // io.to(room).emit("new_message", {
-      //   poster: data.poster,
-      //   content: data.content,
-      //   date: Date.now(),
-      // });
       socket.emit("new_message", {
         poster: data.poster,
         content: data.content,
         room,
         date: Date.now(),
       });
-      console.log(data);
     });
   });
 
@@ -41,8 +35,12 @@ loadEvents = socket => {
     console.log("user left the room" + room);
   });
 
+  socket.on("connect_error", err => {
+    console.log(`connect_error due to ${err.message}`);
+  });
+
   socket.on("disconnect", () => {
-    console.log("disconnected");
+    console.log("Disconnected");
   });
 };
 module.exports = socketFunctions;

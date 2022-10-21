@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { User } from '../shared/models/user.model';
 
@@ -7,10 +8,11 @@ import { User } from '../shared/models/user.model';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
 
   user!:User;
   step = 0;
+  authSub!:Subscription;
 
   constructor(private authService: AuthService) { }
 
@@ -28,10 +30,14 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getUser$()
+   this.authSub = this.authService.getUser$()
     .subscribe(user => {
       this.user = user;
         })
+  }
+
+  ngOnDestroy(): void {
+    this.authSub.unsubscribe();
   }
 
 }

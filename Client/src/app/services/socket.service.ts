@@ -23,6 +23,10 @@ export class SocketService {
   ioConnect(email:string,password:string){
     this.socket = io(this.URL);
     this.socket.emit('login', {email,password})
+    this.socket.on('new_message', (data:Message) => {
+    this.message$.next(data)
+     }
+    )
   }
 
   getCurrentUserID(){
@@ -31,10 +35,6 @@ export class SocketService {
 
   onSendMessage(msg:Message):void{
     this.socket.emit('send_message', msg);
-    this.socket.on('new_message', (data:Message) => {
-      this.message$.next(data)
-  }
-  )
   }
 
   onJoinRoom(room:string|undefined){
@@ -53,7 +53,6 @@ export class SocketService {
   SendMessageToDB(data:Message){
   return this.http.post<Message>(this.API_MESSAGE, data)
     .pipe(
-      take(1),
         tap((data:any)=> {
           const { _id, room } = data.newMessage
           this.sendMessageToRoom(_id, room)
@@ -61,11 +60,10 @@ export class SocketService {
   }
 
   sendMessageToRoom(msgID:string, msgRoom:string){
-    console.log(msgID);
-    this.http.patch<Message>(this.API_ROOMS + msgRoom,{
+  return this.http.patch<Message>(this.API_ROOMS + msgRoom,{
       "message": msgID
       })
-        .pipe(tap(console.log)).subscribe()
+      .subscribe()
   }
 
   socketOut(){
