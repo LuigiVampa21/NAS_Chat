@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpEventType
 } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { delay, Observable, tap } from 'rxjs';
 import { LoadingSpinnerService } from 'src/app/services/loading-spinner.service';
 
 @Injectable()

@@ -8,7 +8,7 @@ import { LoadingSpinnerService } from '../services/loading-spinner.service';
 })
 export class LoadingSpinnerComponent implements OnInit {
 
-  isLoading!:boolean;
+  isLoading:boolean = false;
 
   constructor(private loadingSpinnerService: LoadingSpinnerService) { }
 
@@ -16,6 +16,8 @@ export class LoadingSpinnerComponent implements OnInit {
     this.loadingSpinnerService.isLoading
         .subscribe(loader => {
           this.isLoading = loader
+          console.log(loader);
+
         })
   }
 

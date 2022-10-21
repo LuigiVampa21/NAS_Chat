@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { any } from 'joi';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserLogin } from '../../shared/interfaces/user.login.interface';
 
@@ -10,8 +10,9 @@ import { UserLogin } from '../../shared/interfaces/user.login.interface';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
+  loginSubscription!: Subscription;
   loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl(''),
@@ -23,21 +24,31 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // getErrorMessage() {
-  //   if (this.loginForm.controls['email'].hasError('required')) {
-  //     return 'You must enter a value';
-  //   }
+  getErrorMessage() {
+    if (this.loginForm.controls['email'].hasError('required')) {
+      return 'You must enter an email';
+    }
+    if(this.loginForm.controls['email'].hasError('email')) {
+      return 'Not a valid email'
+    };
 
-  //   return this.loginForm.controls['email'].hasError('email') ? 'Not a valid email' : '';
-  // }
+    if (this.loginForm.controls['password'].hasError('required')) {
+      return 'You must enter a password';
+    }
+    return 'Wrong password';
+  }
 
 
-  submit(form:any) {
+  submit(form:UserLogin) {
     if(this.loginForm.invalid)return;
-    this.authService.onLogin(form)
+    this.loginSubscription = this.authService.onLogin(form)
         .subscribe(() => {
           this.router.navigateByUrl('/home')
         })
   }
 
+
+  ngOnDestroy(){
+    this.loginSubscription.unsubscribe()
+  }
 }

@@ -23,7 +23,12 @@ export class FriendsComponent implements OnInit {
   friendSelected!: User;
   userSelected!: User;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder,private friendsService: FriendsService,public dialog: MatDialog) { }
+  constructor(
+              private userService: UserService,
+              private formBuilder: FormBuilder,
+              private friendsService: FriendsService,
+              public dialog: MatDialog
+              ) { }
 
   ngOnInit(): void {
     this.searchFriendInput = this.formBuilder.control('');
@@ -72,8 +77,8 @@ export class FriendsComponent implements OnInit {
 
   }
 
-  onViewfriend(friend:User){
-    // console.log(friend);
+  // onViewfriend(friend:User){
+  //   // console.log(friend);
 
-  }
+  // }
 }

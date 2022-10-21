@@ -9,9 +9,9 @@
         formControlName="email"
         required
       />
-      <!-- <mat-error *ngIf="loginForm.controls['email'].invalid">{{
+      <mat-error *ngIf="loginForm.controls['email'].invalid">{{
         getErrorMessage()
-      }}</mat-error> -->
+      }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Enter your password</mat-label>
@@ -20,6 +20,9 @@
         formControlName="password"
         [type]="hide ? 'password' : 'text'"
       />
+      <mat-error *ngIf="loginForm.controls['password'].invalid">{{
+        getErrorMessage()
+      }}</mat-error>
       <button
         mat-icon-button
         matSuffix

@@ -41,7 +41,6 @@ export class HeaderComponent implements OnInit {
         this.notifications = data;
         this.notificationsNumber = data.length;
         console.log(data.length);
-
       })
   }
 
