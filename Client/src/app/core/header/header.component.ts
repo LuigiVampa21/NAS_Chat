@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ShowNotificationsComponent } from '../../partials/show-notifications/show-notifications.component';
 import { NotificationService } from '../services/notification.service';
 import { User } from '../../shared/models/user.model';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +16,6 @@ export class HeaderComponent implements OnInit {
   notifications!:Notification[];
   isAuth = false;
   user!:User;
-  notificationSub!:Subscription;
 
   constructor(
               private authService: AuthService,
@@ -26,23 +24,19 @@ export class HeaderComponent implements OnInit {
               ) { }
 
   ngOnInit(): void {
+    this.isAuth = this.authService.getisAuth();
     this.authService.getisAuth$()
       .subscribe(auth => {
-        this.isAuth = auth
+        this.isAuth = auth;
       })
-      if(this.isAuth){
-        this.notificationService.getUser()
-        .subscribe((data:any)=> {
-          this.user = data;
-        })
 
-        this.notificationSub = this.notificationService.getUserNotifications()
-        .subscribe((data:any)=> {
-          this.notifications = data;
-          this.notificationsNumber = data.length;
-        })
-      }
-  }
+          this.notificationService.getUserNotifications()
+          .subscribe((data:any)=> {
+            this.notifications = data;
+            this.notificationsNumber = data.length;
+          })
+        }
+  // }
 
   onShowNotifications(){
       this.dialog.open(ShowNotificationsComponent);

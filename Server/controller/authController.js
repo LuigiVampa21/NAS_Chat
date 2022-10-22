@@ -54,6 +54,6 @@ exports.login = async (req, res) => {
     status: "success",
     user,
     token,
-    expiring: process.env.JWT_EXPIRES_IN_SEC,
+    expiring: +process.env.JWT_EXPIRES_IN_SEC,
   });
 };

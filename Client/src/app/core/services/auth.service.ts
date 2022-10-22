@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { UserLogin } from '../../shared/interfaces/user.login.interface';
 import { User } from '../../shared/models/user.model';
 import { loginResponse } from '../../shared/interfaces/login-response.interface'
 import { Router } from '@angular/router';
@@ -16,10 +15,8 @@ export class AuthService {
   API_URL_REGISTER_USER = environment.USER_REGISTER;
   API_URL_LOGIN_USER = environment.USER_LOGIN;
   API_URL_GET_CURENT_USER = environment.GET_SINGLE_USER_BY_ID;
-  // userSub$: BehaviorSubject<User> = new BehaviorSubject(this.getUserFromLocalStorage());
-  // userObs$:Observable<User> = this.userSub$.asObservable();
 
-  private isAuth =false;
+  private isAuth!:boolean;
   private token!: string | undefined | null;
 
   private isAuth$ = new Subject<boolean>()
@@ -28,9 +25,7 @@ export class AuthService {
   private user!:User;
   private userSub$ = new Subject<User>();
 
-  constructor(private http:HttpClient, private router:Router, private socketService: SocketService) {
-    this.getTokenFromlocalStorage()
-  }
+  constructor(private http:HttpClient, private router:Router, private socketService: SocketService) { }
 
   onRegister(userData:User){
    return this.http.post<User>(this.API_URL_REGISTER_USER, userData)
@@ -61,58 +56,47 @@ export class AuthService {
           this.userID = data.user._id;
           if(this.token){
             const expiresInDuration = +data.expiring;
-            // this.setAuthTimer(+expiresInDuration)
+            this.setAuthTimer(expiresInDuration)
             this.isAuth = true;
-            this.user.status = 'online';
             this.isAuth$.next(true);
-            this.userSub$.next(this.user);
             const now = new Date();
-            const expirationDate = new Date(now.getTime()+ expiresInDuration *1000);
+            const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
             this.saveAuthData(this.token, expirationDate, this.userID)
-            // this.saveAuthData(this.token, this.userID)
-            // this.router.navigateByUrl('/');
             this.socketService.ioConnect(this.user.email, userData.password);
+            this.router.navigateByUrl('/home');
           }
         },
         error:(errorResponse) => {
           console.log(errorResponse.error);
           // this.isAuth$.next(false)
-          // this.userSub$.next(new User());
         }
       }
     )
-   )
+   ).subscribe();
   }
 
-  // autoAuth(){
-  //   const authInfo = this.getAuthData();
-  //   if(!authInfo) return;
-  //   const now = new Date();
-  //   const expiresIn = authInfo.expirationDate.getTime() - now.getTime();
-  //   if(expiresIn < 0) return;
-  //   this.token = authInfo.token;
-  //   this.isAuth = true;
-  //   this.userID = authInfo.userID;
-  //   // this.setAuthTimer(expiresIn / 1000)
-  //   // this.setAuthTimer(+expiresIn)
-  //   this.isAuth$.next(true)
-  //   this.userSub$.next(this.user)
-  // }
+  autoAuth(){
+    const authInfo = this.getAuthData();
+    if(!authInfo) return;
+    // console.log(authInfo);
+    const now = new Date();
+    const expiresIn = authInfo.expirationDate.getTime() - now.getTime();
+    console.log(expiresIn);
+    if(expiresIn < 0) return;
+    this.token = authInfo.token;
+    this.isAuth = true;
+    this.isAuth$.next(true)
+    this.userID = authInfo.userID;
+    this.setAuthTimer(expiresIn / 1000)
+    // this.setAuthTimer(expiresIn)
+  }
 
   getisAuth(){
     return this.isAuth;
   }
 
-  getUserID(){
-    return this.userID;
-  }
-
   getToken(){
     return this.token;
-  }
-
-  getUser(){
-    return this.user;
   }
 
   getisAuth$():Observable<boolean>{
@@ -125,19 +109,16 @@ export class AuthService {
 
   logout(){
     this.token = undefined;
-    this.isAuth= false;
-    this.user = new User();
+    this.userID = null;
+    this.isAuth = false;
     this.isAuth$.next(false);
     this.router.navigateByUrl('/');
     clearTimeout(this.tokenTimer);
-    this.userID = null;
-    this.user.status = 'offline';
     this.clearAuthData();
     this.socketService.socketOut();
   }
 
   private saveAuthData(token:string, expirationDate: Date, userID:string){
-  // private saveAuthData(token:string, userID:string){
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString())
     localStorage.setItem('userID', userID);
@@ -147,13 +128,6 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
     localStorage.removeItem('userID');
-  }
-
-  getTokenFromlocalStorage(){
-    this.token = localStorage.getItem('token');
-    if(this.token !== null && this.token !== undefined){
-      // this.autoAuth()
-    }
   }
 
   private getAuthData(){
@@ -168,9 +142,9 @@ export class AuthService {
     }
   }
 
-  // private setAuthTimer(duration:number){
-  //   this.tokenTimer = setTimeout(()=> {
-  //     this.logout()
-  //   },duration * 100000);
-  // }
+  private setAuthTimer(duration:number){
+      this.tokenTimer = setTimeout(()=> {
+      this.logout()
+    },duration * 1000);
+  }
 }

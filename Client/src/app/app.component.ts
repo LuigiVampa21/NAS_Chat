@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from './core/services/auth.service';
 
@@ -8,22 +8,22 @@ import { AuthService } from './core/services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy{
-  title = 'nas-chat-client';
+export class AppComponent implements OnInit{
   isAuth!:boolean;
-  isAuthSub = new Subscription()
 
   constructor(private authService: AuthService){ }
 
 ngOnInit(){
-  this.isAuth = this.authService.getisAuth();
- this.isAuthSub = this.authService.getisAuth$()
-  .subscribe(auth => {
-    this.isAuth = auth;
-      })
-}
+  // this.isAuth = this.authService.getisAuth()
+  this.authService.autoAuth()
+  // console.log(this.isAuth);
+  // this.authService.getisAuth$()
+  // .subscribe(auth => {
+    // this.authService.autoAuth()
+    // this.isAuth = auth;
+    // console.log(auth);
 
-ngOnDestroy(): void {
-  this.isAuthSub.unsubscribe()
-}
+    // this.authService.autoAuth()
+      // })
+  }
 }
