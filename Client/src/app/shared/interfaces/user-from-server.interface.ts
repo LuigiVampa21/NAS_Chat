@@ -1,5 +1,5 @@
-import { Room } from "../../core/models/room.model";
-import { User } from "../../core/models/user.model";
+import { Room } from "../models/room.model";
+import { User } from "../models/user.model";
 
 export class UserFromServer{
   _id!:string

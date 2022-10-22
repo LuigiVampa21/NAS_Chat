@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, tap } from 'rxjs';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { UserService } from 'src/app/core/services/user.service';
-import { Notification } from 'src/app/core/models/notification.model';
+import { Notification } from 'src/app/shared/models/notification.model';
 
 @Component({
   selector: 'app-show-notifications',

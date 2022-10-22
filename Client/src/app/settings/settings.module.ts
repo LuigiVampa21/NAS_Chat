@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SettingsComponent } from './settings.component';
 import { MaterialModule } from '../material.module';
+import { SettingsRoutingModule } from './setings.routing';
 
 
 
@@ -12,6 +13,7 @@ import { MaterialModule } from '../material.module';
   imports: [
     CommonModule,
     MaterialModule,
+    SettingsRoutingModule,
   ],
   exports: [
     SettingsComponent

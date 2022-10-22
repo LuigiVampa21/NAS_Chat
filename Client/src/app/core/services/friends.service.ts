@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Room } from '../models/room.model';
-import { User } from '../models/user.model';
+import { Room } from '../../shared/models/room.model';
+import { User } from '../../shared/models/user.model';
 import { ChatService } from './chat.service';
 import { NotificationService } from './notification.service';
 import { UserService } from './user.service';

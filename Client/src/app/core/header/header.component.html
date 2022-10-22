@@ -3,12 +3,8 @@
   <span class="spacer"></span>
   <ul>
     <li>
-      <a
-        mat-button
-        *ngIf="!isAuth"
-        routerLink="/about-us"
-        routerLinkActive="mat-accent"
-        >About us</a
+      <a mat-button *ngIf="!isAuth" routerLink="" routerLinkActive="mat-accent"
+        >About</a
       >
     </li>
     <li>
@@ -36,7 +32,9 @@
         matBadgeColor="warn"
         style="cursor: pointer"
       ></button>
-      <mat-icon style="cursor: pointer" (click)="onShowNotifications()">notifications</mat-icon>
+      <mat-icon style="cursor: pointer" (click)="onShowNotifications()"
+        >notifications</mat-icon
+      >
     </li>
     <li>
       <button mat-button *ngIf="isAuth" (click)="onLogout()">Logout</button>

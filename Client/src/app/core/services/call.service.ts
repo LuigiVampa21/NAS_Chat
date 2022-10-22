@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Call } from '../models/call.model';
+import { Call } from '../../shared/models/call.model';
 
 @Injectable({
   providedIn: 'root'

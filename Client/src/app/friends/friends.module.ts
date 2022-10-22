@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FriendsComponent } from './friends.component';
 import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { FriendsRoutingModule } from './friends.routing';
 
 
 
@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    RouterModule,
+    FriendsRoutingModule
   ],
   exports: [
     FriendsComponent

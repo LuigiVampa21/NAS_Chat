@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 // import { AuthResolver } from '../resolver/auth.resolver';
 import { AuthService } from '../core/services/auth.service';
 import { UserService } from '../core/services/user.service';
-import { User } from '../core/models/user.model';
+import { User } from '../shared/models/user.model';
 
 @Component({
   selector: 'app-home',

@@ -22,7 +22,20 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router:Router) { }
 
   ngOnInit(): void {
+    // this.initAuthSub()
   }
+
+  // initAuthSub(){
+    // this.loginSubscription = this.authService.getisAuth$()
+    // .subscribe(
+      // isAuth => {
+        // if(isAuth){
+        //   this.router.navigateByUrl('/home');
+        //   console.log('nav');
+        // }
+        // }
+        // )
+  // }
 
   getErrorMessage() {
     if (this.loginForm.controls['email'].hasError('required')) {
@@ -42,8 +55,12 @@ export class LoginComponent implements OnInit {
   submit(form:UserLogin) {
     if(this.loginForm.invalid)return;
      this.authService.onLogin(form)
-        .subscribe(() => {
-          this.router.navigateByUrl('/home')
-        })
+        .subscribe(
+          () => {
+            // setTimeout(() => {
+              this.router.navigateByUrl('/home')
+            // },1000)
+        }
+        )
   }
 }

@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Notification } from '../models/notification.model';
-import { User } from '../models/user.model';
+import { Notification } from '../../shared/models/notification.model';
+import { User } from '../../shared/models/user.model';
 import { UserService } from './user.service';
 
 

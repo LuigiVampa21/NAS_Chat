@@ -5,9 +5,9 @@ import { Subscription } from 'rxjs';
 import { ChatService } from 'src/app/core/services/chat.service';
 import { SocketService } from 'src/app/core/services/socket.service';
 import { UserService } from 'src/app/core/services/user.service';
-import { Message } from 'src/app/core/models/message.model';
-import { Room } from 'src/app/core/models/room.model';
-import { User } from 'src/app/core/models/user.model';
+import { Message } from 'src/app/shared/models/message.model';
+import { Room } from 'src/app/shared/models/room.model';
+import { User } from 'src/app/shared/models/user.model';
 
 
 

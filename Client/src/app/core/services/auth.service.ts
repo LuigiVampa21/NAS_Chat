@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { UserLogin } from '../../shared/interfaces/user.login.interface';
-import { User } from '../models/user.model';
+import { User } from '../../shared/models/user.model';
 import { loginResponse } from '../../shared/interfaces/login-response.interface'
 import { Router } from '@angular/router';
 import { SocketService } from './socket.service';
@@ -19,7 +19,7 @@ export class AuthService {
   // userSub$: BehaviorSubject<User> = new BehaviorSubject(this.getUserFromLocalStorage());
   // userObs$:Observable<User> = this.userSub$.asObservable();
 
-  private isAuth:boolean = true;
+  private isAuth =false;
   private token!: string | undefined | null;
 
   private isAuth$ = new Subject<boolean>()
@@ -70,7 +70,7 @@ export class AuthService {
             const expirationDate = new Date(now.getTime()+ expiresInDuration *1000);
             this.saveAuthData(this.token, expirationDate, this.userID)
             // this.saveAuthData(this.token, this.userID)
-            this.router.navigateByUrl('/');
+            // this.router.navigateByUrl('/');
             this.socketService.ioConnect(this.user.email, userData.password);
           }
         },
@@ -84,20 +84,20 @@ export class AuthService {
    )
   }
 
-  autoAuth(){
-    const authInfo = this.getAuthData();
-    if(!authInfo) return;
-    const now = new Date();
-    const expiresIn = authInfo.expirationDate.getTime() - now.getTime();
-    if(expiresIn < 0) return;
-    this.token = authInfo.token;
-    this.isAuth = true;
-    this.userID = authInfo.userID;
-    // this.setAuthTimer(expiresIn / 1000)
-    // this.setAuthTimer(+expiresIn)
-    this.isAuth$.next(true)
-    this.userSub$.next(this.user)
-  }
+  // autoAuth(){
+  //   const authInfo = this.getAuthData();
+  //   if(!authInfo) return;
+  //   const now = new Date();
+  //   const expiresIn = authInfo.expirationDate.getTime() - now.getTime();
+  //   if(expiresIn < 0) return;
+  //   this.token = authInfo.token;
+  //   this.isAuth = true;
+  //   this.userID = authInfo.userID;
+  //   // this.setAuthTimer(expiresIn / 1000)
+  //   // this.setAuthTimer(+expiresIn)
+  //   this.isAuth$.next(true)
+  //   this.userSub$.next(this.user)
+  // }
 
   getisAuth(){
     return this.isAuth;
@@ -152,7 +152,7 @@ export class AuthService {
   getTokenFromlocalStorage(){
     this.token = localStorage.getItem('token');
     if(this.token !== null && this.token !== undefined){
-      this.autoAuth()
+      // this.autoAuth()
     }
   }
 

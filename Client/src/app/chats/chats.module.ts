@@ -4,7 +4,7 @@ import { ChatsComponent } from './chats.component';
 import { ChatDetailComponent } from './chat-detail/chat-detail.component';
 import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { ChatsRoutingModule } from './chats.routing';
 
 
 
@@ -17,7 +17,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    RouterModule,
+    ChatsRoutingModule
 
   ],
   exports: [

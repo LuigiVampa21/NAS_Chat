@@ -4,8 +4,8 @@ import { Observable, Subscription, tap } from 'rxjs';
 import { ChatService } from '../core/services/chat.service';
 import { SocketService } from '../core/services/socket.service';
 import { UserService } from '../core/services/user.service';
-import { Room } from '../core/models/room.model';
-import { User } from '../core/models/user.model';
+import { Room } from '../shared/models/room.model';
+import { User } from '../shared/models/user.model';
 
 @Component({
   selector: 'app-chats',

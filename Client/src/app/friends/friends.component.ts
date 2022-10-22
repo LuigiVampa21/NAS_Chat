@@ -5,7 +5,7 @@ import { map, Observable, startWith, Subscription } from 'rxjs';
 import { AddFriendComponent } from '../partials/add-friend/add-friend.component';
 import { FriendsService } from '../core/services/friends.service';
 import { UserService } from '../core/services/user.service';
-import { User } from '../core/models/user.model';
+import { User } from '../shared/models/user.model';
 
 @Component({
   selector: 'app-friends',
