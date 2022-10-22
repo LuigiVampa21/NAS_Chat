@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { UserLogin } from '../../shared/interfaces/user.login.interface';
 
 @Component({
@@ -10,7 +10,7 @@ import { UserLogin } from '../../shared/interfaces/user.login.interface';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
 
   loginSubscription!: Subscription;
   loginForm: FormGroup = new FormGroup({
@@ -41,14 +41,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   submit(form:UserLogin) {
     if(this.loginForm.invalid)return;
-    this.loginSubscription = this.authService.onLogin(form)
+     this.authService.onLogin(form)
         .subscribe(() => {
           this.router.navigateByUrl('/home')
         })
-  }
-
-
-  ngOnDestroy(){
-    this.loginSubscription.unsubscribe()
   }
 }

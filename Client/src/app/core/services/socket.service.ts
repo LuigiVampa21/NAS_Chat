@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, take, tap } from 'rxjs';
 import { io } from 'socket.io-client';
-import { environment } from '../../environments/environment'
-import { Message } from '../shared/models/message.model';
+import { environment } from '../../../environments/environment'
+import { Message } from '../models/message.model';
 import { UserService } from './user.service';
 
 @Injectable({

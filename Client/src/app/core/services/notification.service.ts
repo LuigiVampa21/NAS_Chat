@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { Notification } from '../shared/models/notification.model';
-import { User } from '../shared/models/user.model';
+import { environment } from '../../../environments/environment';
+import { Notification } from '../models/notification.model';
+import { User } from '../models/user.model';
 import { UserService } from './user.service';
 
 
@@ -24,12 +24,12 @@ export class NotificationService {
   API_URL_GET_CURENT_USER = environment.GET_SINGLE_USER_BY_ID;
 
   constructor(private http:HttpClient, private userService: UserService) {
-    const userID = localStorage.getItem('userID');
-    this.userService.getUserByIDwithNotifications()
-        .subscribe((data:any) => {
-          this.userSub$.next(data.user)
-          this.notificationsSub$.next(data.user.notifications)
-        })
+    // const userID = localStorage.getItem('userID');
+    // this.userService.getUserByIDwithNotifications()
+    //     .subscribe((data:any) => {
+    //       this.userSub$.next(data.user)
+    //       this.notificationsSub$.next(data.user.notifications)
+    //     })
    }
 
   getUser(){

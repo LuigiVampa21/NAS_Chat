@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, tap } from 'rxjs';
-import { FriendsService } from 'src/app/services/friends.service';
-import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/shared/models/user.model';
+import { FriendsService } from 'src/app/core/services/friends.service';
+import { UserService } from 'src/app/core/services/user.service';
+import { User } from 'src/app/core/models/user.model';
 
 @Component({
   selector: 'app-add-friend',

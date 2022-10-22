@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 // import { CallService } from '../services/call.service';
-import { UserService } from '../services/user.service';
-import { Call } from '../shared/models/call.model';
-import { User } from '../shared/models/user.model';
+import { UserService } from '../core/services/user.service';
+import { Call } from '../core/models/call.model';
+import { User } from '../core/models/user.model';
 
 @Component({
   selector: 'app-calls',

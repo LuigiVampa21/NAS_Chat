@@ -2,12 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ChatService } from 'src/app/services/chat.service';
-import { SocketService } from 'src/app/services/socket.service';
-import { UserService } from 'src/app/services/user.service';
-import { Message } from 'src/app/shared/models/message.model';
-import { Room } from 'src/app/shared/models/room.model';
-import { User } from 'src/app/shared/models/user.model';
+import { ChatService } from 'src/app/core/services/chat.service';
+import { SocketService } from 'src/app/core/services/socket.service';
+import { UserService } from 'src/app/core/services/user.service';
+import { Message } from 'src/app/core/models/message.model';
+import { Room } from 'src/app/core/models/room.model';
+import { User } from 'src/app/core/models/user.model';
+
 
 
 @Component({
@@ -102,8 +103,8 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
 
 
     onExit(){
+      this.router.navigateByUrl('/chats');
       this.socketService.onLeaveRoom(this.roomID);
-      this.router.navigateByUrl('/chats')
     }
 
     ngOnDestroy(): void {

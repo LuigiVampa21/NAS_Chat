@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 
-import { ErrorComponent } from './error/error.component';
+import { ErrorComponent } from './partials/error/error.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { ChatsComponent } from './chats/chats.component';

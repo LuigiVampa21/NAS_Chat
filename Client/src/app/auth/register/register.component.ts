@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { User } from 'src/app/shared/models/user.model';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { User } from 'src/app/core/models/user.model';
 import { PasswordsMatchValidator } from '../../shared/Validators/passwords-match.validator';
 
 @Component({
@@ -12,7 +12,7 @@ import { PasswordsMatchValidator } from '../../shared/Validators/passwords-match
   styleUrls: ['./register.component.scss']
 })
 
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnInit {
 
   hide = true;
   registerForm!: FormGroup;
@@ -36,14 +36,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   submit(form:User){
     if(this.registerForm.invalid) return;
-    this.registerSub = this.authService.onRegister(form)
+     this.authService.onRegister(form)
         .subscribe(() => {
           this.router.navigateByUrl('/auth/login')
         })
-
-  }
-
-  ngOnDestroy(): void {
-    this.registerSub.unsubscribe();
   }
 }
+
+
