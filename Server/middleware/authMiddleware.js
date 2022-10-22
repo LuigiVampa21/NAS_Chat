@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors/index");
 
 exports.checkToken = async (req, res, next) => {

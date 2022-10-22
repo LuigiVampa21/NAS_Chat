@@ -9,7 +9,7 @@ import { LoadingSpinnerService } from '../../core/services/loading-spinner.servi
 })
 export class LoadingSpinnerComponent implements OnInit, OnDestroy {
 
-  isLoading:boolean = false;
+  isLoading!:boolean;
   spinnerSub!:Subscription;
 
   constructor(private loadingSpinnerService: LoadingSpinnerService) { }
@@ -22,7 +22,7 @@ export class LoadingSpinnerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.spinnerSub.unsubscribe();
+    // this.spinnerSub.unsubscribe();
   }
 
 }

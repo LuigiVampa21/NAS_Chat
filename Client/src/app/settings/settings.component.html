@@ -1,4 +1,4 @@
-<mat-accordion class="example-headers-align">
+<mat-accordion class="headers-align">
   <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title> Personal Data </mat-panel-title>
@@ -24,6 +24,47 @@
 
   <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
     <mat-expansion-panel-header>
+      <mat-panel-title> Upload your porfile picture </mat-panel-title>
+      <mat-panel-description>
+        Drop your photo here
+        <mat-icon>star</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Key</mat-label>
+      <input matInput />
+    </mat-form-field>
+
+    <div>
+      <button
+        mat-button
+        type="button"
+        color="primary"
+        (click)="dropFile.click()"
+      >
+        Pick image
+      </button>
+      <input
+        type="file"
+        class="dropFile"
+        #dropFile
+        (change)="onImageDropped($event)"
+      />
+    </div>
+    <br />
+    <div *ngIf="imagePreview">
+      <img class="image-preview" [src]="imagePreview" [alt]="" />
+    </div>
+
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
+      <button mat-button color="primary" (click)="nextStep()">Next</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+    <mat-expansion-panel-header>
       <mat-panel-title> Apply For Premium services </mat-panel-title>
       <mat-panel-description>
         Type your premium key
@@ -42,7 +83,7 @@
     </mat-action-row>
   </mat-expansion-panel>
 
-  <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+  <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title> Phone Number </mat-panel-title>
       <mat-panel-description>
@@ -62,7 +103,7 @@
     </mat-action-row>
   </mat-expansion-panel>
 
-  <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+  <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title> Email Adress </mat-panel-title>
       <mat-panel-description>
@@ -82,7 +123,7 @@
     </mat-action-row>
   </mat-expansion-panel>
 
-  <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+  <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title> Change password </mat-panel-title>
       <mat-panel-description>

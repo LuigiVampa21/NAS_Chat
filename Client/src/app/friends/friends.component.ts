@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { map, Observable, startWith, Subscription } from 'rxjs';
@@ -29,7 +29,8 @@ export class FriendsComponent implements OnInit, OnDestroy {
               private userService: UserService,
               private formBuilder: FormBuilder,
               private friendsService: FriendsService,
-              public dialog: MatDialog
+              public dialog: MatDialog,
+              private ref: ChangeDetectorRef
               ) { }
 
   ngOnInit(): void {
@@ -76,7 +77,10 @@ export class FriendsComponent implements OnInit, OnDestroy {
     this.friendsService.setUserToAdd(user)
     this.dialog.open(AddFriendComponent)
     // console.log(user);
+  }
 
+  ngAfterContentChecked() {
+    this.ref.detectChanges();
   }
 
   // onViewfriend(friend:User){
