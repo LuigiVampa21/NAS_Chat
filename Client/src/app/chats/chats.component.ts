@@ -56,7 +56,7 @@ export class ChatsComponent implements OnInit, OnDestroy {
   getPenFriend(){
     this.rooms.forEach((r:any) => {
       r.ID = r.users.find((userID:any) => userID !== this.currentUser._id);
-      this.penFriendSub =  this.userService.getUserByID(r.ID)
+       this.userService.getUserByID(r.ID)
           .subscribe((data:any) => {
             r.penFriend = data.user.name;
       })
@@ -65,6 +65,5 @@ export class ChatsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.currentUserSub.unsubscribe();
-    this.penFriendSub.unsubscribe();
   }
 }

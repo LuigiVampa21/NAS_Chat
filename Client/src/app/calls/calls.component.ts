@@ -33,10 +33,11 @@ export class CallsComponent implements OnInit, OnDestroy {
   }
 
   getPenFriend(){
+    if(!this.calls)return;
       this.calls.forEach((c:any) => {
         c.ID = c.users.filter((userID:any) => userID !== this.currentUser._id);
         if(c.ID.length < 2){
-    this.penFriendSubscription = this.userService.getUserByID(c.ID[0])
+    this.userService.getUserByID(c.ID[0])
           .subscribe((data:any) => {
             c.penFriend = data.user.name;
           })
@@ -59,7 +60,6 @@ export class CallsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.callSubscription.unsubscribe();
-    this.penFriendSubscription.unsubscribe()
   }
 }
 
