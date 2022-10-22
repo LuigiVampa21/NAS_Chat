@@ -23,14 +23,7 @@ export class NotificationService {
   NOTIFICATION_URL = environment.NOTIFICATION_URL;
   API_URL_GET_CURENT_USER = environment.GET_SINGLE_USER_BY_ID;
 
-  constructor(private http:HttpClient, private userService: UserService) {
-    // const userID = localStorage.getItem('userID');
-    // this.userService.getUserByIDwithNotifications()
-    //     .subscribe((data:any) => {
-    //       this.userSub$.next(data.user)
-    //       this.notificationsSub$.next(data.user.notifications)
-    //     })
-   }
+  constructor(private http:HttpClient, private userService: UserService) { }
 
   getUser(){
     return this.userSub$.asObservable();

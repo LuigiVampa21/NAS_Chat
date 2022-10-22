@@ -11,7 +11,18 @@
   visibility: hidden;
 }
 
+.img-preview-container{
+  display: grid;
+  place-items: center;
+}
+
 .image-preview{
   height: 5rem;
   margin: 1rem;
+}
+
+.save{
+  margin: 1rem;
+  display: flex;
+  justify-content: space-evenly;
 }

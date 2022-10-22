@@ -13,6 +13,7 @@ export class User {
     password!:string;
     confirmPassword!:string;
     rooms!: Room[];
+    phone?:string;
     friends!: User[];
     active!:boolean;
     status?:string

@@ -78,17 +78,14 @@ export class AuthService {
   autoAuth(){
     const authInfo = this.getAuthData();
     if(!authInfo) return;
-    // console.log(authInfo);
     const now = new Date();
     const expiresIn = authInfo.expirationDate.getTime() - now.getTime();
-    console.log(expiresIn);
     if(expiresIn < 0) return;
     this.token = authInfo.token;
     this.isAuth = true;
     this.isAuth$.next(true)
     this.userID = authInfo.userID;
     this.setAuthTimer(expiresIn / 1000)
-    // this.setAuthTimer(expiresIn)
   }
 
   getisAuth(){

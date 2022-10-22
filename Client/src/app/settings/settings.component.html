@@ -1,150 +1,199 @@
-<mat-accordion class="headers-align">
-  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title> Personal Data </mat-panel-title>
-      <mat-panel-description>
-        Type your name and pseudo
-        <mat-icon>account_circle</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+<form [formGroup]="settingForm" (ngSubmit)="onSaveSettings(settingForm.value)">
+  <mat-accordion class="headers-align">
+    <mat-expansion-panel
+      [expanded]="step === 0"
+      (opened)="setStep(0)"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> Personal Data </mat-panel-title>
+        <mat-panel-description>
+          Type your name and pseudo
+          <mat-icon>account_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Name</mat-label>
-      <input matInput />
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Pseudo</mat-label>
-      <input matInput />
-    </mat-form-field>
-    <mat-action-row>
-      <button mat-button color="primary" (click)="nextStep()">Next</button>
-    </mat-action-row>
-  </mat-expansion-panel>
+      <mat-form-field appearance="fill">
+        <mat-label>Pseudo</mat-label>
+        <input matInput formControlName="pseudo" />
+      </mat-form-field>
+      <mat-action-row>
+        <button mat-button color="primary" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
 
-  <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title> Upload your porfile picture </mat-panel-title>
-      <mat-panel-description>
-        Drop your photo here
-        <mat-icon>star</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+    <mat-expansion-panel
+      [expanded]="step === 1"
+      (opened)="setStep(1)"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> Your profile picture </mat-panel-title>
+        <mat-panel-description>
+          Upload your photo
+          <mat-icon>photo</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Key</mat-label>
-      <input matInput />
-    </mat-form-field>
+      <div>
+        <button
+          mat-button
+          type="button"
+          color="primary"
+          (click)="dropFile.click()"
+        >
+          Pick image
+        </button>
+        <input
+          type="file"
+          class="dropFile"
+          [formControl]="photo"
+          #dropFile
+          (change)="onImageDropped($event)"
+        />
+      </div>
+      <br />
+      <div class="img-preview-container" *ngIf="imagePreview">
+        <img
+          class="image-preview"
+          [src]="imagePreview"
+          [alt]="settingForm.value.name"
+        />
+        <div class="btn-box">
+          <button
+            mat-button
+            type="button"
+            color="primary"
+            (click)="onSendPicture()"
+          >
+            Define as Profile Picture
+          </button>
+          <button
+            mat-button
+            type="button"
+            color="warn"
+            (click)="onDropPicture()"
+          >
+            Choose another picture
+          </button>
+        </div>
+      </div>
 
-    <div>
-      <button
-        mat-button
-        type="button"
-        color="primary"
-        (click)="dropFile.click()"
-      >
-        Pick image
-      </button>
-      <input
-        type="file"
-        class="dropFile"
-        #dropFile
-        (change)="onImageDropped($event)"
-      />
-    </div>
-    <br />
-    <div *ngIf="imagePreview">
-      <img class="image-preview" [src]="imagePreview" [alt]="" />
-    </div>
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button color="primary" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
 
-    <mat-action-row>
-      <button mat-button color="warn" (click)="prevStep()">Previous</button>
-      <button mat-button color="primary" (click)="nextStep()">Next</button>
-    </mat-action-row>
-  </mat-expansion-panel>
+    <mat-expansion-panel
+      [expanded]="step === 2"
+      (opened)="setStep(2)"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> Apply For Premium services </mat-panel-title>
+        <mat-panel-description>
+          Type your premium key
+          <mat-icon>star</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-  <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title> Apply For Premium services </mat-panel-title>
-      <mat-panel-description>
-        Type your premium key
-        <mat-icon>star</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+      <mat-form-field appearance="fill">
+        <mat-label>Key</mat-label>
+        <input matInput />
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Key</mat-label>
-      <input matInput />
-    </mat-form-field>
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button color="primary" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
 
-    <mat-action-row>
-      <button mat-button color="warn" (click)="prevStep()">Previous</button>
-      <button mat-button color="primary" (click)="nextStep()">Next</button>
-    </mat-action-row>
-  </mat-expansion-panel>
+    <mat-expansion-panel
+      [expanded]="step === 3"
+      (opened)="setStep(3)"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> Phone Number </mat-panel-title>
+        <mat-panel-description>
+          Type your phone number
+          <mat-icon>phone</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-  <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title> Phone Number </mat-panel-title>
-      <mat-panel-description>
-        Type your phone number
-        <mat-icon>phone</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+      <mat-form-field appearance="fill">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone" />
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Phone</mat-label>
-      <input matInput />
-    </mat-form-field>
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button color="primary" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
 
-    <mat-action-row>
-      <button mat-button color="warn" (click)="prevStep()">Previous</button>
-      <button mat-button color="primary" (click)="nextStep()">Next</button>
-    </mat-action-row>
-  </mat-expansion-panel>
+    <mat-expansion-panel
+      [expanded]="step === 4"
+      (opened)="setStep(4)"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> Email Adress </mat-panel-title>
+        <mat-panel-description>
+          Type your email adress
+          <mat-icon>email</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-  <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title> Email Adress </mat-panel-title>
-      <mat-panel-description>
-        Type your email adress
-        <mat-icon>email</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-      <input matInput />
-    </mat-form-field>
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button color="primary" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</form>
+<div class="save">
+  <button mat-raised-button type="submit" color="primary">Save</button>
+  <button mat-raised-button type="button" color="primary">
+    Change Password
+  </button>
+</div>
+<!-- <mat-expansion-panel
+      [expanded]="step === 5"
+      (opened)="setStep(5)"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> Change password </mat-panel-title>
+        <mat-panel-description>
+          Type your old Password
+          <mat-icon>account_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-    <mat-action-row>
-      <button mat-button color="warn" (click)="prevStep()">Previous</button>
-      <button mat-button color="primary" (click)="nextStep()">Next</button>
-    </mat-action-row>
-  </mat-expansion-panel>
+      <mat-form-field appearance="fill">
+        <mat-label>Old Password</mat-label>
+        <input matInput />
+      </mat-form-field>
 
-  <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title> Change password </mat-panel-title>
-      <mat-panel-description>
-        Type your old Password
-        <mat-icon>account_circle</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+      <mat-form-field appearance="fill">
+        <mat-label>New Password</mat-label>
+        <input matInput />
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Old Password</mat-label>
-      <input matInput />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>New Password</mat-label>
-      <input matInput />
-    </mat-form-field>
-
-    <mat-action-row>
-      <button mat-button color="warn" (click)="prevStep()">Previous</button>
-      <button mat-button color="primary" (click)="nextStep()">Next</button>
-    </mat-action-row>
-  </mat-expansion-panel>
-</mat-accordion>
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button color="primary" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel> -->

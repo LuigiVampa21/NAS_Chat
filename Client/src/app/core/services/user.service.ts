@@ -66,13 +66,13 @@ export class UserService {
     )
   }
 
-  // deleteNotifcationFromUser(notifID:string){
-  //   const userID = localStorage.getItem('userID');
-  //   console.log(notifID);
-  // this.http.patch<any>(this.API_URL_DELETE_NOTIFICATION_FROM_USER + userID, {
-  //   notifID
-  //   }).subscribe()
-  // }
+  updateUser(values:any){
+
+  }
+
+  updateUserPhoto(file:any){
+
+  }
 
   addFriendToUser(friendID:string){
     const userID = localStorage.getItem('userID');
