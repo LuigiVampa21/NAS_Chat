@@ -4,12 +4,16 @@ import { SettingsComponent } from './settings.component';
 import { MaterialModule } from '../material.module';
 import { SettingsRoutingModule } from './setings.routing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UploadPhotoComponent } from './upload-photo/upload-photo.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 
 @NgModule({
   declarations: [
-    SettingsComponent
+    SettingsComponent,
+    UploadPhotoComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,

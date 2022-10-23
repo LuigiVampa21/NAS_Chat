@@ -15,10 +15,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
   user!:User;
   step = 0;
   authSub!:Subscription;
-  imagePreview!:string;
   file!:any;
   settingForm!:FormGroup;
-  photo!:FormControl<any>;
 
   constructor(private authService: AuthService, private ref: ChangeDetectorRef, private userService: UserService) { }
 
@@ -57,35 +55,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.ref.detectChanges();
   }
 
-  onImageDropped(event:Event){
-    this.file = (event.target as any).files[0];
-    // const file = (event.target as any).files[0];
-    // this.settingForm.patchValue({photo: file});
-    // this.settingForm.patchValue({photo: file});
-    // this.settingForm.get('photo')?.updateValueAndValidity()
-    // this.settingForm.get('photo')?.updateValueAndValidity()
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imagePreview = reader.result as string
-    };
-    reader.readAsDataURL(this.file);
-  }
-
   onSaveSettings(f:NgForm){
-    if(!this.settingForm.value){
-      this.userService.updateUser(f);
-    }
 
   }
 
   ngOnDestroy(): void {
     this.authSub.unsubscribe();
   }
-
-  onSendPicture(){
-    console.log(this.file);
-
-  }
-  onDropPicture(){}
 
 }

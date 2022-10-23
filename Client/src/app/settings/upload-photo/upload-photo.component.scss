@@ -1,0 +1,21 @@
+.box-header{
+  display: flex;
+  justify-content: space-between;
+  mat-icon{
+    cursor: pointer;
+  }
+}
+
+.dropFile{
+  visibility: hidden;
+}
+
+.img-preview-container{
+  display: grid;
+  place-items: center;
+}
+
+.image-preview{
+  height: 5rem;
+  margin: 1rem;
+}

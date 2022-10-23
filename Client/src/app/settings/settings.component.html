@@ -35,54 +35,14 @@
       <mat-expansion-panel-header>
         <mat-panel-title> Your profile picture </mat-panel-title>
         <mat-panel-description>
-          Upload your photo
+          <a routerLink="/settings/upload-photo"
+            ><button mat-raised-button type="button" color="primary">
+              Upload your photo
+            </button>
+          </a>
           <mat-icon>photo</mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
-
-      <div>
-        <button
-          mat-button
-          type="button"
-          color="primary"
-          (click)="dropFile.click()"
-        >
-          Pick image
-        </button>
-        <input
-          type="file"
-          class="dropFile"
-          [formControl]="photo"
-          #dropFile
-          (change)="onImageDropped($event)"
-        />
-      </div>
-      <br />
-      <div class="img-preview-container" *ngIf="imagePreview">
-        <img
-          class="image-preview"
-          [src]="imagePreview"
-          [alt]="settingForm.value.name"
-        />
-        <div class="btn-box">
-          <button
-            mat-button
-            type="button"
-            color="primary"
-            (click)="onSendPicture()"
-          >
-            Define as Profile Picture
-          </button>
-          <button
-            mat-button
-            type="button"
-            color="warn"
-            (click)="onDropPicture()"
-          >
-            Choose another picture
-          </button>
-        </div>
-      </div>
 
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Previous</button>
@@ -122,7 +82,7 @@
       <mat-expansion-panel-header>
         <mat-panel-title> Phone Number </mat-panel-title>
         <mat-panel-description>
-          Type your phone number
+          Add a phone number
           <mat-icon>phone</mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
@@ -161,39 +121,31 @@
         <button mat-button color="primary" (click)="nextStep()">Next</button>
       </mat-action-row>
     </mat-expansion-panel>
-  </mat-accordion>
-</form>
-<div class="save">
-  <button mat-raised-button type="submit" color="primary">Save</button>
-  <button mat-raised-button type="button" color="primary">
-    Change Password
-  </button>
-</div>
-<!-- <mat-expansion-panel
+    <mat-expansion-panel
       [expanded]="step === 5"
       (opened)="setStep(5)"
       hideToggle
     >
       <mat-expansion-panel-header>
-        <mat-panel-title> Change password </mat-panel-title>
+        <mat-panel-title> Password </mat-panel-title>
         <mat-panel-description>
-          Type your old Password
-          <mat-icon>account_circle</mat-icon>
+          <a routerLink="/settings/change-password"
+            ><button mat-raised-button type="button" color="primary">
+              Update your password
+            </button>
+          </a>
+          <mat-icon>password</mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Old Password</mat-label>
-        <input matInput />
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>New Password</mat-label>
-        <input matInput />
-      </mat-form-field>
-
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Previous</button>
         <button mat-button color="primary" (click)="nextStep()">Next</button>
       </mat-action-row>
-    </mat-expansion-panel> -->
+    </mat-expansion-panel>
+  </mat-accordion>
+</form>
+<div class="save">
+  <button mat-raised-button type="submit" color="primary">
+    Update Settings
+  </button>
+</div>

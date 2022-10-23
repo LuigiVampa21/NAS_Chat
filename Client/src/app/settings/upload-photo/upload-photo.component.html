@@ -1,0 +1,31 @@
+<div>
+  <div class="box-header">
+    <button mat-button type="button" color="primary" (click)="dropFile.click()">
+      Pick image
+    </button>
+    <mat-icon routerLink="../">close</mat-icon>
+  </div>
+  <input
+    type="file"
+    class="dropFile"
+    [formControl]="photo"
+    #dropFile
+    (change)="onImageDropped($event)"
+  />
+</div>
+<br />
+<div class="img-preview-container" *ngIf="imagePreview">
+  <img
+    class="image-preview"
+    [src]="imagePreview"
+    alt="your new profile picture"
+  />
+  <div class="btn-box">
+    <button mat-button type="button" color="primary" (click)="onSendPicture()">
+      Define as Profile Picture
+    </button>
+    <button mat-button type="button" color="warn" (click)="onDropPicture()">
+      Choose another picture
+    </button>
+  </div>
+</div>
