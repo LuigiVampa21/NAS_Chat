@@ -21,6 +21,7 @@ loadEvents = socket => {
   socket.on("join_room", room => {
     socket.join(room);
     console.log("user joined the room" + room);
+    // check if room exists
     socket.on("send_message", data => {
       socket.emit("new_message", {
         poster: data.poster,
