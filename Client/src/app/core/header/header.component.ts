@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowNotificationsComponent } from '../../partials/show-notifications/show-notifications.component';
-import { NotificationService } from '../services/notification.service';
+import { NotificationService } from '../../services/notification.service';
 import { User } from '../../shared/models/user.model';
 
 @Component({

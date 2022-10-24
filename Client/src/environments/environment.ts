@@ -8,11 +8,13 @@ export const environment = {
   BASE_SERVER_URL: 'http://localhost:3001',
   USER_REGISTER: 'http://localhost:3001/api/v1/chatApp/auth/register',
   USER_LOGIN: 'http://localhost:3001/api/v1/chatApp/auth/login',
+  USER_UPLOAD_PHOTO: 'http://localhost:3001/api/v1/chatApp/users/upload-photo/',
   MESSAGE_URL: 'http://localhost:3001/api/v1/chatApp/messages/',
   GET_SINGLE_USER_BY_ID: 'http://localhost:3001/api/v1/chatApp/users/',
   GET_SINGLE_ROOM_BY_ID: 'http://localhost:3001/api/v1/chatApp/rooms/',
   GET_SINGLE_CALL_BY_ID: 'http://localhost:3001/api/v1/chatApp/calls/',
   NOTIFICATION_URL: 'http://localhost:3001/api/v1/chatApp/notifications/',
+
 
   DELETE_NOTIFICATION_FROM_USER : 'http://localhost:3001/api/v1/chatApp/users/delete/notification/',
 

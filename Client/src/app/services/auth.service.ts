@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { User } from '../../shared/models/user.model';
-import { loginResponse } from '../../shared/interfaces/login-response.interface'
+import { environment } from '../../environments/environment';
+import { User } from '../shared/models/user.model';
+import { loginResponse } from '../shared/interfaces/login-response.interface'
 import { Router } from '@angular/router';
 import { SocketService } from './socket.service';
 

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 // import { CallService } from '../services/call.service';
-import { UserService } from '../core/services/user.service';
+import { UserService } from '../services/user.service';
 import { Call } from '../shared/models/call.model';
 import { User } from '../shared/models/user.model';
 

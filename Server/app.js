@@ -13,6 +13,7 @@ const roomRouter = require("./routes/roomRoute");
 const authRouter = require("./routes/authRoute");
 const callRouter = require("./routes/callRoute");
 const notificationRouter = require("./routes/notificationRoute");
+const authMiddleware = require("./middleware/authMiddleware");
 
 const notFound = require("./middleware/not-found");
 const errorHandler = require("./middleware/errorHandler");
@@ -40,10 +41,12 @@ app.use(
 app.get("/", (req, res) => {
   res.send("Welcome to my chatApp Homies!!");
 });
+app.use("/api/v1/chatApp/auth", authRouter);
+
+app.use(authMiddleware.checkToken);
 
 app.use("/api/v1/chatApp/users", userRouter);
 app.use("/api/v1/chatApp/rooms", roomRouter);
-app.use("/api/v1/chatApp/auth", authRouter);
 app.use("/api/v1/chatApp/messages", messageRouter);
 app.use("/api/v1/chatApp/calls", callRouter);
 app.use("/api/v1/chatApp/notifications", notificationRouter);

@@ -3,8 +3,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 // import { AuthResolver } from '../resolver/auth.resolver';
-import { AuthService } from '../core/services/auth.service';
-import { UserService } from '../core/services/user.service';
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 import { User } from '../shared/models/user.model';
 
 @Component({

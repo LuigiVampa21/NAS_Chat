@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/shared/models/user.model';
 import { PasswordsMatchValidator } from '../../shared/Validators/passwords-match.validator';
 

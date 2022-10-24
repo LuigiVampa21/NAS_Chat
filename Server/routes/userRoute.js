@@ -1,16 +1,23 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controller/userController");
+const fileMiddleware = require('../middleware/fileMidlleware')
 
 router.route("/").get(userController.getAllUsers);
-// .post(userController.createNewUser);
 
-router.route('/delete/notification/:id').patch(userController.deleteSingleNotification)
+router
+  .route("/delete/notification/:id")
+  .patch(userController.deleteSingleNotification);
+
+router.route("/upload-photo/:id").post(fileMiddleware.uploadPhoto, userController.uploadPhoto);
+// router.route("/update-photo/:id").patch(userController.updatePhoto);
 
 router.route("/:id/friends").get(userController.getSingleUserWithFriends);
 router.route("/:id/rooms").get(userController.getSingleUserWithRooms);
 router.route("/:id/calls").get(userController.getSingleUserWithCalls);
-router.route("/:id/notifications").get(userController.getSingleUserWithNotifications);
+router
+  .route("/:id/notifications")
+  .get(userController.getSingleUserWithNotifications);
 
 router
   .route("/:id")

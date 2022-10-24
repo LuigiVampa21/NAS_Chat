@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../core/services/auth.service';
-import { UserService } from '../core/services/user.service';
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 import { User } from '../shared/models/user.model';
 
 @Component({

@@ -7,7 +7,7 @@ import {
   HttpEventType
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { LoadingSpinnerService } from 'src/app/core/services/loading-spinner.service';
+import { LoadingSpinnerService } from 'src/app/services/loading-spinner.service';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {

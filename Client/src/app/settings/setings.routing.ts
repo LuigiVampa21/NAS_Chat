@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { AuthGuard } from "../core/guards/auth.guard";
+import { AuthGuard } from "../guards/auth.guard";
 import { ChangePasswordComponent } from "./change-password/change-password.component";
 import { SettingsComponent } from "./settings.component";
 import { UploadPhotoComponent } from "./upload-photo/upload-photo.component";

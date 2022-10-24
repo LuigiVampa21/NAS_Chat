@@ -1,4 +1,5 @@
 const multer = require("multer");
+const CustomError = require("../errors/index");
 
 const MIME_TYPE_MAP = {
   "image/png": "png",
@@ -7,12 +8,15 @@ const MIME_TYPE_MAP = {
 };
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    console.log("multermiddleware");
+    // console.log(req.user);
+    // console.log(file);
     const isValid = MIME_TYPE_MAP[file.mimetype];
-    let error = new Error("Invalid mime type");
+    let error = new CustomError.BadRequestError("Invalid mime type");
     if (isValid) {
       error = null;
     }
-    cb(error, "backend/images");
+    cb(error, "../Client/src/assets/images");
   },
   filename: (req, file, cb) => {
     const name = file.originalname.toLowerCase().split(" ").join("-");
@@ -21,4 +25,4 @@ const storage = multer.diskStorage({
   },
 });
 
-exports.multerM = multer({ storage: storage }).single("image");
+exports.uploadPhoto = multer({ storage: storage }).single("image");

@@ -1,8 +1,8 @@
 import { Component, OnInit,OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription, tap } from 'rxjs';
-import { CallService } from 'src/app/core/services/call.service';
-import { UserService } from 'src/app/core/services/user.service';
+import { CallService } from 'src/app/services/call.service';
+import { UserService } from 'src/app/services/user.service';
 import { Call } from 'src/app/shared/models/call.model';
 import { User } from 'src/app/shared/models/user.model';
 

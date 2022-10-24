@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription, tap } from 'rxjs';
-import { ChatService } from '../core/services/chat.service';
-import { SocketService } from '../core/services/socket.service';
-import { UserService } from '../core/services/user.service';
+import { ChatService } from '../services/chat.service';
+import { SocketService } from '../services/socket.service';
+import { UserService } from '../services/user.service';
 import { Room } from '../shared/models/room.model';
 import { User } from '../shared/models/user.model';
 

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, tap } from 'rxjs';
-import { NotificationService } from 'src/app/core/services/notification.service';
-import { UserService } from 'src/app/core/services/user.service';
+import { NotificationService } from 'src/app/services/notification.service';
+import { UserService } from 'src/app/services/user.service';
 import { Notification } from 'src/app/shared/models/notification.model';
 
 @Component({
