@@ -16,8 +16,7 @@ export class UploadPhotoComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   onImageDropped(event:Event){
     this.file = (event.target as any).files[0];
@@ -30,10 +29,7 @@ export class UploadPhotoComponent implements OnInit {
 
   onSendPicture(){
     if(!this.imagePreview) return;
-    this.userService.uploadUserPhoto(this.file)
-        .subscribe( () => {
-          this.router.navigateByUrl('/settings')
-        });
+    this.userService.uploadUserPhoto(this.file);
   }
   onDropPicture(){
     this.file = null;

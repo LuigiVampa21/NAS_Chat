@@ -1,7 +1,7 @@
+const fs = require("fs").promises;
 const { StatusCodes } = require("http-status-codes");
 const User = require("../models/userModel");
 const CustomError = require("../errors/index");
-const { findById } = require("../models/userModel");
 
 exports.getAllUsers = async (req, res) => {
   const allUsers = await User.find();
@@ -132,35 +132,31 @@ exports.deleteSingleNotification = async (req, res) => {
 
 exports.uploadPhoto = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id);
-  console.log(user);
+  if (!req.file) {
+    throw new CustomError.BadRequestError("No image found");
+  }
+  const { mimetype, size, filename } = req.file;
   console.log(req.file);
-  // if (!req.files) {
-  //   throw new CustomError.BadRequestError("No image found");
-  // }
-  // const { mimetype, size, name, mv } = req.files.image;
-  // if (!mimetype.startsWith("image")) {
-  //   throw new Error("Please upload an image");
-  // }
-  // const maxSizeImg = 1024 * 1024;
-  // if (size > maxSizeImg) {
-  //   throw new CustomError.BadRequestError(
-  //     "Please upload image smaller than 1MB"
-  //   );
-  // }
-  // const imagePath = path.join(__dirname, "../public/uploads/" + name);
-  // await mv(imagePath);
-  // res.status(StatusCodes.OK).json({
-  //   image: `uploads/${name}`,
-  // });
+  if (!mimetype.startsWith("image")) {
+    throw new Error("Please upload an image");
+  }
+  const maxSizeImg = process.env.MAX_FILE_SIZE * process.env.MAX_FILE_SIZE;
+  if (size > maxSizeImg) {
+    throw new CustomError.BadRequestError(
+      "Please upload image smaller than 1MB"
+    );
+  }
+
+  const user = await User.findByIdAndUpdate(id, { photo: filename });
+
+  await fs.unlink("../Client/src/assets/images/" + filename);
+
+  user.save();
   res.status(StatusCodes.OK).json({
-    msg: "ok",
+    msg: "image successfully uploaded!",
+    user,
   });
 };
-// exports.updatePhoto = async (req, res) => {
-//   const { id } = req.params;
-//   const user = findById(id);
-// };
 
 const patched = field => {
   field.some(f => f._id === field);

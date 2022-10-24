@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controller/userController");
-const fileMiddleware = require('../middleware/fileMidlleware')
+const fileMiddleware = require("../middleware/fileMidlleware");
 
 router.route("/").get(userController.getAllUsers);
 
@@ -9,8 +9,9 @@ router
   .route("/delete/notification/:id")
   .patch(userController.deleteSingleNotification);
 
-router.route("/upload-photo/:id").post(fileMiddleware.uploadPhoto, userController.uploadPhoto);
-// router.route("/update-photo/:id").patch(userController.updatePhoto);
+router
+  .route("/upload-photo/:id")
+  .post(fileMiddleware.uploadPhoto, userController.uploadPhoto);
 
 router.route("/:id/friends").get(userController.getSingleUserWithFriends);
 router.route("/:id/rooms").get(userController.getSingleUserWithRooms);

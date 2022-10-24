@@ -13,7 +13,7 @@ exports.checkToken = async (req, res, next) => {
     );
   }
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  const { email, userID } = decoded;
+  const { email, userID, pseudo } = decoded;
   req.userData = { email, userID };
   next();
 };

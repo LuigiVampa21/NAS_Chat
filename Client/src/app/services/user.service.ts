@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../shared/models/user.model';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -12,10 +14,11 @@ export class UserService {
   API_URL_GET_CURENT_USER = environment.GET_SINGLE_USER_BY_ID;
   API_PHOTO_UPLOAD = environment.USER_UPLOAD_PHOTO;
 
-  userID: string | null;
+  userID!: string | null;
+  userPseudo!: string | null;
 
 
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient, private router: Router) {
     this.userID = localStorage.getItem('userID');
    }
 
@@ -46,7 +49,6 @@ export class UserService {
 
   getUserByID(id:string){
     return this.http.get<User>(this.API_URL_GET_CURENT_USER + id)
-
   }
 
   getAllusers(){
@@ -74,13 +76,19 @@ export class UserService {
 
   }
 
+  getUserPseudo():any{
+    if(!this.userID) return;
+    return this.getUserByID(this.userID)
+
+  }
+
   uploadUserPhoto(file:any){
-console.log(file);
-const photoData = new FormData()
-photoData.append('image', file)
-return this.http.post(this.API_PHOTO_UPLOAD + this.userID, photoData);
-
-
+    const photoData = new FormData()
+    photoData.append('image', file)
+      this.http.post(this.API_PHOTO_UPLOAD + this.userID, photoData).subscribe( (data) => {
+        console.log(data);
+        this.router.navigateByUrl('/settings')
+      });
   }
 
   addFriendToUser(friendID:string){
