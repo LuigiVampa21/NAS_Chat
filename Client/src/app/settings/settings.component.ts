@@ -56,7 +56,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   onSaveSettings(f:NgForm){
+    console.log(f);
 
+    this.userService.updateUser(f)
   }
 
   ngOnDestroy(): void {

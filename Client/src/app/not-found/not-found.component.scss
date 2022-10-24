@@ -1,0 +1,30 @@
+.container{
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  & > *{
+    display: flex;
+    justify-content: center;
+  }
+  h1{
+    font-size: 8rem;
+    font-weight: bold;
+  }
+  .error-description{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 20vh;
+    .sub-title{
+      span{
+        font-size: 1rem;
+        font-weight: bold;
+      }
+    }
+  }
+
+}
+

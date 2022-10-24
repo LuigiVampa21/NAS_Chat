@@ -138,7 +138,7 @@ exports.uploadPhoto = async (req, res) => {
   const { mimetype, size, filename } = req.file;
   console.log(req.file);
   if (!mimetype.startsWith("image")) {
-    throw new Error("Please upload an image");
+    throw new CustomError.BadRequestError("Please upload an image");
   }
   const maxSizeImg = process.env.MAX_FILE_SIZE * process.env.MAX_FILE_SIZE;
   if (size > maxSizeImg) {
@@ -155,6 +155,22 @@ exports.uploadPhoto = async (req, res) => {
   res.status(StatusCodes.OK).json({
     msg: "image successfully uploaded!",
     user,
+  });
+};
+
+exports.updatePassword = async (req, res) => {
+  const { id } = req.params;
+  const { oldPassword, newPassword } = req.body;
+  const user = await User.findById(id);
+
+  const passwordMatch = await user.comparePassword(oldPassword);
+  if (!passwordMatch) {
+    throw new CustomError.BadRequestError("Wrong password");
+  }
+  user.password = newPassword;
+  user.save();
+  res.status(StatusCodes.OK).json({
+    msg: "password updated !",
   });
 };
 

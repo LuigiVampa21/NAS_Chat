@@ -13,6 +13,8 @@ router
   .route("/upload-photo/:id")
   .post(fileMiddleware.uploadPhoto, userController.uploadPhoto);
 
+router.route("/update-password/:id").patch(userController.updatePassword);
+
 router.route("/:id/friends").get(userController.getSingleUserWithFriends);
 router.route("/:id/rooms").get(userController.getSingleUserWithRooms);
 router.route("/:id/calls").get(userController.getSingleUserWithCalls);

@@ -13,6 +13,7 @@ export class UserService {
 
   API_URL_GET_CURENT_USER = environment.GET_SINGLE_USER_BY_ID;
   API_PHOTO_UPLOAD = environment.USER_UPLOAD_PHOTO;
+  API_UPDATE_PWD = environment.USER_UPDATE_PWD;
 
   userID!: string | null;
   userPseudo!: string | null;
@@ -23,27 +24,22 @@ export class UserService {
    }
 
   getUserByIDwithFriends(){
-    // const userID = localStorage.getItem('userID');
     return this.http.get<User>(this.API_URL_GET_CURENT_USER + this.userID + '/friends')
   }
 
   getUserFromLocalStorage(){
-    // const userID = localStorage.getItem('userID');
     return this.http.get<User>(this.API_URL_GET_CURENT_USER + this.userID )
   }
 
   getUserByIDwithRooms(){
-    // const userID = localStorage.getItem('userID');
     return this.http.get<User>(this.API_URL_GET_CURENT_USER + this.userID + '/rooms')
   }
 
   getUserByIDwithCalls(){
-    // const userID = localStorage.getItem('userID');
     return this.http.get<User>(this.API_URL_GET_CURENT_USER + this.userID + '/calls')
   }
 
   getUserByIDwithNotifications(){
-    // const userID = localStorage.getItem('userID');
     return this.http.get<User>(this.API_URL_GET_CURENT_USER + this.userID + '/notifications')
   }
 
@@ -56,7 +52,6 @@ export class UserService {
   }
 
   addRoomToUser(room:string){
-    // const userID = localStorage.getItem('userID');
     return this.http.patch<User>(this.API_URL_GET_CURENT_USER + this.userID,
       {
         rooms: room
@@ -73,7 +68,16 @@ export class UserService {
   }
 
   updateUser(values:any){
+    this.http.patch(this.API_URL_GET_CURENT_USER + this.userID, values)
+          .subscribe()
+  }
 
+  updatePassword(values:any){
+    this.http.patch(this.API_UPDATE_PWD + this.userID, values)
+          .subscribe( (data) => {
+            console.log(data);
+            this.router.navigateByUrl('/settings')
+          })
   }
 
   getUserPseudo():any{
@@ -85,14 +89,12 @@ export class UserService {
   uploadUserPhoto(file:any){
     const photoData = new FormData()
     photoData.append('image', file)
-      this.http.post(this.API_PHOTO_UPLOAD + this.userID, photoData).subscribe( (data) => {
-        console.log(data);
+      this.http.post(this.API_PHOTO_UPLOAD + this.userID, photoData).subscribe( () => {
         this.router.navigateByUrl('/settings')
       });
   }
 
   addFriendToUser(friendID:string){
-    // const userID = localStorage.getItem('userID');
     return this.http.patch<User>(this.API_URL_GET_CURENT_USER + this.userID,
       {
         friends: friendID

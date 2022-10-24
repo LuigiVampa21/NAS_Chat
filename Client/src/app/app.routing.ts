@@ -12,9 +12,10 @@ const routes: Routes = [
   {path: 'calls', loadChildren: () => import('./calls/calls.module').then(m => m.CallsModule)},
   {path: 'friends', loadChildren: () => import('./friends/friends.module').then(m => m.FriendsModule)},
   {path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)},
+  {path: 'not-found', loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule)},
 
 
-  {path: 'not-found', component: ErrorComponent, data: {message: 'Page not found!'} },
+  {path: 'error', component: ErrorComponent, data: {message: 'Page not found!'} },
   { path: '**', redirectTo: 'not-found' }
 ];
 

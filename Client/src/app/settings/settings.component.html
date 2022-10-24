@@ -1,4 +1,4 @@
-<form [formGroup]="settingForm" (ngSubmit)="onSaveSettings(settingForm.value)">
+<form [formGroup]="settingForm">
   <mat-accordion class="headers-align">
     <mat-expansion-panel
       [expanded]="step === 0"
@@ -145,7 +145,12 @@
   </mat-accordion>
 </form>
 <div class="save">
-  <button mat-raised-button type="submit" color="primary">
+  <button
+    mat-raised-button
+    type="submit"
+    color="primary"
+    (click)="onSaveSettings(settingForm.value)"
+  >
     Update Settings
   </button>
 </div>
