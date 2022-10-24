@@ -1,8 +1,9 @@
-const mongoose = require("mongoose");
 const User = require("../models/userModel");
 const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors/index");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
+const sendResetPasswordEmail = require("../email/sendResetPassword");
 
 exports.register = async (req, res) => {
   const { email, name, password, confirmPassword, pseudo } = req.body;
@@ -58,9 +59,36 @@ exports.login = async (req, res) => {
   });
 };
 
-exports.forgotPassword = async (req,res) => {
-  
-}
-exports.resetPassword = async (req,res) => {
-  
-}
+exports.forgotPassword = async (req, res) => {
+  console.log(req.body);
+  const { email } = req.body;
+  if (!email) {
+    throw new CustomError.BadRequestError("Please provide email");
+  }
+
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new CustomError.BadRequestError("No user found with that email");
+  }
+  const passwordToken = crypto.randomBytes(70).toString("hex");
+
+  await sendResetPasswordEmail({
+    name: user.name,
+    email: user.email,
+    token: passwordToken,
+    origin: process.env.ORIGIN,
+  });
+
+  // const tenMinutes = 1000 * 60 * 10;
+  const passwordTokenExpirationDate = new Date(
+    Date.now() + eval(process.env.EXP_RESET_PASSWORD)
+  );
+  user.passwordToken = hashString(passwordToken);
+  user.passwordTokenExpirationDate = passwordTokenExpirationDate;
+  await user.save();
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: "Please check your email to reset your password" });
+};
+
+exports.resetPassword = async (req, res) => {};

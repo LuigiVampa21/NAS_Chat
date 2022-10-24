@@ -1,5 +1,5 @@
 <form [formGroup]="loginForm" (ngSubmit)="submit(loginForm.value)">
-  <h1>Login to your account</h1>
+  <h1>Login</h1>
   <div class="example-container">
     <mat-form-field appearance="fill">
       <mat-label>Enter your email</mat-label>
@@ -37,8 +37,12 @@
   <button class="login-btn" mat-flat-button color="primary">Login</button>
   <div class="register">
     New user? &nbsp;
-    <button mat-button type="button" routerLink="/auth/register">Register here</button> &nbsp;
-    | &nbsp;
-    <button mat-button type="button" (click)="openDialog()">Forgot your password ?</button>
+    <button mat-button type="button" routerLink="/auth/register">
+      Register here
+    </button>
+    &nbsp; | &nbsp;
+    <button mat-button type="button" (click)="openDialog()">
+      Forgot your password ?
+    </button>
   </div>
 </form>

@@ -156,10 +156,19 @@ export class AuthService {
   }
 
   forgotPassword(email:string){
-    this.http.post(this.API_URL_USER_FORGOT_PASSWORD, email)
-        .pipe(tap({
-          next:
-        }))
+    this.http.post(this.API_URL_USER_FORGOT_PASSWORD, {
+      email
+    })
+        .pipe(
+          tap(
+            {
+              next:() => {
+                this.notifier.notify('success', `An email has been sent to ${email}, please follow the instructions! 😁`);
+              },
+              error:(errorResponse) => {
+                this.notifier.notify('error', errorResponse.error.msg + ' 😞');
+              }
+        })).subscribe()
   }
 
 }
