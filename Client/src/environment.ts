@@ -8,6 +8,8 @@ export const environment = {
   BASE_SERVER_URL: 'http://localhost:3001',
   USER_REGISTER: 'http://localhost:3001/api/v1/chatApp/auth/register',
   USER_LOGIN: 'http://localhost:3001/api/v1/chatApp/auth/login',
+  USER_FORGOT_PASSWORD:'http://localhost:3001/api/v1/chatApp/auth/forgot-password/',
+  USER_RESET_PASSWORD:'http://localhost:3001/api/v1/chatApp/auth/reset-password/',
   USER_UPLOAD_PHOTO: 'http://localhost:3001/api/v1/chatApp/users/upload-photo/',
   USER_UPDATE_PWD: 'http://localhost:3001/api/v1/chatApp/users/update-password/',
   MESSAGE_URL: 'http://localhost:3001/api/v1/chatApp/messages/',

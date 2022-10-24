@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -22,16 +22,29 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      name: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      pseudo: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      // photo: new FormControl(''),
-      // password: new FormControl('', [Validators.required, Validators.minLength(12)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(4)]),
-      confirmPassword: new FormControl(''),
+        name: this.formBuilder.control('', [Validators.required, Validators.minLength(5)]),
+        pseudo: this.formBuilder.control('', [Validators.required, Validators.minLength(5)]),
+        email: this.formBuilder.control('', [Validators.required, Validators.email]),
+        password: this.formBuilder.control('', [Validators.required, Validators.minLength(8)]),
+      confirmPassword: this.formBuilder.control(''),
     },{
-        validators: PasswordsMatchValidator('password','confirmPassword')
+        validators: [PasswordsMatchValidator('password','confirmPassword')],
+        updateOn: 'blur'
     });
+  }
+
+  getFormControlError(ctrl: AbstractControl){
+    if(ctrl.hasError('required')){
+      return 'This field is required'
+    }else if (ctrl.hasError('email')){
+      return  'Please enter a valid email'
+    }else if (ctrl.hasError('minlength')){
+      return 'Too short'
+    }else if (ctrl.hasError('notMatch')){
+      return 'both passwords needs to match'
+    }else{
+      return 'This field contains an error'
+    }
   }
 
   submit(form:User){

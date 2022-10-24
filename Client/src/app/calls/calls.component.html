@@ -22,3 +22,9 @@
     <mat-divider></mat-divider>
   </mat-list>
 </ng-container>
+
+<div class="no-friends-container" *ngIf="calls.length == 0">
+  <h1>You have no calls at the moments</h1>
+  <span>To find friends to have a call with, click on the friends button down here and
+    search by pseudo !</span>
+</div>

@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserLogin } from '../../shared/interfaces/user.login.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { ForgotPasswordComponent } from 'src/app/partials/forgot-password/forgot-password.component';
+
+
 
 @Component({
   selector: 'app-login',
@@ -12,34 +16,35 @@ import { UserLogin } from '../../shared/interfaces/user.login.interface';
 })
 export class LoginComponent implements OnInit {
 
+  // private readonly notifier!: NotifierService;
+
   loginSubscription!: Subscription;
   loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl(''),
+    password: new FormControl('', [Validators.required])
   });
   hide = true;
 
-  constructor(private authService: AuthService, private router:Router) { }
+  constructor(private authService: AuthService, private router:Router, public dialog: MatDialog) { }
 
   ngOnInit(): void { }
 
-  getErrorMessage() {
-    if (this.loginForm.controls['email'].hasError('required')) {
-      return 'You must enter an email';
+  getFormControlError(ctrl: AbstractControl){
+    if(ctrl.hasError('required')){
+      return 'This field is required'
+    }else if (ctrl.hasError('email')){
+      return  'Please enter a valid email'
+    }else{
+      return 'This field contains an error'
     }
-    if(this.loginForm.controls['email'].hasError('email')) {
-      return 'Not a valid email'
-    };
-
-    if (this.loginForm.controls['password'].hasError('required')) {
-      return 'You must enter a password';
-    }
-    return 'Wrong password';
   }
-
 
   submit(form:UserLogin) {
     if(this.loginForm.invalid)return;
      this.authService.onLogin(form)
+  }
+
+  openDialog(){
+    this.dialog.open(ForgotPasswordComponent)
   }
 }

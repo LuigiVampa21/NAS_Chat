@@ -57,3 +57,10 @@ exports.login = async (req, res) => {
     expiring: +process.env.JWT_EXPIRES_IN_SEC,
   });
 };
+
+exports.forgotPassword = async (req,res) => {
+  
+}
+exports.resetPassword = async (req,res) => {
+  
+}

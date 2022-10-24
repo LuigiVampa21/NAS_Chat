@@ -13,6 +13,9 @@ import { LoadingSpinnerComponent } from './partials/loading-spinner/loading-spin
 import { AddFriendComponent } from './partials/add-friend/add-friend.component';
 import { ShowNotificationsComponent } from './partials/show-notifications/show-notifications.component';
 import { CoreModule } from './core/core.module';
+import { customNotifierOptions } from './shared/utils/notifier.options';
+import { ForgotPasswordComponent } from './partials/forgot-password/forgot-password.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -22,6 +25,7 @@ import { CoreModule } from './core/core.module';
     LoadingSpinnerComponent,
     AddFriendComponent,
     ShowNotificationsComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,8 +33,9 @@ import { CoreModule } from './core/core.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    ReactiveFormsModule,
     HttpClientModule,
-    NotifierModule,
+    NotifierModule.withConfig(customNotifierOptions),
   ],
   bootstrap: [AppComponent]
 })

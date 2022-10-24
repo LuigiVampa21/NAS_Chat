@@ -34,3 +34,13 @@
 display: flex;
 justify-content: space-evenly;
 }
+
+.no-friends-container{
+  height: 60vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+

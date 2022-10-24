@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { Observable, Subject, tap } from 'rxjs';
+import { environment } from '../../environment';
 import { User } from '../shared/models/user.model';
 import { loginResponse } from '../shared/interfaces/login-response.interface'
 import { Router } from '@angular/router';
 import { SocketService } from './socket.service';
+import { NotifierService } from 'angular-notifier';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,9 @@ export class AuthService {
   API_URL_REGISTER_USER = environment.USER_REGISTER;
   API_URL_LOGIN_USER = environment.USER_LOGIN;
   API_URL_GET_CURENT_USER = environment.GET_SINGLE_USER_BY_ID;
-
+  API_URL_USER_FORGOT_PASSWORD = environment.USER_FORGOT_PASSWORD;
+  API_URL_USER_RESET_PASSWORD = environment.USER_RESET_PASSWORD;
+;
   private isAuth!:boolean;
   private token!: string | undefined | null;
 
@@ -25,24 +28,29 @@ export class AuthService {
   private user!:User;
   private userSub$ = new Subject<User>();
 
-  constructor(private http:HttpClient, private router:Router, private socketService: SocketService) { }
+  constructor(
+    private http:HttpClient,
+    private router:Router,
+    private socketService: SocketService,
+    private notifier: NotifierService
+    ) { }
+
 
   onRegister(userData:User){
    return this.http.post<User>(this.API_URL_REGISTER_USER, userData)
-//  SHOW ALERT MESSAGES
-//    .pipe(
-//     tap(
-//       {
-//       next:(user:User) => {
-//         this.setUserToLocalStorage(user)
-//         this.userSub$.next(user);
-//       },
-//       error:(errorResponse) => {
-//         console.log(errorResponse.error)
-//       }
-//     }
-//   )
-// )
+   .pipe(
+    tap(
+      {
+      next:(data:any) => {
+      this.notifier.notify('success', `Congrats ${data.user.pseudo}, you registered successfully!`);
+    },
+    error:(errorResponse) => {
+      console.log(errorResponse.error)
+      this.notifier.notify('error', errorResponse.error.msg);
+      }
+    }
+  )
+)
   }
 
   onLogin(userData:any){
@@ -54,6 +62,7 @@ export class AuthService {
           this.user = data.user;
           this.token = data.token;
           this.userID = data.user._id;
+          this.notifier.notify('success', `Hello ${data.user.pseudo}, successful login! 😁`);
           if(this.token){
             const expiresInDuration = +data.expiring;
             this.setAuthTimer(expiresInDuration)
@@ -67,8 +76,8 @@ export class AuthService {
           }
         },
         error:(errorResponse) => {
-          console.log(errorResponse.error);
-          // this.isAuth$.next(false)
+          this.notifier.notify('error', errorResponse.error.msg + ' 😞');
+          this.isAuth$.next(false)
         }
       }
     )
@@ -113,6 +122,7 @@ export class AuthService {
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
     this.socketService.socketOut();
+    this.notifier.notify('default', 'logout successful, see you soon! 😉');
   }
 
   private saveAuthData(token:string, expirationDate: Date, userID:string){
@@ -144,4 +154,12 @@ export class AuthService {
       this.logout()
     },duration * 1000);
   }
+
+  forgotPassword(email:string){
+    this.http.post(this.API_URL_USER_FORGOT_PASSWORD, email)
+        .pipe(tap({
+          next:
+        }))
+  }
+
 }

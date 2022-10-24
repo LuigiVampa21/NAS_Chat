@@ -4,9 +4,9 @@
     <mat-form-field appearance="fill">
       <mat-label>Enter your name</mat-label>
       <input matInput placeholder="Your name" formControlName="name" required />
-      <!-- <mat-error *ngIf="registerForm.controls['name'].invalid">{{
-        getErrorMessage()
-      }}</mat-error> -->
+      <mat-error *ngIf="registerForm.controls['name'].invalid">{{
+        getFormControlError(registerForm.controls["name"])
+      }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Enter a pseudo</mat-label>
@@ -16,9 +16,9 @@
         formControlName="pseudo"
         required
       />
-      <!-- <mat-error *ngIf="registerForm.controls['pseudo'].invalid">{{
-        getErrorMessage()
-      }}</mat-error> -->
+      <mat-error *ngIf="registerForm.controls['pseudo'].invalid">{{
+        getFormControlError(registerForm.controls["pseudo"])
+      }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Enter your email</mat-label>
@@ -28,9 +28,9 @@
         formControlName="email"
         required
       />
-      <!-- <mat-error *ngIf="registerForm.controls['email'].invalid">{{
-        getErrorMessage()
-      }}</mat-error> -->
+      <mat-error *ngIf="registerForm.controls['email'].invalid">{{
+        getFormControlError(registerForm.controls["email"])
+      }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Enter your password</mat-label>
@@ -48,6 +48,9 @@
       >
         <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
+      <mat-error *ngIf="registerForm.controls['password'].invalid">{{
+        getFormControlError(registerForm.controls["password"])
+      }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Confirm your password</mat-label>
@@ -65,11 +68,16 @@
       >
         <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
+      <mat-error *ngIf="registerForm.controls['password'].invalid"
+        >Both passwords needs to match</mat-error
+      >
     </mat-form-field>
   </div>
-  <button mat-flat-button color="primary">Register</button>
+  <button class="register-btn" mat-flat-button color="primary">Register</button>
   <div class="login">
     Already have an account ?&nbsp;
-    <a routerLink="/auth/login"> Login here </a>
+    <button mat-button type="button" routerLink="/auth/login">
+      Login here
+    </button>
   </div>
 </form>

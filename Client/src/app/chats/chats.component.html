@@ -1,7 +1,16 @@
 <ng-container *ngFor="let room of rooms">
-
   <mat-list>
-    <mat-list-item style="cursor:pointer" (click)="onViewChat(room)">{{ room.penFriend }}</mat-list-item>
+    <mat-list-item style="cursor: pointer" (click)="onViewChat(room)">{{
+      room.penFriend
+    }}</mat-list-item>
     <mat-divider></mat-divider>
-    </mat-list>
-  </ng-container>
+  </mat-list>
+</ng-container>
+
+<div class="no-friends-container" *ngIf="rooms.length == 0">
+  <h1>You have no active discussion at the moment</h1>
+  <span
+    >To find friends to discuss with, click on the friends button down here and
+    search by pseudo !</span
+  >
+</div>

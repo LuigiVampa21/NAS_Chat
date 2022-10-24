@@ -68,3 +68,10 @@
     <mat-divider></mat-divider>
   </mat-list>
 </ng-container>
+
+<div class="no-friends-container" *ngIf="friends.length == 0">
+  <h1>You have no friends at the moments</h1>
+  <span
+    >Search by pseudo into the user list up there !</span
+  >
+</div>

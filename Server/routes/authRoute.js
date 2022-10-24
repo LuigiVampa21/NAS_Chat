@@ -3,13 +3,8 @@ const router = express.Router();
 const authController = require("../controller/authController");
 
 router.route("/register").post(authController.register);
-
 router.route("/login").post(authController.login);
-
-router;
-//   .route("/:id")
-//   .get(userController.getSingleUser)
-//   .patch(userController.updateUser)
-//   .delete(userController.deleteUser);
+router.route("/forgot-password").post(userController.forgotPassword);
+router.route("/reset-password").post(userController.resetPassword);
 
 module.exports = router;
