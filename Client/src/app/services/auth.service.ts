@@ -72,7 +72,7 @@ export class AuthService {
             const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
             this.saveAuthData(this.token, expirationDate, this.userID)
             this.socketService.ioConnect(this.user.email, userData.password);
-            this.router.navigateByUrl('/home');
+              this.router.navigateByUrl('/home');
           }
         },
         error:(errorResponse) => {
@@ -169,6 +169,10 @@ export class AuthService {
                 this.notifier.notify('error', errorResponse.error.msg + ' 😞');
               }
         })).subscribe()
+  }
+
+  resetPassword(f:string){
+
   }
 
 }

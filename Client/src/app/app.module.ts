@@ -16,6 +16,7 @@ import { CoreModule } from './core/core.module';
 import { customNotifierOptions } from './shared/utils/notifier.options';
 import { ForgotPasswordComponent } from './partials/forgot-password/forgot-password.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ResetPasswordComponent } from './partials/reset-password/reset-password.component';
 
 
 
@@ -26,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AddFriendComponent,
     ShowNotificationsComponent,
     ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

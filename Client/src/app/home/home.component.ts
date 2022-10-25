@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-// import { NgModel } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-// import { AuthResolver } from '../resolver/auth.resolver';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { User } from '../shared/models/user.model';
@@ -19,11 +17,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   friends!: User[];
   userSub!:Subscription;
 
-  constructor(private authService: AuthService, private route: ActivatedRoute, private userService: UserService) { }
+  constructor(private userService: UserService) { }
 
 
   ngOnInit(): any{
-    this.initCard()
+    setTimeout(() => {
+      this.initCard()
+    }, 1000)
   }
 
   initCard(){

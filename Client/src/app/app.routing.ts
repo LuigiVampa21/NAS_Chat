@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ResetPasswordComponent } from './partials/reset-password/reset-password.component';
 
 const routes: Routes = [
 
@@ -12,6 +13,8 @@ const routes: Routes = [
   {path: 'friends', loadChildren: () => import('./friends/friends.module').then(m => m.FriendsModule)},
   {path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)},
   {path: 'not-found', loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule)},
+
+  {path: 'reset-password/:token', component: ResetPasswordComponent},
 
 
   { path: '**', redirectTo: 'not-found' }

@@ -75,6 +75,10 @@ const UserSchema = new mongoose.Schema(
         ref: "Notification",
       },
     ],
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
     active: {
       type: Boolean,
       default: true,

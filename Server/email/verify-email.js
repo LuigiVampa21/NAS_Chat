@@ -3,8 +3,12 @@ const sendEmail = require("./sendEmail");
 const sendVerificationEmail = async (
   name,
   email,
+  verificationToken,
+  origin
 ) => {
-  const message = `<p> Welcome and thank you for choosing NAS-CHAT !</p>`;
+  const verifyEmail = `${origin}/user/verify-email?token=${verificationToken}&email=${email}`;
+
+  const message = `<p>Please Confirm your Email by clicking this link: <a href="${verifyEmail}">Verify Email</a></p>`;
 
   return sendEmail({
     to: email,

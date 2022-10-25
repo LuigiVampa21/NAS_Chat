@@ -4,6 +4,7 @@ const CustomError = require("../errors/index");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const sendResetPasswordEmail = require("../email/sendResetPassword");
+const hashString = require("../utils/createHash");
 
 exports.register = async (req, res) => {
   const { email, name, password, confirmPassword, pseudo } = req.body;
@@ -32,16 +33,22 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    throw new Error("Please provide email and/or password");
+    throw new CustomError.BadRequestError(
+      "Please provide email and/or password"
+    );
   }
   const user = await User.findOne({ email });
   if (!user) {
-    throw new Error("Sorry No user found");
+    throw new CustomError.BadRequestError("Sorry No user found");
   }
-  // const passwordMatch = await user.comparePassword(password);
-  // if (!passwordMatch) {
-  //   throw new Error("Sorry password does not match");
-  // }
+  const passwordMatch = await user.comparePassword(password);
+  if (!passwordMatch) {
+    throw new CustomError.BadRequestError("Sorry password does not match");
+  }
+
+  if (!user.isVerified) {
+    throw new CustomError.BadRequestError("Please verify your email");
+  }
 
   const token = jwt.sign(
     { email: user.email, userID: user._id },
@@ -79,7 +86,6 @@ exports.forgotPassword = async (req, res) => {
     origin: process.env.ORIGIN,
   });
 
-  // const tenMinutes = 1000 * 60 * 10;
   const passwordTokenExpirationDate = new Date(
     Date.now() + eval(process.env.EXP_RESET_PASSWORD)
   );
@@ -91,4 +97,46 @@ exports.forgotPassword = async (req, res) => {
     .json({ msg: "Please check your email to reset your password" });
 };
 
-exports.resetPassword = async (req, res) => {};
+exports.resetPassword = async (req, res) => {
+  const { token, email, password } = req.body;
+  if (!token || !email || !password) {
+    throw new CustomError.BadRequestError("Invalid credentials");
+  }
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new CustomError.BadRequestError("no user found with that email");
+  }
+  const currentDate = new Date();
+  if (
+    user.passwordToken === hashString(token) &&
+    user.passwordTokenExpirationDate > currentDate
+  ) {
+    user.password = password;
+    user.passwordToken = null;
+    user.passwordTokenExpirationDate = null;
+    await user.save();
+  }
+  res.status(StatusCodes.OK).json({ msg: "ok" });
+};
+
+exports.verifyEmail = async (req, res) => {
+  const { verificationToken, email } = req.body;
+  if (!verificationToken) {
+    throw new CustomError.BadRequestError("Sorry no token found");
+  }
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new CustomError.BadRequestError("Sorry no user found");
+  }
+  if (user.verificationToken != verificationToken) {
+    throw new CustomError.BadRequestError("Sorry your token does not match");
+  }
+  user.isVerified = true;
+  user.verificationToken = "";
+  await user.save();
+  res.status(StatusCodes.OK).json({
+    msg: "email verified",
+    verificationToken,
+    user,
+  });
+};
