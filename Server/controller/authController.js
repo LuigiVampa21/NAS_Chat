@@ -83,7 +83,6 @@ exports.forgotPassword = async (req, res) => {
     name: user.name,
     email: user.email,
     token: passwordToken,
-    origin: process.env.ORIGIN,
   });
 
   const passwordTokenExpirationDate = new Date(

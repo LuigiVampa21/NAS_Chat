@@ -171,8 +171,13 @@ export class AuthService {
         })).subscribe()
   }
 
-  resetPassword(f:string){
-
+  resetPassword(f:any, token:string){
+    const {email, newPassword} = f
+    this.http.post(this.API_URL_USER_RESET_PASSWORD, {
+      email,
+      newPassword,
+      token
+    })
   }
 
 }
