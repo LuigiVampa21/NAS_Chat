@@ -28,7 +28,6 @@ export class ResetPasswordComponent implements OnInit {
     this.route.queryParams
       .subscribe(params => {
         this.email = params['email'];
-        console.log(this.email);
         this.initForm()
       }
     );
@@ -68,7 +67,8 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   onSubmit(f:NgForm){
-    this.authService.resetPassword(f.value, this.token)
+    this.authService.resetPassword(f, this.token)
+        .subscribe()
   }
 
 }

@@ -4,9 +4,8 @@ const sendVerificationEmail = async (
   name,
   email,
   verificationToken,
-  origin
 ) => {
-  const verifyEmail = `${origin}/user/verify-email?token=${verificationToken}&email=${email}`;
+  const verifyEmail = `${process.env.ORIGIN_API}/user/verify-email?token=${verificationToken}&email=${email}`;
 
   const message = `<p>Please Confirm your Email by clicking this link: <a href="${verifyEmail}">Verify Email</a></p>`;
 

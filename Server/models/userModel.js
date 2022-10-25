@@ -32,7 +32,7 @@ const UserSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["user", "admin"],
+      enum: ["user", "premium", "admin"],
       default: "user",
     },
     password: {
@@ -84,6 +84,9 @@ const UserSchema = new mongoose.Schema(
       default: true,
       select: false,
     },
+    verificationToken: { type: String },
+    passwordToken: { type: String },
+    passwordTokenExpirationDate: { type: Date },
   },
   { timestamps: true }
 );

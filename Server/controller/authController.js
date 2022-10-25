@@ -4,6 +4,7 @@ const CustomError = require("../errors/index");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const sendResetPasswordEmail = require("../email/sendResetPassword");
+const sendVerificationEmail = require("../email/sendVerificationEmail");
 const hashString = require("../utils/createHash");
 
 exports.register = async (req, res) => {
@@ -24,6 +25,12 @@ exports.register = async (req, res) => {
       "Oops.. Someting went wrong try again later"
     );
   }
+  const verificationToken = crypto.randomBytes(40).toString("hex");
+  await sendVerificationEmail({
+    name,
+    email,
+    verificationToken,
+  });
   res.status(StatusCodes.CREATED).json({
     status: "success",
     data: user,
@@ -119,7 +126,7 @@ exports.resetPassword = async (req, res) => {
 };
 
 exports.verifyEmail = async (req, res) => {
-  const { verificationToken, email } = req.body;
+  const { verificationToken, email } = req.params;
   if (!verificationToken) {
     throw new CustomError.BadRequestError("Sorry no token found");
   }

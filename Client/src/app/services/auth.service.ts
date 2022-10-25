@@ -42,7 +42,7 @@ export class AuthService {
     tap(
       {
       next:(data:any) => {
-      this.notifier.notify('success', `Congrats ${data.user.pseudo}, you registered successfully!`);
+      this.notifier.notify('success', `An email has been sent to ${data.user.email}, please follow the instructions to verify your account!`);
     },
     error:(errorResponse) => {
       console.log(errorResponse.error)
@@ -172,12 +172,20 @@ export class AuthService {
   }
 
   resetPassword(f:any, token:string){
-    const {email, newPassword} = f
-    this.http.post(this.API_URL_USER_RESET_PASSWORD, {
+    const {email, password} = f;
+  return this.http.post(this.API_URL_USER_RESET_PASSWORD, {
       email,
-      newPassword,
+      password,
       token
-    })
+    }).pipe(tap({
+      next:() => {
+        this.notifier.notify('success', `your new password is being updated, wait a few minutes before to try to login again! 😁`);
+        this.router.navigateByUrl('/home');
+      },
+      error:(errorResponse) => {
+        this.notifier.notify('error', errorResponse.error.msg + ' 😞');
+      }
+    }))
   }
 
 }
