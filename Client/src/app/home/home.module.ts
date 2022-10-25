@@ -7,11 +7,13 @@ import { RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home.routing';
+import { HomeFriendsComponent } from './home-friends/home-friends.component';
 
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    HomeFriendsComponent
   ],
   imports: [
     CommonModule,

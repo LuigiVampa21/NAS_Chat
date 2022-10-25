@@ -1,1 +1,12 @@
-
+app-header{
+  height: 10vh;
+}
+main{
+  height: 80vh;
+  router-outlet{
+    height: 100%;
+  }
+}
+app-footer{
+  height: 10vh;
+}

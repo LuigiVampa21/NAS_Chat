@@ -1,26 +1,45 @@
-<mat-card class="example-card" *ngIf="user">
-  <mat-card-title-group>
-    <div class="titles">
-      <mat-card-title>{{ user.name }}</mat-card-title>
-      <mat-card-title class="small">{{ status }}</mat-card-title>
-    </div>
-    <mat-card-subtitle>
-      <mat-form-field appearance="fill">
-        <mat-label>Select Your Status</mat-label>
-        <mat-select [(ngModel)]="status">
-          <mat-option value="Online 🟢">Online</mat-option>
-          <mat-option value="Busy 🛠️">Busy</mat-option>
-          <mat-option value="Working 🖥️">Working</mat-option>
-          <mat-option value="Offline 🔴">Offline</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-card-subtitle>
-    <div class="img">
-      <img *ngIf="photo" mat-card-xl-image [src]="photo" [alt]="user.pseudo" />
-    </div>
-  </mat-card-title-group>
+<div class="card-container">
+  <mat-card class="card" *ngIf="user">
+    <mat-card-title-group>
+      <mat-card-content>
+        <div class="titles">
+          <div class="titles-head">
+            <mat-card-title>{{ user.name }}</mat-card-title>
+            <mat-icon>{{ statusIcons[status] }}</mat-icon>
+          </div>
+          <mat-card-title class="small">{{ status }}</mat-card-title>
+        </div>
+      </mat-card-content>
 
-  <mat-card-content>
+      <mat-card-subtitle>
+        <mat-accordion>
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Define Your Status </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-container *ngFor="let statusItem of statusArray">
+              <p (click)="setStatus(statusItem)">{{ statusItem }}</p>
+            </ng-container>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-subtitle>
+
+      <div class="img">
+        <img
+          *ngIf="photo"
+          mat-card-xl-image
+          [src]="photo"
+          [alt]="user.pseudo"
+        />
+      </div>
+    </mat-card-title-group>
+  </mat-card>
+  <app-home-friends [friends]="friends"></app-home-friends>
+</div>
+
+<!-- Friend + Status -->
+
+<!-- <mat-card-content>
     <ng-container *ngFor="let friend of friends">
       <div class="container">
         <span>{{ friend.name }}</span>
@@ -30,5 +49,14 @@
         </figure>
       </div>
     </ng-container>
-  </mat-card-content>
-</mat-card>
+  </mat-card-content> -->
+
+<!-- <mat-form-field appearance="fill">
+        <mat-label>Select Your Status</mat-label>
+        <mat-select [(ngModel)]="status">
+          <mat-option value="Online 🟢">Online</mat-option>
+          <mat-option value="Busy 🛠️">Busy</mat-option>
+          <mat-option value="Working 🖥️">Working</mat-option>
+          <mat-option value="Offline 🔴">Offline</mat-option>
+        </mat-select>
+      </mat-form-field> -->

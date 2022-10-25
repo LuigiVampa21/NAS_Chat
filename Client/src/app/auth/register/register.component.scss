@@ -4,13 +4,17 @@
   margin: 100px 0px;
 }
 
+form{
+  width: 50%;
+}
+
 h1{
   text-align: center;
   font-weight: 500;
   margin-bottom: 5rem;
 }
 
-.mat-form-field {
+mat-form-field {
   width: 100%;
   min-width: 300px;
 }

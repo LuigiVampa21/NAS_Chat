@@ -13,14 +13,21 @@ import { User } from '../shared/models/user.model';
 export class HomeComponent implements OnInit, OnDestroy {
   user!:User;
   photo!:string
-  status = '';
+  status = 'Online';
   friends!: User[];
   userSub!:Subscription;
+  statusArray = ["Online", "Occuped", "Working", "Offline"]
+  statusIcons: any = {
+    "Online": "person_pin",
+    "Occuped": "self_improvement",
+     "Working": "work",
+     "Offline": "person_off"
+  }
 
   constructor(private userService: UserService) { }
 
 
-  ngOnInit(): any{
+  ngOnInit(): void{
     setTimeout(() => {
       this.initCard()
     }, 1000)
@@ -42,6 +49,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       .forEach(f => {
         f.photo = `../../assets/images/${f.photo}`
       })
+  }
+
+  setStatus(status:string){
+    this.status= status
   }
 
   ngOnDestroy(): void {

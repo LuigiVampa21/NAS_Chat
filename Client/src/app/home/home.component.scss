@@ -1,61 +1,75 @@
-.example-card {
-  width: 100%;
-  margin-bottom: 8px;
-}
 
-// mat-card-title{
-//   border:1px solid black
+.card-container{
+  height: 100%;
+  .card {
+    border: none;
+    width: 100%;
+    height: 35vh;
+    .titles{
+      height: 100%;
+      width: 20vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+        // justify-content: space-evenly;
+        // border: 1px solid black;
+        .titles-head{
+          display: flex;
+          justify-content: space-between;
+          width: 40%;
+          mat-icon{
+            font-size: 1.5rem;
+          }
+        }
+        mat-card-title{
+          font-size: 2rem;
+          margin-bottom: 1rem;
+        }
+        .small{
+          font-size: 1rem;
+          font-weight: 100;
+        }
+      }
+        p{
+          cursor:pointer
+        }
+        .img{
+          border: 1px solid black;
+          margin-right: 2rem;
+          border-radius: 50%;
+          width: 10rem;
+          height: 10rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          img{
+            width: 105%;
+            height: 105%;
+          }
+        }
+      }
+      app-home-friends{
+        height: 35vh;
+        // width: 100%;
+        // border: 3px solid red;
+      }
+    }
+
+
+// .container{
+//   display: flex;
+//   flex-direction: column;
+//   span{
+//     text-align: center;
+//   }
 // }
-// mat-card-subtitle{
-//   border:1px solid black
+
+// figure{
+//   width: 2rem;
+//   height: 2rem;
+//   border-radius: 50%;
+//   border: 1px solid black;
+//   overflow: hidden;
 // }
-// mat-card-content{
-//   border:1px solid black
-// }
-
-.small{
-  font-size: 1rem
-}
-
-.img{
-  border: 1px solid black;
-  margin-right: 2rem;
-  border-radius: 50%;
-  width: 10rem;
-  height: 10rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  img{
-    width: 105%;
-    height: 105%;
-  }
-}
-
-
-mat-card-content{
-  display: flex;
-  justify-content: space-around;
-  ng-container{
-    // width: 10rem;
-    height: 3rem;
-  }
-}
-.container{
-  display: flex;
-  flex-direction: column;
-  // border: 1px solid black;
-  span{
-    text-align: center;
-  }
-}
-
-figure{
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  border: 1px solid black;
-  overflow: hidden;
-}
 
