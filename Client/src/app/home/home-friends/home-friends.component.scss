@@ -1,0 +1,33 @@
+mat-card-content{
+  position: relative;
+  top: 10vh;
+  border-radius: 5rem;
+  border: 0.1px solid lightgrey;
+  width: 80vw;
+  overflow: hidden;
+  margin: auto;
+}
+
+.header{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+  figure{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 1px solid black;
+    overflow: hidden;
+  }
+
+.container{
+  display: flex;
+  flex-direction: column;
+  span{
+    text-align: center;
+  }
+}
+

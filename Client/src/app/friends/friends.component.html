@@ -47,31 +47,30 @@
     </mat-form-field>
   </form>
 </div>
-<ng-container *ngFor="let friend of friends">
-  <!-- <mat-list (click)="onViewfriend(friend)" style="cursor: pointer"> -->
-  <mat-list style="cursor: pointer">
-    <div class="friend-container">
-      <div class="friend-name">
-        {{ friend.name }}
+<div class="friend-list">
+  <ng-container *ngFor="let friend of friends">
+    <mat-list style="cursor: pointer">
+      <div class="friend-container">
+        <div class="friend-name">
+          {{ friend.name }}
+        </div>
+        <div class="friend-email">
+          {{ friend.email }}
+        </div>
+        <div class="friend-photo">
+          {{ friend.photo }}
+          <img
+            [src]="'../../../assets/images/' + friend.photo"
+            [alt]="friend.name"
+          />
+        </div>
       </div>
-      <div class="friend-email">
-        {{ friend.email }}
-      </div>
-      <div class="friend-photo">
-        {{ friend.photo }}
-        <img
-          [src]="'../../../assets/images/' + friend.photo"
-          [alt]="friend.name"
-        />
-      </div>
-    </div>
-    <mat-divider></mat-divider>
-  </mat-list>
-</ng-container>
+      <mat-divider></mat-divider>
+    </mat-list>
+  </ng-container>
+</div>
 
 <div class="no-friends-container" *ngIf="friends.length == 0">
   <h1>You have no friends at the moments</h1>
-  <span
-    >Search by pseudo into the user list up there !</span
-  >
+  <span>Search by pseudo into the user list up there !</span>
 </div>

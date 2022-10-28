@@ -1,6 +1,13 @@
+.container{
+  height: 50vh;
+}
+
 mat-toolbar{
   display: flex;
   justify-content: space-between;
+  span{
+    margin: auto;
+  }
 }
 .chatContainer{
   width: 100%;
@@ -53,11 +60,12 @@ overflow: hidden;
 
 .leaveMessage{
   width: 100vw;
-  textarea{
-    width: 100vw;
+  // height: 1rem;
+  input{
+    width: 80vw;
+    overflow: hidden;
   }
 }
-
 
 mat-icon{
   cursor: pointer;

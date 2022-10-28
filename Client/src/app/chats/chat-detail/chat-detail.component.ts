@@ -10,12 +10,12 @@ import { Room } from 'src/app/shared/models/room.model';
 import { User } from 'src/app/shared/models/user.model';
 
 
-
 @Component({
   selector: 'app-chat-detail',
   templateUrl: './chat-detail.component.html',
   styleUrls: ['./chat-detail.component.scss']
 })
+
 export class ChatDetailComponent implements OnInit, OnDestroy {
 
   room!:Room;
@@ -96,7 +96,7 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
       if(!msg || !this.roomID || !this.currentUser._id)return ;
       this.msgObject = {content: msg, room: this.roomID, poster:this.currentUser._id};
       this.socketService.onSendMessage(this.msgObject);
-      this.sendDBSub = this.socketService.SendMessageToDB(this.msgObject)
+      this.socketService.SendMessageToDB(this.msgObject)
           .subscribe();
       this.formMessage.reset();
     }
@@ -112,7 +112,6 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
       this.currentUserSub.unsubscribe();
       this.chatSub.unsubscribe();
       this.penFriendSub.unsubscribe();
-      // this.sendDBSub.unsubscribe();
     }
 
 }

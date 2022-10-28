@@ -1,12 +1,15 @@
-app-header{
-  height: 10vh;
-}
 main{
-  height: 80vh;
+  height: 100%;
   router-outlet{
     height: 100%;
   }
 }
-app-footer{
-  height: 10vh;
+.main-container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
+

@@ -1,7 +1,7 @@
 :host {
   display: flex;
   justify-content: center;
-  margin: 100px 0px;
+  // margin: 100px 0px;
 }
 
 form{
@@ -11,12 +11,11 @@ form{
 h1{
   text-align: center;
   font-weight: 500;
-  margin-bottom: 5rem;
+  margin: 2rem;
 }
 
 mat-form-field {
   width: 100%;
-  min-width: 300px;
 }
 
 .register-btn {

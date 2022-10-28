@@ -1,3 +1,20 @@
+.forms{
+  margin-top: 1rem;
+display: flex;
+justify-content: space-evenly;
+.friends-form, .all-users-form {
+  min-width: 150px;
+  width: 80%;
+}
+.friends-form-field, .all-users-form-field {
+  width: 95%;
+}
+}
+
+.friend-list{
+  height: 65vh;
+  overflow: auto;
+}
 .friend-container{
   margin-top: 1rem;
   display: flex;
@@ -20,20 +37,7 @@
 }
 
 
-.friends-form, .all-users-form {
-  min-width: 150px;
-  width: 80%;
-}
 
-.friends-form-field, .all-users-form-field {
-  width: 95%;
-}
-
-.forms{
-  margin-top: 1rem;
-display: flex;
-justify-content: space-evenly;
-}
 
 .no-friends-container{
   height: 60vh;
