@@ -5,7 +5,6 @@ import { ChatService } from '../services/chat.service';
 import { MessageService } from '../services/message.service';
 import { SocketService } from '../services/socket.service';
 import { UserService } from '../services/user.service';
-import { Message } from '../shared/models/message.model';
 import { Room } from '../shared/models/room.model';
 import { User } from '../shared/models/user.model';
 
@@ -16,10 +15,11 @@ import { User } from '../shared/models/user.model';
 })
 export class ChatsComponent implements OnInit, OnDestroy {
 
-  rooms!:Room[];
+  rooms:Room[] = [];
   currentUser!:User;
   penFriend!:User;
-  messageBox:{name: string, content?:string, createdAt?:Date}[] = [];
+  messageBox:{name: string, content?:string, createdAt?:Date, room:Room}[] = [];
+  // messageBox:any[] = [];
   messages:any[] = [];
   penFriendID!:any;
   currentUserSub!:Subscription;
@@ -45,8 +45,8 @@ export class ChatsComponent implements OnInit, OnDestroy {
           this.rooms = data.user.rooms;
           this.rooms.forEach((room:Room) => {
             if( room.chat === undefined || room.chat.length === 0) return;
-            const index = room.chat.length;
-            this.messages.push(room.chat[index-1])
+            const index = room.chat.length - 1;
+            this.messages.push(room.chat[index])
           })
           this.getPenFriend()
         })
@@ -69,22 +69,27 @@ export class ChatsComponent implements OnInit, OnDestroy {
        this.userService.getUserByID(r.ID)
           .subscribe((data:any) => {
             r.penFriend = data.user.name;
-            this.messageBox.push({name: r.penFriend})
-            this.initMessageBox();
-      })
-    })
+            this.messageBox.push({name: r.penFriend, room: r})
+            // this.messageBox.push({})
+            // console.log(this.messageBox)
+          })
+        })
+        this.initMessageBox();
   }
 
   initMessageBox(){
-    console.log(this.messages);
+    let index = 0
+    this.messages.forEach((message) => {
+      this.messageService.GetSignleMessageByID(message)
+          .pipe(tap((data:any) => {
+            // console.log(data.message.content, data.message.createdAt);
+            this.messageBox[index] = {...this.messageBox[index], content: data.message.content, createdAt: data.message.createdAt}
+            index++;
+            console.log(this.messageBox);
+          }))
+            .subscribe()
+    })
 
-// this.messages.forEach(message => {
-//   console.log(message[0]);
-
-//   this.messageService.GetSignleMessageByID(message)
-//       .pipe(tap(console.log))
-//         .subscribe()
-// })
   }
 
   ngOnDestroy(): void {

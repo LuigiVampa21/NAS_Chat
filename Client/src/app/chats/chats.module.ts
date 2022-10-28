@@ -5,6 +5,7 @@ import { ChatDetailComponent } from './chat-detail/chat-detail.component';
 import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ChatsRoutingModule } from './chats.routing';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -17,7 +18,8 @@ import { ChatsRoutingModule } from './chats.routing';
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    ChatsRoutingModule
+    ChatsRoutingModule,
+    SharedModule,
 
   ],
   exports: [
