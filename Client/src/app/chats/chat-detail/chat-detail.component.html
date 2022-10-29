@@ -6,9 +6,9 @@
     </div>
   </div>
   <div class="chatContainer">
-    <mat-card class="example-card">
+    <mat-card>
       <mat-card-header *ngFor="let message of messages">
-        <div *ngIf="message.poster === penFriendID" class="chat-card">
+        <div *ngIf="message.poster === penFriendID" class="chat-card penFriend">
           <figure>
             <img
               class="avatar"

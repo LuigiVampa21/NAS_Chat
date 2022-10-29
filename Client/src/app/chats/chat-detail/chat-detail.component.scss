@@ -39,8 +39,16 @@ overflow: hidden;
   border: 1px solid black;
   border-radius: 1rem;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
+}
+
+.chat-card.penFriend{
+  margin-left: -2.5rem;
+  figure{
+    margin-left: 1rem;
+  }
 }
 
 .content{
@@ -55,13 +63,16 @@ overflow: hidden;
 }
 
 .content.currentUser{
-  justify-content: flex-end;
+  padding-left: 1rem;
 }
 
 .chat-card.currentUser{
   margin-left: auto;
   background: #3F51B5;
   border-radius: 1rem;
+  figure{
+    margin-right: 1rem;
+  }
 }
 
 .input-container{
@@ -78,4 +89,33 @@ overflow: hidden;
 mat-icon{
   cursor: pointer;
   align-self: center;
+}
+
+@media screen and (max-width: 450px) {
+  .container{
+    height: 85vh;
+  }
+  .header{
+    height: 5vh;
+  }
+  .chatContainer{
+   width: 100%;
+  }
+  .chat-card{
+    width: 50%;
+  }
+  .input-container{
+    height:5vh;
+  }
+  figure{
+    width: 8rem;
+  }
+  .chat-card.penFriend{
+    figure{
+      overflow: visible;
+      img{
+        border-radius: 50%;
+      }
+    }
+  }
 }
