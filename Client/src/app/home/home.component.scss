@@ -51,8 +51,22 @@
       }
       app-home-friends{
         height: 35vh;
-        // width: 100%;
-        // border: 3px solid red;
       }
     }
 
+    @media screen and (max-width: 450px) {
+      mat-card-subtitle{
+        position: relative;
+        top: 15vh;
+      }
+      mat-card-content{
+        position: relative;
+        right: 40vw;
+      }
+      .img{
+       overflow: visible;
+       img{
+        border-radius: 50%;
+       }
+      }
+    }

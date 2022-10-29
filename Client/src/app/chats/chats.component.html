@@ -12,16 +12,6 @@
     <mat-divider></mat-divider>
   </ng-container>
 </div>
-<!-- <div class="container">
-  <ng-container *ngFor="let room of rooms">
-    <mat-list>
-      <mat-list-item style="cursor: pointer" (click)="onViewChat(room)">{{
-        room.penFriend
-      }}</mat-list-item>
-      <mat-divider></mat-divider>
-    </mat-list>
-  </ng-container>
-</div> -->
 
 <div class="no-friends-container" *ngIf="rooms.length == 0">
   <h1>You have no active discussion at the moment</h1>

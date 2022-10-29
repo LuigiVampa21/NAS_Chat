@@ -15,7 +15,7 @@
         <mat-accordion>
           <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
-              <mat-panel-title> Define Your Status </mat-panel-title>
+              <mat-panel-title> Your Status </mat-panel-title>
             </mat-expansion-panel-header>
             <ng-container *ngFor="let statusItem of statusArray">
               <p (click)="setStatus(statusItem)">{{ statusItem }}</p>
@@ -34,5 +34,5 @@
       </div>
     </mat-card-title-group>
   </mat-card>
-  <app-home-friends [friends]="friends"></app-home-friends>
+  <app-home-friends *ngIf="friends" [friends]="friends"></app-home-friends>
 </div>

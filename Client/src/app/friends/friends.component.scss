@@ -1,7 +1,7 @@
 .forms{
-  margin-top: 1rem;
-display: flex;
-justify-content: space-evenly;
+  // margin-top: 1rem;
+  display: flex;
+  justify-content: space-evenly;
 .friends-form, .all-users-form {
   min-width: 150px;
   width: 80%;
@@ -37,8 +37,6 @@ justify-content: space-evenly;
 }
 
 
-
-
 .no-friends-container{
   height: 60vh;
   width: 100vw;
@@ -48,3 +46,15 @@ justify-content: space-evenly;
   align-items: center;
 }
 
+
+@media screen and (max-width: 450px) {
+  .friend-list{
+    height: 80vh;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .friend-list{
+    height: 72vh;
+  }
+}
