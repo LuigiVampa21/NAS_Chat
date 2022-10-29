@@ -5,7 +5,9 @@
       <mat-list-item class="content" *ngIf="message.content">{{
         message.content | shorten
       }}</mat-list-item>
-      <mat-list-item class="time">{{ message.createdAt }}</mat-list-item>
+      <mat-list-item class="time">{{
+        message.createdAt?.getHours()
+      }}</mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>
   </ng-container>
