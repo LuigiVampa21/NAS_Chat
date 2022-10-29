@@ -1,10 +1,9 @@
 <div class="container" *ngIf="penFriend">
   <div class="chatHeader">
-    <mat-toolbar color="accent">
-      <!-- <mat-icon>menu</mat-icon> -->
+    <div class="header">
       <span>{{ penFriend.name }}</span>
       <mat-icon (click)="onExit()">close</mat-icon>
-    </mat-toolbar>
+    </div>
   </div>
   <div class="chatContainer">
     <mat-card class="example-card">
@@ -40,17 +39,15 @@
       </mat-card-header>
     </mat-card>
   </div>
-  <div class="chatInput">
-    <mat-form-field class="leaveMessage" appearance="fill">
-      <input
-        type="text"
-        matInput
-        [formControl]="formMessage"
-        placeholder="Write your message here"
-      />
-      <mat-icon color="primary" (click)="onSend(formMessage.value)"
-        >send</mat-icon
-      >
-    </mat-form-field>
+  <div class="input-container">
+    <input
+      type="text"
+      name="formMessage"
+      #formMessage
+      placeholder="Write your message here"
+    />
+    <mat-icon color="primary" (click)="onSend(formMessage.value)"
+      >send</mat-icon
+    >
   </div>
 </div>

@@ -19,7 +19,6 @@ export class ChatsComponent implements OnInit, OnDestroy {
   currentUser!:User;
   penFriend!:User;
   messageBox:{name: string, content?:string, createdAt?:Date, room:Room}[] = [];
-  // messageBox:any[] = [];
   messages:any[] = [];
   penFriendID!:any;
   currentUserSub!:Subscription;
@@ -70,8 +69,6 @@ export class ChatsComponent implements OnInit, OnDestroy {
           .subscribe((data:any) => {
             r.penFriend = data.user.name;
             this.messageBox.push({name: r.penFriend, room: r})
-            // this.messageBox.push({})
-            // console.log(this.messageBox)
           })
         })
         this.initMessageBox();
@@ -82,10 +79,8 @@ export class ChatsComponent implements OnInit, OnDestroy {
     this.messages.forEach((message) => {
       this.messageService.GetSignleMessageByID(message)
           .pipe(tap((data:any) => {
-            // console.log(data.message.content, data.message.createdAt);
             this.messageBox[index] = {...this.messageBox[index], content: data.message.content, createdAt: data.message.createdAt}
             index++;
-            console.log(this.messageBox);
           }))
             .subscribe()
     })

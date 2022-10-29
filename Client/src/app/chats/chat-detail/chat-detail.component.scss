@@ -1,9 +1,15 @@
 .container{
-  height: 50vh;
+  height: 77vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
-mat-toolbar{
+.header{
+  height: 5vh;
+  background: #FFA726;
   display: flex;
+  color: white;
   justify-content: space-between;
   span{
     margin: auto;
@@ -58,15 +64,18 @@ overflow: hidden;
   border-radius: 1rem;
 }
 
-.leaveMessage{
+.input-container{
   width: 100vw;
-  // height: 1rem;
+  height: 10vh;
+  display: flex;
   input{
-    width: 80vw;
-    overflow: hidden;
+    width: 100%;
+    border: none;
+    outline: none;
   }
 }
 
 mat-icon{
   cursor: pointer;
+  align-self: center;
 }

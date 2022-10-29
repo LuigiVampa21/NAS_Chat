@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -18,13 +18,15 @@ import { User } from 'src/app/shared/models/user.model';
 
 export class ChatDetailComponent implements OnInit, OnDestroy {
 
+  @ViewChild('formMessage') input!: ElementRef;
+
   room!:Room;
   roomID!:string;
   currentUser!:User;
   penFriend!:User;
   penFriendID!:any;
   messages!:Message[] | undefined;
-  formMessage!: FormControl;
+  formMessage!: string;
   msgObject!: Message;
   socketSub!:Subscription;
   currentUserSub!:Subscription;
@@ -44,7 +46,6 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initRoom()
-    this.formMessage = this.formBuilder.control('');
     this.socketSub = this.socketService.getMessageObservable()
         .subscribe((data:Message) => {
           if(!data || !this.messages)return
@@ -98,7 +99,7 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
       this.socketService.onSendMessage(this.msgObject);
       this.socketService.SendMessageToDB(this.msgObject)
           .subscribe();
-      this.formMessage.reset();
+          this.input.nativeElement.value = '';
     }
 
 
@@ -115,3 +116,4 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
     }
 
 }
+
