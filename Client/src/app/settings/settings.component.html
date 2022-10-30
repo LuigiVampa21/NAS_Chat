@@ -1,10 +1,6 @@
 <form [formGroup]="settingForm">
   <mat-accordion class="headers-align">
-    <mat-expansion-panel
-      [expanded]="step === 0"
-      (opened)="setStep(0)"
-      hideToggle
-    >
+    <mat-expansion-panel [expanded]="true" (opened)="setStep(0)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title> Personal Data </mat-panel-title>
         <mat-panel-description>

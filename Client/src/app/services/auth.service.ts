@@ -45,7 +45,6 @@ export class AuthService {
       this.notifier.notify('success', `An email has been sent to ${data.user.email}, please follow the instructions to verify your account!`);
     },
     error:(errorResponse) => {
-      console.log(errorResponse.error)
       this.notifier.notify('error', errorResponse.error.msg);
       }
     }
@@ -68,6 +67,7 @@ export class AuthService {
             this.setAuthTimer(expiresInDuration)
             this.isAuth = true;
             this.isAuth$.next(true);
+            this.userSub$.next(data.user)
             const now = new Date();
             const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
             this.saveAuthData(this.token, expirationDate, this.userID)

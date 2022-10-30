@@ -11,12 +11,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-        // justify-content: space-evenly;
-        // border: 1px solid black;
         .titles-head{
           display: flex;
           justify-content: space-between;
-          width: 40%;
+          width: 50%;
           mat-icon{
             font-size: 1.5rem;
           }

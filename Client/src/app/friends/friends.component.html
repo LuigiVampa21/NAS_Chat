@@ -47,7 +47,7 @@
     </mat-form-field>
   </form>
 </div>
-<div class="friend-list">
+<div class="friend-list" *ngIf="friends && friends.length != 0">
   <ng-container *ngFor="let friend of friends">
     <mat-list style="cursor: pointer">
       <div class="friend-container">

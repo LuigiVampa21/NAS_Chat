@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="rooms.length != 0">
   <ng-container *ngFor="let message of messageBox">
     <mat-list style="cursor: pointer" (click)="onViewChat(message.room)">
       <mat-list-item class="name">{{ message.name }}</mat-list-item>
