@@ -2,9 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../shared/models/user.model';
 import { environment } from '../../environment';
-import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -20,11 +18,11 @@ export class UserService {
   userPseudo!: string | null;
 
 
-  constructor(private http:HttpClient, private router: Router, private authService: AuthService) {
-    // this.userID = localStorage.getItem('userID');
-    this.authService.getUser$()
-        .pipe(tap(console.log))
-        .subscribe()
+  constructor(private http:HttpClient, private router: Router) {
+    this.userID = localStorage.getItem('userID');
+    // this.authService.getUser$()
+    //     .pipe(tap(console.log))
+    //     .subscribe()
    }
 
   getUserByIDwithFriends(){

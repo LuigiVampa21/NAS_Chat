@@ -19,6 +19,11 @@ export class AddFriendComponent implements OnInit, OnDestroy {
   constructor(private friendsService:FriendsService, private userService:UserService) { }
 
   ngOnInit(): void {
+    this.initAddUser()
+  }
+
+  initAddUser(){
+    if(!this.currentUser._id)return;
     this.user = this.friendsService.userToAdd;
     this.friendsSub = this.userService.getUserByIDwithFriends()
     .pipe(tap((data:any)=> {

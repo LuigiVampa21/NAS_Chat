@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { map, Observable, startWith, Subscription } from 'rxjs';
+import { map, Observable, startWith, Subscription, tap } from 'rxjs';
 import { AddFriendComponent } from '../partials/add-friend/add-friend.component';
 import { FriendsService } from '../services/friends.service';
 import { UserService } from '../services/user.service';
@@ -16,6 +16,7 @@ export class FriendsComponent implements OnInit, OnDestroy {
 
   friends!:User[];
   users!:User[];
+  user!:User;
   searchFriendInput!:FormControl;
   searchUserInput!:FormControl;
   filteredOptions!:Observable<User[]>;
@@ -34,6 +35,11 @@ export class FriendsComponent implements OnInit, OnDestroy {
               ) { }
 
   ngOnInit(): void {
+    this.initForms();
+  }
+
+
+  initForms(){
     this.searchFriendInput = this.formBuilder.control('');
     this.searchUserInput = this.formBuilder.control('');
   this.friendsSub = this.userService.getUserByIDwithFriends()

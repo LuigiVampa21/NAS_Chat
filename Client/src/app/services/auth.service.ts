@@ -61,13 +61,13 @@ export class AuthService {
           this.user = data.user;
           this.token = data.token;
           this.userID = data.user._id;
+          this.userSub$.next(data.user);
           this.notifier.notify('success', `Hello ${data.user.pseudo}, successful login! 😁`);
           if(this.token){
             const expiresInDuration = +data.expiring;
             this.setAuthTimer(expiresInDuration)
             this.isAuth = true;
             this.isAuth$.next(true);
-            this.userSub$.next(data.user)
             const now = new Date();
             const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
             this.saveAuthData(this.token, expirationDate, this.userID)

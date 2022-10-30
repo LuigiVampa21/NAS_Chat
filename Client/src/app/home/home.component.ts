@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   setStatus(status:string){
-    this.status= status
+    this.status = status
   }
 
   ngOnDestroy(): void {
