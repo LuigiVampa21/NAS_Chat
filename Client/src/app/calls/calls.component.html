@@ -1,3 +1,4 @@
+<div class="container">
 <ng-container *ngFor="let call of calls">
   <mat-list (click)="onViewCall(call)" style="cursor: pointer">
     <div class="calls-container">
@@ -22,7 +23,7 @@
     <mat-divider></mat-divider>
   </mat-list>
 </ng-container>
-
+</div>
 <div class="no-friends-container" *ngIf="calls && calls.length == 0">
   <h1>You have no calls at the moments</h1>
   <span

@@ -70,6 +70,8 @@ export class ChatsComponent implements OnInit, OnDestroy {
             index++;
           })
         })
+        console.log(this.messageBox);
+
   }
 
   initMessageBox(index:number){
@@ -84,6 +86,15 @@ export class ChatsComponent implements OnInit, OnDestroy {
           })
         ).subscribe()
 
+  }
+
+  sortMessageBox(){
+  this.messageBox.sort((a,b):any => {
+    if(!a.createdAt || !b.createdAt) return;
+    // a.createdAt - b.createdAt;
+    (new Date(b.createdAt).getTime()) - (new Date(a.createdAt).getTime())
+    // console.log(new Date(a.createdAt).getTime());
+  })
   }
 
   ngOnDestroy(): void {

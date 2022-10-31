@@ -18,9 +18,9 @@
           </div>
           <div class="name">{{ message.name }}</div>
         </div>
-        <mat-list-item class="content" *ngIf="message.content">{{
-          message.content | shorten
-        }}</mat-list-item>
+        <mat-list-item class="content" *ngIf="message.content">
+          <span>{{ message.content | shorten }}</span></mat-list-item
+        >
         <mat-list-item *ngIf="message.createdAt">
           <div class="time">
             <span>{{ message.createdAt | dateTime }} </span>
