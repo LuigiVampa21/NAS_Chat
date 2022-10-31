@@ -95,6 +95,7 @@ export class AuthService {
     this.token = authInfo.token;
     this.isAuth = true;
     this.isAuth$.next(true)
+    this.userSub$.next(this.user);
     this.userID = authInfo.userID;
     this.setAuthTimer(expiresIn / 1000)
   }

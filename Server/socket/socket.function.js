@@ -40,6 +40,10 @@ loadEvents = socket => {
     console.log(`connect_error due to ${err.message}`);
   });
 
+  socket.on('end', function (){
+    socket.disconnect(0);
+});
+
   socket.on("disconnect", () => {
     console.log("Disconnected");
   });

@@ -1,13 +1,12 @@
 .forms{
   // margin-top: 1rem;
   display: flex;
-  justify-content: space-evenly;
 .friends-form, .all-users-form {
   min-width: 150px;
   width: 80%;
 }
 .friends-form-field, .all-users-form-field {
-  width: 95%;
+  width: 100%;
 }
 }
 

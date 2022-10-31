@@ -23,11 +23,11 @@ exports.register = async (req, res) => {
     pseudo,
     verificationToken,
   });
-  // if (!user) {
-  //   throw new CustomError.BadRequestError(
-  //     "Oops.. Someting went wrong try again later"
-  //   );
-  // }
+  if (!user) {
+    throw new CustomError.BadRequestError(
+      "Oops.. Someting went wrong try again later"
+    );
+  }
   await sendVerificationEmail(name, email, verificationToken);
   res.status(StatusCodes.CREATED).json({
     status: "success",
@@ -47,14 +47,14 @@ exports.login = async (req, res) => {
   if (!user) {
     throw new CustomError.BadRequestError("Sorry No user found");
   }
-  const passwordMatch = await user.comparePassword(password);
-  if (!passwordMatch) {
-    throw new CustomError.BadRequestError("Sorry password does not match");
-  }
+  // const passwordMatch = await user.comparePassword(password);
+  // if (!passwordMatch) {
+  //   throw new CustomError.BadRequestError("Sorry password does not match");
+  // }
 
-  if (!user.isVerified) {
-    throw new CustomError.BadRequestError("Please verify your email");
-  }
+  // if (!user.isVerified) {
+  //   throw new CustomError.BadRequestError("Please verify your email");
+  // }
 
   const token = jwt.sign(
     { email: user.email, userID: user._id },

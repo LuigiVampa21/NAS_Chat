@@ -67,7 +67,8 @@ export class SocketService {
   }
 
   socketOut(){
-    this.socket.disconnect();
+    // this.socket.disconnect();
+    this.socket.emit('end');
   }
 }
 

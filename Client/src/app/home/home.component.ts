@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { User } from '../shared/models/user.model';
@@ -9,12 +8,11 @@ import { User } from '../shared/models/user.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   user!:User;
   photo!:string
   status = 'Online';
   friends!: User[];
-  userSub!:Subscription;
   statusArray = ["Online", "Occuped", "Working", "Offline"]
   statusIcons: any = {
     "Online": "person_pin",
@@ -27,19 +25,19 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void{
-    this.initUser();
+    this.user = this.authService.getUser();
   }
 
-  initUser(){
+  ngAfterViewInit(): void {
     this.user = this.authService.getUser();
-    this.initCard();
+    this.initCard()
   }
 
   initCard(){
-    this.photo = `../../assets/images/${this.user.photo}`
-    if(!this.user._id) return;
-    this.userSub = this.userService.getUserwithFriends(this.user._id)
+    this.userService.getUserByIDwithFriends()
     .subscribe( (data:any) => {
+      this.user = data.user;
+      this.photo = `../../assets/images/${this.user.photo}`
           this.friends = data.user.friends
           this.initFriendsPhoto()
         })
