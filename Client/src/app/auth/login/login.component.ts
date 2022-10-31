@@ -16,7 +16,6 @@ import { ForgotPasswordComponent } from 'src/app/partials/forgot-password/forgot
 })
 export class LoginComponent implements OnInit {
 
-  // private readonly notifier!: NotifierService;
 
   loginSubscription!: Subscription;
   loginForm: FormGroup = new FormGroup({

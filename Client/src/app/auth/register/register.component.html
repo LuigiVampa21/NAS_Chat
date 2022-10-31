@@ -1,6 +1,7 @@
 <form [formGroup]="registerForm" (ngSubmit)="submit(registerForm.value)">
   <h1>Register</h1>
   <div class="container">
+    <div class="head-info">
     <mat-form-field appearance="fill">
       <mat-label>Enter your name</mat-label>
       <input matInput placeholder="Your name" formControlName="name" required />
@@ -20,6 +21,7 @@
         getFormControlError(registerForm.controls["pseudo"])
       }}</mat-error>
     </mat-form-field>
+  </div>
     <mat-form-field appearance="fill">
       <mat-label>Enter your email</mat-label>
       <input
@@ -30,6 +32,19 @@
       />
       <mat-error *ngIf="registerForm.controls['email'].invalid">{{
         getFormControlError(registerForm.controls["email"])
+      }}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your phone number</mat-label>
+      <input
+        matInput
+        type="number"
+        placeholder="12345678"
+        formControlName="phone"
+        required
+      />
+      <mat-error *ngIf="registerForm.controls['phone'].invalid">{{
+        getFormControlError(registerForm.controls["phone"])
       }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">

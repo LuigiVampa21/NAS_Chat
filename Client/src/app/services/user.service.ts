@@ -20,9 +20,6 @@ export class UserService {
 
   constructor(private http:HttpClient, private router: Router) {
     this.userID = localStorage.getItem('userID');
-    // this.authService.getUser$()
-    //     .pipe(tap(console.log))
-    //     .subscribe()
    }
 
   getUserByIDwithFriends(){
