@@ -5,8 +5,10 @@ export class Room
 {
   _id?:string;
   name?:string;
-  users!:User[];
-  chat?:Message[];
+  users?:User[];
+  // chat?:Message[];
+  chat?:any[];
   createdAt?:Date;
+  updatedAt?:Date;
   penFriend?:string;
 }

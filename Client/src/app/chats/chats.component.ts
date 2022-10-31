@@ -18,7 +18,7 @@ export class ChatsComponent implements OnInit, OnDestroy {
   rooms:Room[] = [];
   currentUser!:User;
   penFriend!:User;
-  messageBox:{name: string, content?:string, createdAt?:Date, room:Room}[] = [];
+  messageBox:{name?: string, content?:string, createdAt?:Date, room?:Room}[] = [];
   messages:any[] = [];
   penFriendID!:any;
   currentUserSub!:Subscription;
@@ -63,27 +63,40 @@ export class ChatsComponent implements OnInit, OnDestroy {
   }
 
   getPenFriend(){
+    let index = 0;
     this.rooms.forEach((r:any) => {
       r.ID = r.users.find((userID:any) => userID !== this.currentUser._id);
        this.userService.getUserByID(r.ID)
           .subscribe((data:any) => {
             r.penFriend = data.user.name;
-            this.messageBox.push({name: r.penFriend, room: r})
+            this.messageBox.push({name: r.penFriend, room: r, createdAt: r.updatedAt})
+            this.initMessageBox(index);
+            index++;
           })
         })
-        this.initMessageBox();
   }
 
-  initMessageBox(){
-    let index = 0
-    this.messages.forEach((message) => {
-      this.messageService.GetSignleMessageByID(message)
-          .pipe(tap((data:any) => {
-            this.messageBox[index] = {...this.messageBox[index], content: data.message.content, createdAt: data.message.createdAt}
-            index++;
-          }))
-            .subscribe()
-    })
+  initMessageBox(index:number){
+    // let index = 0
+    // this.messages.forEach((message) => {
+    //   this.messageService.GetSignleMessageByID(message)
+    //       .pipe(tap((data:any) => {
+    //               this.messageBox[index] = {...this.messageBox[index], content: data.message.content, createdAt: data.message.createdAt}
+    //         index++;
+    //       }))
+    //         .subscribe()
+    // })
+    const messages = this.messageBox[index].room?.chat;
+    if(!messages) return;
+    const lastMsg = (messages[messages.length - 1]);
+
+    this.messageService.GetSignleMessageByID(lastMsg)
+        .pipe(
+          tap((data:any)=>{
+            // console.log(data.message.content);
+            this.messageBox[index] = {...this.messageBox[index], content: data.message.content}
+          })
+        ).subscribe()
 
   }
 

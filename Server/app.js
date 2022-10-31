@@ -27,6 +27,7 @@ const io = new Server(httpServer, {
     origin: "*",
     credentials: true,
   },
+  pingTimeout: 60000,
 });
 
 app.use(express.json());

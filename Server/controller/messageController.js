@@ -23,7 +23,7 @@ exports.createNewMessage = async (req, res) => {
 exports.getSingleMessage = async (req, res) => {
   const { id } = req.params;
   // check if id exists
-  const message = await Message.findById(id);
+  const message = await Message.findById(id).populate('room');
   res.status(StatusCodes.OK).json({
     message,
   });

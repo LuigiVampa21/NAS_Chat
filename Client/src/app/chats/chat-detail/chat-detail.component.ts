@@ -80,7 +80,7 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
     }
 
     getPenFriend(){
-      this.penFriendID = this.room.users.find((userID:any) => userID !== this.currentUser._id);
+      this.penFriendID = this.room.users?.find((userID:any) => userID !== this.currentUser._id);
     this.penFriendSub = this.userService.getUserByID(this.penFriendID)
           .subscribe((data:any) => {
             this.penFriend = data.user;

@@ -2,12 +2,18 @@
   height: 70vh;
   overflow: auto;
 }
-  mat-list{
+  .mat-list{
+    width: 100%;
     display: flex;
     justify-content: space-between;
   }
+  .time{
+    display: flex;
+    margin-left: auto;
+    color: grey
+  }
 .content{
-  margin-left: auto;
+  color: grey
 }
 
 

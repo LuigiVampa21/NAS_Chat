@@ -1,13 +1,21 @@
 <div class="container" *ngIf="rooms.length != 0">
   <ng-container *ngFor="let message of messageBox">
-    <mat-list style="cursor: pointer" (click)="onViewChat(message.room)">
-      <mat-list-item class="name">{{ message.name }}</mat-list-item>
-      <mat-list-item class="content" *ngIf="message.content">{{
-        message.content | shorten
-      }}</mat-list-item>
-      <mat-list-item *ngIf="message.createdAt" class="time">{{
-        message.createdAt | dateTime
-      }}</mat-list-item>
+    <mat-list
+      style="cursor: pointer"
+      *ngIf="message.room"
+      (click)="onViewChat(message.room)"
+    >
+      <div class="mat-list">
+        <mat-list-item class="name">{{ message.name }}</mat-list-item>
+        <mat-list-item class="content" *ngIf="message.content">{{
+          message.content | shorten
+        }}</mat-list-item>
+        <mat-list-item *ngIf="message.createdAt">
+          <div class="time">
+            <span>{{ message.createdAt | dateTime }} </span>
+          </div>
+        </mat-list-item>
+      </div>
     </mat-list>
     <mat-divider></mat-divider>
   </ng-container>
