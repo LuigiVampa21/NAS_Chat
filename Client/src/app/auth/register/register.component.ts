@@ -51,9 +51,6 @@ export class RegisterComponent implements OnInit {
   submit(form:User){
     if(this.registerForm.invalid) return;
      this.authService.onRegister(form)
-        .subscribe(() => {
-          this.router.navigateByUrl('/auth/login')
-        })
   }
 }
 

@@ -23,11 +23,11 @@ exports.register = async (req, res) => {
     pseudo,
     verificationToken,
   });
-  if (!user) {
-    throw new CustomError.BadRequestError(
-      "Oops.. Someting went wrong try again later"
-    );
-  }
+  // if (!user) {
+  //   throw new CustomError.BadRequestError(
+  //     "Oops.. Someting went wrong try again later"
+  //   );
+  // }
   await sendVerificationEmail(name, email, verificationToken);
   res.status(StatusCodes.CREATED).json({
     status: "success",
@@ -37,6 +37,7 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
+  console.log(email, password);
   if (!email || !password) {
     throw new CustomError.BadRequestError(
       "Please provide email and/or password"
@@ -123,7 +124,7 @@ exports.resetPassword = async (req, res) => {
 };
 
 exports.verifyEmail = async (req, res) => {
-  const { token, email } = req.params;
+  const { token, email } = req.body;
   if (!token) {
     throw new CustomError.BadRequestError("Sorry no token found");
   }
@@ -131,6 +132,7 @@ exports.verifyEmail = async (req, res) => {
   if (!user) {
     throw new CustomError.BadRequestError("Sorry no user found");
   }
+  console.log(user);
   if (user.verificationToken != token) {
     throw new CustomError.BadRequestError("Sorry your token does not match");
   }

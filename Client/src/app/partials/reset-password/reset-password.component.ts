@@ -24,7 +24,7 @@ export class ResetPasswordComponent implements OnInit {
 
   getEmail(){
     this.route.queryParams
-      .subscribe(params => {
+      .subscribe((params: Params) => {
         this.email = params['email'];
         this.initForm()
       }

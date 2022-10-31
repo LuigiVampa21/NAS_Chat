@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'not-found', loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule)},
 
   {path: 'reset-password/:token', component: ResetPasswordComponent},
-  {path: 'verify-email/:token', component: VerifyEmailComponent},
+  {path: 'verify-email/:email', component: VerifyEmailComponent},
 
 
   { path: '**', redirectTo: 'not-found' }

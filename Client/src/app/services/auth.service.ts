@@ -18,6 +18,7 @@ export class AuthService {
   API_URL_GET_CURENT_USER = environment.GET_SINGLE_USER_BY_ID;
   API_URL_USER_FORGOT_PASSWORD = environment.USER_FORGOT_PASSWORD;
   API_URL_USER_RESET_PASSWORD = environment.USER_RESET_PASSWORD;
+  API_URL_USER_VERIFY_EMAIL = environment.USER_VERIFY_EMAIL;
 ;
   private isAuth!:boolean;
   private token!: string | undefined | null;
@@ -41,15 +42,16 @@ export class AuthService {
    .pipe(
     tap(
       {
-      next:(data:any) => {
-      this.notifier.notify('success', `An email has been sent to ${data.user.email}, please follow the instructions to verify your account!`);
+      next:() => {
+        this.notifier.notify('success', `We sent an you an email to, please follow the instructions to verify your account!`);
+        this.router.navigateByUrl('/auth/login');
     },
     error:(errorResponse) => {
       this.notifier.notify('error', errorResponse.error.msg);
       }
     }
   )
-)
+).subscribe()
   }
 
   onLogin(userData:any){
@@ -72,7 +74,7 @@ export class AuthService {
             const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
             this.saveAuthData(this.token, expirationDate, this.userID)
             this.socketService.ioConnect(this.user.email, userData.password);
-              this.router.navigateByUrl('/home');
+            this.router.navigateByUrl('/home');
           }
         },
         error:(errorResponse) => {
@@ -184,6 +186,21 @@ export class AuthService {
     }).pipe(tap({
       next:() => {
         this.notifier.notify('success', `your new password is being updated, wait a few minutes before to try to login again! 😁`);
+        this.router.navigateByUrl('/home');
+      },
+      error:(errorResponse) => {
+        this.notifier.notify('error', errorResponse.error.msg + ' 😞');
+      }
+    }))
+  }
+
+  verifyEmail(token:string, email:string){
+  return this.http.post(this.API_URL_USER_VERIFY_EMAIL, {
+      email,
+      token
+    }).pipe(tap({
+      next:() => {
+        this.notifier.notify('success', `Congratulations, your email has been verified, you can now login ! 😁`);
         this.router.navigateByUrl('/home');
       },
       error:(errorResponse) => {

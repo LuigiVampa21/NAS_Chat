@@ -10,6 +10,7 @@ export const environment = {
   USER_LOGIN: 'http://localhost:3001/api/v1/chatApp/auth/login',
   USER_FORGOT_PASSWORD:'http://localhost:3001/api/v1/chatApp/auth/forgot-password/',
   USER_RESET_PASSWORD:'http://localhost:3001/api/v1/chatApp/auth/reset-password/',
+  USER_VERIFY_EMAIL:'http://localhost:3001/api/v1/chatApp/auth//verifyEmail/',
   USER_UPLOAD_PHOTO: 'http://localhost:3001/api/v1/chatApp/users/upload-photo/',
   USER_UPDATE_PWD: 'http://localhost:3001/api/v1/chatApp/users/update-password/',
   MESSAGE_URL: 'http://localhost:3001/api/v1/chatApp/messages/',
