@@ -2,26 +2,31 @@
   <h1>Register</h1>
   <div class="container">
     <div class="head-info">
-    <mat-form-field appearance="fill">
-      <mat-label>Enter your name</mat-label>
-      <input matInput placeholder="Your name" formControlName="name" required />
-      <mat-error *ngIf="registerForm.controls['name'].invalid">{{
-        getFormControlError(registerForm.controls["name"])
-      }}</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Enter a pseudo</mat-label>
-      <input
-        matInput
-        placeholder="Your pseudo"
-        formControlName="pseudo"
-        required
-      />
-      <mat-error *ngIf="registerForm.controls['pseudo'].invalid">{{
-        getFormControlError(registerForm.controls["pseudo"])
-      }}</mat-error>
-    </mat-form-field>
-  </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your name</mat-label>
+        <input
+          matInput
+          placeholder="Your name"
+          formControlName="name"
+          required
+        />
+        <mat-error *ngIf="registerForm.controls['name'].invalid">{{
+          getFormControlError(registerForm.controls["name"])
+        }}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter a pseudo</mat-label>
+        <input
+          matInput
+          placeholder="Your pseudo"
+          formControlName="pseudo"
+          required
+        />
+        <mat-error *ngIf="registerForm.controls['pseudo'].invalid">{{
+          getFormControlError(registerForm.controls["pseudo"])
+        }}</mat-error>
+      </mat-form-field>
+    </div>
     <mat-form-field appearance="fill">
       <mat-label>Enter your email</mat-label>
       <input
@@ -36,13 +41,15 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Enter your phone number</mat-label>
+      <span matPrefix>+33 &nbsp;</span>
       <input
         matInput
-        type="number"
+        type="tel"
         placeholder="12345678"
         formControlName="phone"
         required
       />
+      <mat-icon matSuffix>mode_edit</mat-icon>
       <mat-error *ngIf="registerForm.controls['phone'].invalid">{{
         getFormControlError(registerForm.controls["phone"])
       }}</mat-error>

@@ -105,6 +105,10 @@ export class AuthService {
     return this.token;
   }
 
+  getUser(){
+    return this.user;
+  }
+
   getisAuth$():Observable<boolean>{
     return this.isAuth$.asObservable()
   }

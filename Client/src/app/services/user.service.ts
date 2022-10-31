@@ -26,6 +26,10 @@ export class UserService {
     return this.http.get<User>(this.API_URL_GET_CURENT_USER + this.userID + '/friends')
   }
 
+  getUserwithFriends(id:string){
+    return this.http.get<User>(this.API_URL_GET_CURENT_USER + id + '/friends')
+  }
+
   getUserFromLocalStorage(){
     return this.http.get<User>(this.API_URL_GET_CURENT_USER + this.userID )
   }

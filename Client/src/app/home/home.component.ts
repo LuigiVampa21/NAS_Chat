@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { User } from '../shared/models/user.model';
 
@@ -8,7 +9,7 @@ import { User } from '../shared/models/user.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   user!:User;
   photo!:string
   status = 'Online';
@@ -22,20 +23,23 @@ export class HomeComponent implements OnInit, OnDestroy {
      "Offline": "person_off"
   }
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private authService: AuthService) { }
 
 
   ngOnInit(): void{
-    setTimeout(() => {
-      this.initCard()
-    }, 1000)
+    this.initUser();
+  }
+
+  initUser(){
+    this.user = this.authService.getUser();
+    this.initCard();
   }
 
   initCard(){
-  this.userSub = this.userService.getUserByIDwithFriends()
-        .subscribe( (data:any) => {
-          this.user = data.user
-          this.photo = `../../assets/images/${this.user.photo}`
+    this.photo = `../../assets/images/${this.user.photo}`
+    if(!this.user._id) return;
+    this.userSub = this.userService.getUserwithFriends(this.user._id)
+    .subscribe( (data:any) => {
           this.friends = data.user.friends
           this.initFriendsPhoto()
         })
@@ -51,10 +55,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   setStatus(status:string){
     this.status = status
-  }
-
-  ngOnDestroy(): void {
-    this.userSub.unsubscribe()
   }
 
 }

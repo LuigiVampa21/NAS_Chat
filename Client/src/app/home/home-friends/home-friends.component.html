@@ -1,22 +1,21 @@
 <mat-card-content>
-  <marquee>
-    <div
-      class="header"
-      behavior="scroll"
-      onmouseover="stop()"
-      onmouseout="start()"
-      loop="infinite"
-      direction="left"
-    >
-      <ng-container *ngFor="let friend of friends">
-        <div class="container">
-          <span>{{ friend.name }}</span>
-          <span>🟢</span>
-          <figure>
-            <img width="35rem" [src]="friend.photo" [alt]="friend.name" />
-          </figure>
-        </div>
-      </ng-container>
-    </div>
-  </marquee>
+  <!-- <marquee> -->
+  <div class="header">
+    <!--
+    behavior="scroll"
+    onmouseover="stop()"
+    onmouseout="start()"
+    loop="infinite"
+    direction="left" -->
+    <ng-container *ngFor="let friend of friends">
+      <div class="container">
+        <span>{{ friend.name }}</span>
+        <span>🟢</span>
+        <figure>
+          <img width="35rem" [src]="friend.photo" [alt]="friend.name" />
+        </figure>
+      </div>
+    </ng-container>
+  </div>
+  <!-- </marquee> -->
 </mat-card-content>
