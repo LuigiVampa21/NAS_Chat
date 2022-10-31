@@ -1,7 +1,17 @@
-<div mat-dialog-content>
+<div mat-dialog-content *ngIf="!alreadyFriends">
   Would you like to add {{ user.name }} as a friend ?
 </div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close *ngIf="!alreadyFriends" (click)="onSendRequest()">Add</button>
+<div mat-dialog-content *ngIf="alreadyFriends">
+  You and {{ user.name }} are already friends !
+</div>
+<div mat-dialog-actions class="actions">
+  <button
+    mat-button
+    mat-dialog-close
+    *ngIf="!alreadyFriends"
+    (click)="onSendRequest()"
+  >
+    Add
+  </button>
   <button mat-button mat-dialog-close>Close</button>
 </div>

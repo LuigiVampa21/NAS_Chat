@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, tap } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { FriendsService } from 'src/app/services/friends.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user.model';
@@ -16,14 +17,15 @@ export class AddFriendComponent implements OnInit, OnDestroy {
   currentUser!:User;
   friendsSub!:Subscription;
 
-  constructor(private friendsService:FriendsService, private userService:UserService) { }
+  constructor(private friendsService:FriendsService, private userService:UserService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.currentUser = this.authService.getUser();
     this.initAddUser()
   }
 
   initAddUser(){
-    if(!this.currentUser._id)return;
+    // if(!this.currentUser._id)return;
     this.user = this.friendsService.userToAdd;
     this.friendsSub = this.userService.getUserByIDwithFriends()
     .pipe(tap((data:any)=> {

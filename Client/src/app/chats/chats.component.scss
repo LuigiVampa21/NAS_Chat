@@ -2,10 +2,38 @@
   height: 70vh;
   overflow: auto;
 }
+figure{
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  overflow: hidden;
+  }
+
+  .avatar{
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .penFriend{
+    display: flex;
+  }
+
+  .penfriend > *{
+    width: 10%;
+  }
+  .name{
+    display: flex;
+    align-items: center;
+  }
+
   .mat-list{
     width: 100%;
     display: flex;
     justify-content: space-between;
+  }
+  .mat-list > * {
+    width: 100%;
+
   }
   .time{
     display: flex;

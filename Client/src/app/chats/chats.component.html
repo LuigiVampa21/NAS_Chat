@@ -6,7 +6,18 @@
       (click)="onViewChat(message.room)"
     >
       <div class="mat-list">
-        <mat-list-item class="name">{{ message.name }}</mat-list-item>
+        <div class="penFriend">
+          <div class="photo">
+            <figure>
+              <img
+                class="avatar"
+                [src]="'../../assets/images/' + message.photo"
+                [alt]="message.name"
+              />
+            </figure>
+          </div>
+          <div class="name">{{ message.name }}</div>
+        </div>
         <mat-list-item class="content" *ngIf="message.content">{{
           message.content | shorten
         }}</mat-list-item>
