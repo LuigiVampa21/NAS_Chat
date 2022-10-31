@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ResetPasswordComponent } from './partials/reset-password/reset-password.component';
+import { VerifyEmailComponent } from './partials/verify-email/verify-email.component';
 
 const routes: Routes = [
 
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'not-found', loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule)},
 
   {path: 'reset-password/:token', component: ResetPasswordComponent},
+  {path: 'verify-email/:token', component: VerifyEmailComponent},
 
 
   { path: '**', redirectTo: 'not-found' }

@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      // unique: true,
+      unique: true,
       required: [true, "You have to provide a name"],
       validate: {
         validator: validator.isEmail,
@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema(
     },
     pseudo: {
       type: String,
-      // unique: true,
+      unique: true,
       required: [true, "You have to provide a pseudo"],
       minlength: 3,
       maxlength: 20,
@@ -29,6 +29,10 @@ const UserSchema = new mongoose.Schema(
     photo: {
       type: String,
       default: "defaultUser.jpg",
+    },
+    phone: {
+      type: Number,
+      required: [true, "You have to provide a phone number"],
     },
     role: {
       type: String,

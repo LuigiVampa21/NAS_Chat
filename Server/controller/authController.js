@@ -8,29 +8,27 @@ const sendVerificationEmail = require("../email/sendVerificationEmail");
 const hashString = require("../utils/createHash");
 
 exports.register = async (req, res) => {
-  const { email, name, password, confirmPassword, pseudo } = req.body;
+  const { email, name, password, confirmPassword, pseudo, phone } = req.body;
   const emailAlreadyExists = await User.findOne({ email });
   if (emailAlreadyExists) {
     throw new CustomError.BadRequestError("Sorry this email already exists");
   }
+  const verificationToken = crypto.randomBytes(40).toString("hex");
   const user = await User.create({
     email,
     name,
     password,
     confirmPassword,
+    phone,
     pseudo,
+    verificationToken,
   });
   if (!user) {
     throw new CustomError.BadRequestError(
       "Oops.. Someting went wrong try again later"
     );
   }
-  const verificationToken = crypto.randomBytes(40).toString("hex");
-  await sendVerificationEmail({
-    name,
-    email,
-    verificationToken,
-  });
+  await sendVerificationEmail(name, email, verificationToken);
   res.status(StatusCodes.CREATED).json({
     status: "success",
     data: user,
@@ -48,14 +46,14 @@ exports.login = async (req, res) => {
   if (!user) {
     throw new CustomError.BadRequestError("Sorry No user found");
   }
-  // const passwordMatch = await user.comparePassword(password);
-  // if (!passwordMatch) {
-  //   throw new CustomError.BadRequestError("Sorry password does not match");
-  // }
+  const passwordMatch = await user.comparePassword(password);
+  if (!passwordMatch) {
+    throw new CustomError.BadRequestError("Sorry password does not match");
+  }
 
-  // if (!user.isVerified) {
-  //   throw new CustomError.BadRequestError("Please verify your email");
-  // }
+  if (!user.isVerified) {
+    throw new CustomError.BadRequestError("Please verify your email");
+  }
 
   const token = jwt.sign(
     { email: user.email, userID: user._id },
@@ -74,7 +72,6 @@ exports.login = async (req, res) => {
 };
 
 exports.forgotPassword = async (req, res) => {
-  console.log(req.body);
   const { email } = req.body;
   if (!email) {
     throw new CustomError.BadRequestError("Please provide email");
@@ -126,15 +123,15 @@ exports.resetPassword = async (req, res) => {
 };
 
 exports.verifyEmail = async (req, res) => {
-  const { verificationToken, email } = req.params;
-  if (!verificationToken) {
+  const { token, email } = req.params;
+  if (!token) {
     throw new CustomError.BadRequestError("Sorry no token found");
   }
   const user = await User.findOne({ email });
   if (!user) {
     throw new CustomError.BadRequestError("Sorry no user found");
   }
-  if (user.verificationToken != verificationToken) {
+  if (user.verificationToken != token) {
     throw new CustomError.BadRequestError("Sorry your token does not match");
   }
   user.isVerified = true;

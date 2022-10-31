@@ -1,0 +1,19 @@
+<div class="icon-container">
+  <mat-icon routerLink="/home">close</mat-icon>
+</div>
+<div class="container">
+  <h1>Please verify your email here</h1>
+  <mat-form-field appearance="outline">
+    <mat-label>Token</mat-label>
+    <input matInput #token placeholder="Your token" />
+    <mat-icon matSuffix>token</mat-icon>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!token.value"
+    (click)="onSend(token.value)"
+  >
+    Submit
+  </button>
+</div>

@@ -27,33 +27,35 @@
         }}</mat-error>
       </mat-form-field>
     </div>
-    <mat-form-field appearance="fill">
-      <mat-label>Enter your email</mat-label>
-      <input
-        matInput
-        placeholder="your@email.com"
-        formControlName="email"
-        required
-      />
-      <mat-error *ngIf="registerForm.controls['email'].invalid">{{
-        getFormControlError(registerForm.controls["email"])
-      }}</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Enter your phone number</mat-label>
-      <span matPrefix>+33 &nbsp;</span>
-      <input
-        matInput
-        type="tel"
-        placeholder="12345678"
-        formControlName="phone"
-        required
-      />
-      <mat-icon matSuffix>mode_edit</mat-icon>
-      <mat-error *ngIf="registerForm.controls['phone'].invalid">{{
-        getFormControlError(registerForm.controls["phone"])
-      }}</mat-error>
-    </mat-form-field>
+    <div class="md-info">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your email</mat-label>
+        <input
+          matInput
+          placeholder="your@email.com"
+          formControlName="email"
+          required
+        />
+        <mat-error *ngIf="registerForm.controls['email'].invalid">{{
+          getFormControlError(registerForm.controls["email"])
+        }}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your phone number</mat-label>
+        <span matPrefix>+33 &nbsp;</span>
+        <input
+          matInput
+          type="tel"
+          placeholder="12345678"
+          formControlName="phone"
+          required
+        />
+        <mat-icon matSuffix>mode_edit</mat-icon>
+        <mat-error *ngIf="registerForm.controls['phone'].invalid">{{
+          getFormControlError(registerForm.controls["phone"])
+        }}</mat-error>
+      </mat-form-field>
+    </div>
     <mat-form-field appearance="fill">
       <mat-label>Enter your password</mat-label>
       <input

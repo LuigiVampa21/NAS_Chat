@@ -17,6 +17,7 @@ import { customNotifierOptions } from './shared/utils/notifier.options';
 import { ForgotPasswordComponent } from './partials/forgot-password/forgot-password.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ResetPasswordComponent } from './partials/reset-password/reset-password.component';
+import { VerifyEmailComponent } from './partials/verify-email/verify-email.component';
 
 
 
@@ -28,6 +29,7 @@ import { ResetPasswordComponent } from './partials/reset-password/reset-password
     ShowNotificationsComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    VerifyEmailComponent,
   ],
   imports: [
     BrowserModule,

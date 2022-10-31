@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, NgForm, AbstractControl, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, NgForm, AbstractControl, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { ChangePasswordComponent } from 'src/app/settings/change-password/change-password.component';
 import { PasswordsMatchValidator } from 'src/app/shared/Validators/passwords-match.validator';
-ChangePasswordComponent
 
 @Component({
   selector: 'app-reset-password',

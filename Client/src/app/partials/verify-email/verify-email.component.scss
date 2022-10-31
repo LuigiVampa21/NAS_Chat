@@ -1,0 +1,22 @@
+.icon-container{
+  display: flex;
+  mat-icon{
+    margin-left: auto;
+    cursor: pointer;
+  }
+}
+
+.container{
+  width: 50vw;
+  height: 50vh;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+button{
+  width: 35%;
+  text-align: center;
+}
