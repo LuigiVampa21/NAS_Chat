@@ -1,5 +1,5 @@
 <div class="container" *ngIf="rooms.length != 0">
-  <ng-container *ngFor="let message of messageBox">
+  <ng-container *ngFor="let message of messageBoxSorted">
     <mat-list
       style="cursor: pointer"
       *ngIf="message.room"

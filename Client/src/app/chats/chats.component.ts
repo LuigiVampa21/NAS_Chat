@@ -5,6 +5,7 @@ import { ChatService } from '../services/chat.service';
 import { MessageService } from '../services/message.service';
 import { SocketService } from '../services/socket.service';
 import { UserService } from '../services/user.service';
+import { MessageBox } from '../shared/interfaces/message-box.interface';
 import { Room } from '../shared/models/room.model';
 import { User } from '../shared/models/user.model';
 
@@ -18,7 +19,8 @@ export class ChatsComponent implements OnInit, OnDestroy {
   rooms:Room[] = [];
   currentUser!:User;
   penFriend!:User;
-  messageBox:{photo?: string, name?: string, content?:string, createdAt?:Date, room?:Room}[] = [];
+  messageBox:MessageBox[] = [];
+  messageBoxSorted!:MessageBox[];
   messages:any[] = [];
   penFriendID!:any;
   currentUserSub!:Subscription;
@@ -65,13 +67,17 @@ export class ChatsComponent implements OnInit, OnDestroy {
           .subscribe((data:any) => {
             r.penFriend = data.user.name;
             r.photo = data.user.photo;
-            this.messageBox.push({photo: r.photo, name: r.penFriend, room: r, createdAt: r.updatedAt})
+            this.messageBox.push({
+                                  photo: r.photo, 
+                                  name: r.penFriend, 
+                                  room: r, 
+                                  createdAt: r.updatedAt, 
+                                  timestamp: new Date(r.updatedAt).getTime()
+                                })
             this.initMessageBox(index);
             index++;
           })
         })
-        console.log(this.messageBox);
-
   }
 
   initMessageBox(index:number){
@@ -85,16 +91,14 @@ export class ChatsComponent implements OnInit, OnDestroy {
             this.messageBox[index] = {...this.messageBox[index], content: data.message.content}
           })
         ).subscribe()
-
+      this.sortMessageBox()
   }
 
   sortMessageBox(){
-  this.messageBox.sort((a,b):any => {
-    if(!a.createdAt || !b.createdAt) return;
-    // a.createdAt - b.createdAt;
-    (new Date(b.createdAt).getTime()) - (new Date(a.createdAt).getTime())
-    // console.log(new Date(a.createdAt).getTime());
-  })
+  this.messageBoxSorted = [...this.messageBox].sort((a,b):any => (b.timestamp > a.timestamp) ? 1 : -1)
+  console.log(this.messageBox);
+  console.log(this.messageBoxSorted);
+  
   }
 
   ngOnDestroy(): void {
