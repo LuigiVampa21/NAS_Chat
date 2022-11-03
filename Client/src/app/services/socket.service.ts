@@ -24,6 +24,8 @@ export class SocketService {
     this.socket = io(this.URL);
     this.socket.emit('login', {email,password})
     this.socket.on('new_message', (data:Message) => {
+    console.log('ioConnect');
+
     this.message$.next(data)
      }
     )
@@ -35,6 +37,7 @@ export class SocketService {
 
   onSendMessage(msg:Message):void{
     this.socket.emit('send_message', msg);
+    console.log('emit Send Message');
   }
 
   onJoinRoom(room:string|undefined){
@@ -56,7 +59,7 @@ export class SocketService {
         tap((data:any)=> {
           const { _id, room } = data.newMessage
           this.sendMessageToRoom(_id, room)
-        }))
+        })).subscribe();
   }
 
   sendMessageToRoom(msgID:string, msgRoom:string){

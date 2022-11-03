@@ -1,8 +1,56 @@
 const axios = require("axios");
 
+// const socketFunctions = (io, socket) => {
+//   console.log("new connection " + socket.id);
+//   socket.on("login", data => {
+//     const { email, password } = data;
+//     axios
+//       .post("http:/localhost:3001/api/v1/chatApp/auth/login", {
+//         email,
+//         password,
+//       })
+//       .then(res => {
+//         loadEvents(socket);
+//       })
+//       .catch(err => console.log(err));
+//   });
+// };
+
+// loadEvents = socket => {
+//   socket.on("join_room", room => {
+//     socket.join(room);
+//     console.log("user joined the room" + room);
+//     socket.on("send_message", data => {
+//       console.log("on receive message");
+//       socket.emit("new_message", {
+//         poster: data.poster,
+//         content: data.content,
+//         room,
+//         date: Date.now(),
+//       });
+//     });
+//   });
+
+//   socket.on("leave_room", room => {
+//     socket.leave(room);
+//     console.log("user left the room" + room);
+//   });
+
+//   socket.on("connect_error", err => {
+//     console.log(`connect_error due to ${err.message}`);
+//   });
+
+//   socket.on("end", function () {
+//     socket.disconnect(0);
+//   });
+
+//   socket.on("disconnect", () => {
+//     console.log("Disconnected");
+//   });
+// };
+// module.exports = socketFunctions;
+
 const socketFunctions = (io, socket) => {
-  // const transport = socket.conn.transport.polling;
-  // console.log(transport);
   console.log("new connection " + socket.id);
   socket.on("login", data => {
     const { email, password } = data;
@@ -19,25 +67,25 @@ const socketFunctions = (io, socket) => {
 };
 
 loadEvents = socket => {
-  // socket.conn.on("upgrade", () => {
-  //   const upgradedTransport = socket.conn.transport.websocket; // in most cases, "websocket"
-  //   console.log(upgradedTransport);
-  // });
+  let currentRoom;
   socket.on("join_room", room => {
+    currentRoom = room;
     socket.join(room);
     console.log("user joined the room" + room);
-    // check if room exists
-    socket.on("send_message", data => {
-      socket.emit("new_message", {
-        poster: data.poster,
-        content: data.content,
-        room,
-        date: Date.now(),
-      });
+  });
+
+  socket.on("send_message", data => {
+    console.log("on receive message");
+    socket.emit("new_message", {
+      poster: data.poster,
+      content: data.content,
+      room: currentRoom,
+      date: Date.now(),
     });
   });
 
   socket.on("leave_room", room => {
+    socket.leave(room);
     console.log("user left the room" + room);
   });
 

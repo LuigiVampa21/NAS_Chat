@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { ChatService } from 'src/app/services/chat.service';
 import { SocketService } from 'src/app/services/socket.service';
 import { UserService } from 'src/app/services/user.service';
@@ -32,7 +31,7 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
   currentUserSub!:Subscription;
   chatSub!: Subscription;
   penFriendSub!:Subscription;
-  sendDBSub!:Subscription;
+  routeSub!:Subscription;
 
 
   constructor(
@@ -40,7 +39,6 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
               private route:ActivatedRoute,
               private userService: UserService,
               private router:Router,
-              private formBuilder: FormBuilder,
               private socketService: SocketService
               ) { }
 
@@ -49,12 +47,12 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
     this.socketSub = this.socketService.getMessageObservable()
         .subscribe((data:Message) => {
           if(!data || !this.messages)return
-          this.messages.push(data)
+          this.messages.push(data);
         })
   }
 
   initRoom(){
-    this.route.params
+  this.routeSub = this.route.params
     .subscribe((params: Params)=>{
       if(!params['id']) return;
       this.roomID = params['id']
@@ -94,16 +92,22 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
     }
 
     onSend(msg:string){
+      console.log('onSend');
+
       if(!msg || !this.roomID || !this.currentUser._id)return ;
       this.msgObject = {content: msg, room: this.roomID, poster:this.currentUser._id};
       this.socketService.onSendMessage(this.msgObject);
       this.socketService.SendMessageToDB(this.msgObject)
-          .subscribe();
           this.input.nativeElement.value = '';
     }
 
 
     onExit(){
+      this.socketSub.unsubscribe();
+      this.currentUserSub.unsubscribe();
+      this.chatSub.unsubscribe();
+      this.penFriendSub.unsubscribe();
+      this.routeSub.unsubscribe();
       this.router.navigateByUrl('/chats');
       this.socketService.onLeaveRoom(this.roomID);
     }
@@ -113,6 +117,7 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
       this.currentUserSub.unsubscribe();
       this.chatSub.unsubscribe();
       this.penFriendSub.unsubscribe();
+      this.routeSub.unsubscribe();
     }
 
 }
