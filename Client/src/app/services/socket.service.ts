@@ -22,14 +22,6 @@ export class SocketService {
 
   ioConnect(email:string,password:string){
     this.socket = io(this.URL);
-    // const transport = this.socket.io.engine.transport.polling;
-    // console.log(transport);
-
-    // this.socket.io.engine.on("upgrade", () => {
-    //   const upgradedTransport = this.socket.io.engine.transport.websocket;
-    //   console.log(upgradedTransport);
-    // });
-    
     this.socket.emit('login', {email,password})
     this.socket.on('new_message', (data:Message) => {
     this.message$.next(data)
@@ -75,7 +67,6 @@ export class SocketService {
   }
 
   socketOut(){
-    // this.socket.disconnect();
     this.socket.emit('end');
   }
 }

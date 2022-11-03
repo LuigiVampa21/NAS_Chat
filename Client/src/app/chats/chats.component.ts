@@ -68,10 +68,10 @@ export class ChatsComponent implements OnInit, OnDestroy {
             r.penFriend = data.user.name;
             r.photo = data.user.photo;
             this.messageBox.push({
-                                  photo: r.photo, 
-                                  name: r.penFriend, 
-                                  room: r, 
-                                  createdAt: r.updatedAt, 
+                                  photo: r.photo,
+                                  name: r.penFriend,
+                                  room: r,
+                                  createdAt: r.updatedAt,
                                   timestamp: new Date(r.updatedAt).getTime()
                                 })
             this.initMessageBox(index);
@@ -89,16 +89,13 @@ export class ChatsComponent implements OnInit, OnDestroy {
         .pipe(
           tap((data:any)=>{
             this.messageBox[index] = {...this.messageBox[index], content: data.message.content}
+            this.sortMessageBox()
           })
         ).subscribe()
-      this.sortMessageBox()
   }
 
   sortMessageBox(){
   this.messageBoxSorted = [...this.messageBox].sort((a,b):any => (b.timestamp > a.timestamp) ? 1 : -1)
-  console.log(this.messageBox);
-  console.log(this.messageBoxSorted);
-  
   }
 
   ngOnDestroy(): void {
