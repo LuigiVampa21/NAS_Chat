@@ -92,8 +92,6 @@ export class ChatDetailComponent implements OnInit, OnDestroy {
     }
 
     onSend(msg:string){
-      console.log('onSend');
-
       if(!msg || !this.roomID || !this.currentUser._id)return ;
       this.msgObject = {content: msg, room: this.roomID, poster:this.currentUser._id};
       this.socketService.onSendMessage(this.msgObject);

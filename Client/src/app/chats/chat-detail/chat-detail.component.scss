@@ -36,15 +36,21 @@ overflow: hidden;
 }
 
 .chat-card{
-  border: 1px solid black;
+  max-width: 20rem;
+  height: auto;
+  border: 1px solid white;
   border-radius: 1rem;
   display: flex;
+  flex-wrap: wrap;
+  color: white;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
 }
 
 .chat-card.penFriend{
+  border: 1px solid grey;
+  color: grey;
   margin-left: -2.5rem;
   figure{
     margin-left: 1rem;
@@ -52,18 +58,21 @@ overflow: hidden;
 }
 
 .content{
-  width: 20rem;
-  height: 100%;
+  max-width: 10rem;
+  height: auto;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  padding: 1rem;
+  overflow-y: auto;
   span{
-    max-width: 20rem;
+    max-width: 10rem;
+    height: auto;
   }
 }
 
 .content.currentUser{
-  padding-left: 1rem;
+  padding: 1rem;
 }
 
 .chat-card.currentUser{
@@ -72,7 +81,12 @@ overflow: hidden;
   border-radius: 1rem;
   figure{
     margin-right: 1rem;
+    margin-left: auto;
   }
+}
+
+.chat-card.currentUser > * {
+  border: 1px solid black;
 }
 
 .input-container{
