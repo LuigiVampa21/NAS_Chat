@@ -59,6 +59,7 @@ io.on("connection", socket => {
   socketFunctions(io, socket);
 });
 
+console.log(process.env.DATABASE_URI)
 const port = process.env.PORT || 3001;
 const startServer = async () => {
   try {
